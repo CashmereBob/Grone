@@ -17,6 +17,7 @@ namespace Grone.MVC.Controllers
         {
             repository = new PostRepository();
         }
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
