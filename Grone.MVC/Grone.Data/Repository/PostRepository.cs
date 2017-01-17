@@ -10,9 +10,41 @@ namespace Grone.Data.Repository
 {
     public class PostRepository : IPostRepository
     {
-        public void AddOrUpdate()
+        //GroneEntities _context = new GroneEntities();
+
+        public void AddOrUpdate(PostEntityModel post)
         {
-            throw new NotImplementedException();
+            using (var _context = new GroneEntities())
+            {
+                if (_context.Posts.FirstOrDefault(p => p.Id == post.Id) == null)
+                {
+                    var newPost = new PostEntityModel()
+                    {
+                        Description = post.Description,
+                        ImgSrc = post.ImgSrc,
+                        TimeAdded = 0,
+                        TotalAdded = 0,
+                        TimeLeft = 120,
+                        MemberId = (Guid.NewGuid()).ToString(),
+                        Title = post.Title,
+                        Uploaded = DateTime.Now
+                    };
+
+                    _context.Posts.Add(newPost);
+
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    var postToUpdate = _context.Posts.FirstOrDefault();
+                    postToUpdate.Description = post.Description;
+                    postToUpdate.ImgSrc = post.ImgSrc;
+                    postToUpdate.Title = post.Title;
+
+                    _context.SaveChanges();
+                }
+
+            }
         }
 
         public void Delete(string id)
@@ -27,7 +59,10 @@ namespace Grone.Data.Repository
 
         public IEnumerable<PostEntityModel> GetAll()
         {
-            throw new NotImplementedException();
+            using (var _context = new GroneEntities())
+            {
+                return _context.Posts.ToList();
+            }
         }
 
         public PostEntityModel GetById(string id)

@@ -9,7 +9,7 @@ namespace Grone.Data.IRepository
 {
     public interface IPostRepository
     {
-        void AddOrUpdate();
+        void AddOrUpdate(PostEntityModel post);
         void Delete(Guid id);
         void Delete(string id);
         PostEntityModel GetById(Guid id);

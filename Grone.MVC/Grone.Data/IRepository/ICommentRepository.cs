@@ -9,7 +9,7 @@ namespace Grone.Data.IRepository
 {
     public interface ICommentRepository//repo
     {
-        void AddOrUpdate();
+        void AddOrUpdate(CommentEntityModel comment);
         void Delete(Guid id);
         void Delete(string id);
         CommentEntityModel GetById(Guid id);

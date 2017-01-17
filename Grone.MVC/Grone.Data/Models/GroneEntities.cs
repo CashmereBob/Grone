@@ -9,7 +9,7 @@ namespace Grone.Data.Models
 {
     public class GroneEntities:DbContext
     {
-        DbSet<CommentEntityModel> Comments { get; set; }
-        DbSet<PostEntityModel> Posts { get; set; }
+        public DbSet<CommentEntityModel> Comments { get; set; }
+        public DbSet<PostEntityModel> Posts { get; set; }
     }
 }
