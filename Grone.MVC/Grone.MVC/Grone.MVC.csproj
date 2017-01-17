@@ -167,6 +167,12 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grone.Data\Grone.Data.csproj">
+      <Project>{22E484C1-1422-438A-983A-8E525DFED07E}</Project>
+      <Name>Grone.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
