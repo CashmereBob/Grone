@@ -1,4 +1,5 @@
-﻿using Grone.MVC.ViewModel;
+﻿using Grone.Data.Models;
+using Grone.MVC.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Grone.MVC.Controllers
 {
     class PostController: Controller
     {
-        DbContext _dbcontext = new DbContext();
+        GroanEntities _dbcontext = new GroanEntities();
         public List<Post> Posts = new List<Post>();
         public ActionResult Index()
         {

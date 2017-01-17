@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Grone.Data.Models
 {
-    class GroanEntities:DbContext
+    public class GroanEntities:DbContext
     {
         public DbSet<CommentEntityModel> Comments { get; set; }
         public DbSet<PostEntityModel> Posts { get; set; }
