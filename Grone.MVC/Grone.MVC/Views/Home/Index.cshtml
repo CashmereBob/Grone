@@ -1,9 +1,87 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Grone - Everything";
 }
 
-<h1><i class="fa fa-user-secret" aria-hidden="true"></i></h1>
-<h2>GRONE</h2>
+@section CssStyle {
+    <link href="~/Styles/ListPost.css" rel="stylesheet" />
+}
 
+@section JavaScript{
+    <script src="~/Scripts/ListPost.js"></script>
+}
 
+<div class="row text-center">
+    <div class="col-xs-12">
+        <h1 id="logo"><i class="fa fa-user-secret" aria-hidden="true"></i></h1>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-xs-12">
+        <h2 id="logoName">grone</h2>
+    </div>
+</div>
+
+<div class="row text-center" id="addPostRow">
+    <div class="col-xs-12">
+        <button id="addPostButton" class="btn btn-primary">Add a post groner!</button>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-xs-12">
+        <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            <input type="text" class="form-control filterInput" placeholder="Filter..">
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                <p class="list-group-item-text">Groner: #ac81143d-8fb6-483d-87f1-a0fe93437cfe</p>
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">128-bits is big enough and the generation algorithm is unique enough that if 1,000,000,000 GUIDs per second were generated for 1 year the probability of a duplicate would be only 50%. Or if every human on Earth generated 600,000,000 GUIDs there would only be a 50% probability of a duplicate.</p>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                <p class="list-group-item-text">Groner: #ac81143d-8fb6-483d-87f1-a0fe93437cfe</p>
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">128-bits is big enough and the generation algorithm is unique enough that if 1,000,000,000 GUIDs per second were generated for 1 year the probability of a duplicate would be only 50%. Or if every human on Earth generated 600,000,000 GUIDs there would only be a 50% probability of a duplicate.</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                <p class="list-group-item-text">Groner: #ac81143d-8fb6-483d-87f1-a0fe93437cfe</p>
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">128-bits is big enough and the generation algorithm is unique enough that if 1,000,000,000 GUIDs per second were generated for 1 year the probability of a duplicate would be only 50%. Or if every human on Earth generated 600,000,000 GUIDs there would only be a 50% probability of a duplicate.</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                <p class="list-group-item-text">Groner: #ac81143d-8fb6-483d-87f1-a0fe93437cfe</p>
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">128-bits is big enough and the generation algorithm is unique enough that if 1,000,000,000 GUIDs per second were generated for 1 year the probability of a duplicate would be only 50%. Or if every human on Earth generated 600,000,000 GUIDs there would only be a 50% probability of a duplicate.</p>
+            </a>
+        </div>
+    </div>
+</div>
