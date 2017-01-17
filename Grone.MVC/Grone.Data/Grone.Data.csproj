@@ -52,7 +52,7 @@
     <Compile Include="IRepository\ICommentRepository.cs" />
     <Compile Include="IRepository\IPostRepository.cs" />
     <Compile Include="Models\CommentEntityModel.cs" />
-    <Compile Include="Models\GroanEntities.cs" />
+    <Compile Include="Models\GroneEntities.cs" />
     <Compile Include="Models\PostEntityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CommentRepository.cs" />
