@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Grone.Data.Models
 {
-    class PostEntityModel
+    public class PostEntityModel
     {
         public Guid Id { get; set; }
         public DateTime Uploaded { get; set; }

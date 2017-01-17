@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Grone.Data.IRepository
 {
-    interface IPostRepository
+    public interface IPostRepository
     {
         void AddOrUpdate();
         void Delete(Guid id);

@@ -8,7 +8,7 @@ using Grone.Data.Models;
 
 namespace Grone.Data.Repository
 {
-    class CommentRepository : ICommentRepository
+    public class CommentRepository : ICommentRepository
     {
         public void AddOrUpdate()
         {

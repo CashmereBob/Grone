@@ -8,7 +8,7 @@ using Grone.Data.Models;
 
 namespace Grone.Data.Repository
 {
-    class PostRepository : IPostRepository
+    public class PostRepository : IPostRepository
     {
         public void AddOrUpdate()
         {

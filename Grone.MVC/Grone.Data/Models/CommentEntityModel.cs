@@ -2,7 +2,7 @@
 
 namespace Grone.Data.Models
 {
-    class CommentEntityModel
+    public class CommentEntityModel
     {
         public Guid Id { get; set; }
         public DateTime Uploaded { get; set; }
