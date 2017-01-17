@@ -10,7 +10,7 @@ namespace Grone.Data.Repository
 {
     public class CommentRepository : ICommentRepository
     {
-        public void AddOrUpdate()
+        public void AddOrUpdate(CommentEntityModel comment)
         {
             throw new NotImplementedException();
         }
