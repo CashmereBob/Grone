@@ -58,7 +58,7 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                return context.Comments.FirstOrDefault(c => c.Id == Guid.Parse(id));
+                return context.Comments.FirstOrDefault(c => c.CommentId == Guid.Parse(id));
             }
         }
 
@@ -66,18 +66,24 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                return context.Comments.FirstOrDefault(c => c.Id == id);
+                return context.Comments.FirstOrDefault(c => c.CommentId == id);
             }
         }
 
         public CommentEntityModel GetById(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.Id == Guid.Parse(id));
+            }
         }
 
         public CommentEntityModel GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.Id == id);
+            }
         }
 
         public CommentEntityModel GetByPostId(string id)
