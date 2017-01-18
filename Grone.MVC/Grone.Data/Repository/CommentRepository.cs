@@ -88,12 +88,18 @@ namespace Grone.Data.Repository
 
         public CommentEntityModel GetByPostId(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.PostEntityModelId == Guid.Parse(id));
+            }
         }
 
         public CommentEntityModel GetByPostId(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.PostEntityModelId == id);
+            }
         }
     }
 }
