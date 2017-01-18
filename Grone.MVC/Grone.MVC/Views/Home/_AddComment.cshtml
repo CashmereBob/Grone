@@ -7,7 +7,7 @@
     <div class="form-horizontal">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Add post</h4>
+            <h4 class="modal-title">Post Comment</h4>
         </div>
         <br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -20,25 +20,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.CommentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CommentId, new { htmlAttributes = new { @class = "form-control" } })
-                <input type="text" name="CommentId" value="{{comment.id}}" />
+                <input type="text" name="CommentId" class = "form-control" value="{{comment.Id}}" readonly/>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PostId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">           
-                <input type="text" name="PostId" value="{{post.Id}}" />
+                <input type="text" name="PostId" class = "form-control" value="{{post.Id}}" readonly/>
             </div>
         </div>
 

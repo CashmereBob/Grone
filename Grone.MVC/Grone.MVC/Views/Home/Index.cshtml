@@ -76,9 +76,11 @@
             <p>minutes</p>
         </div>
         <div class="col-xs-12 text-right replyDiv">
-            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button><button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button><button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost">REPLY</button>
+            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
+            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>
+            <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
         </div>
-        <div class="modal fade" id="AddCommentToPost" tabindex="-1" role="dialog">
+        <div class="modal fade" id="AddCommentToPost{{post.Id}}" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 
@@ -108,9 +110,9 @@
                     <p>{{comment.Comment}}</p>
                 </div>
                 <div class="col-xs-12 text-right replyDiv">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment">REPLY</button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment{{comment.Id}}">REPLY</button>
                 </div>
-                <div class="modal fade" id="AddCommentToComment" tabindex="-1" role="dialog">
+                <div class="modal fade" id="AddCommentToComment{{comment.Id}}" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
 
