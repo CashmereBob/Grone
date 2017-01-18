@@ -22,6 +22,7 @@ namespace Grone.MVC.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult GetAllPosts()
         {
             if (ModelState.IsValid)
