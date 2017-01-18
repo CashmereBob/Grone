@@ -77,7 +77,7 @@ app.factory('groneAppFactory', function () {
 app.controller('groneAppController', function ($scope, groneAppFactory) {
     $scope.posts = groneAppFactory.GetPosts();
     $scope.ShowComments = function (event) {
-        ToggleCommentSummary(event.target.id);
+        ToggleCommentSummary(event.target.parentNode.parentNode.id);
     };
 
 });

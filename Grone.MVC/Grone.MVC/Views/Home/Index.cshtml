@@ -38,53 +38,55 @@
     </div>
 </div>
 <hr />
-<div class="postRow" ng-repeat="post in posts" id="{{post.Id}}" ng-mouseenter="ShowComments($event)" ng-mouseleave="ShowComments($event)">
-    <div class="row">
-        <div class="col-md-12">
-            <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
-        </div>
-        <div class="col-md-2 imgCol text-center">
-            <img src="{{post.ImgSrc}}" />
-        </div>
-        <div class="col-md-6">
-            <h4>{{post.Titel}}</h4>
-            <p>{{post.Description}}</p>
-        </div>
-        <div class="col-md-2 text-center">
-            <p>Time Left</p>
-            <h4>{{post.TimeLeft}}</h4>
-            <p>minutes</p>
-        </div>
-        <div class="col-md-2 text-center">
-            <p>Lifetime</p>
-            <h4>{{post.TimeAdded}}</h4>
-            <p>minutes</p>
-        </div>
-        <div class="col-xs-12 text-right replyButton">
-            <button class="btn btn-default">REPLY</button>
-        </div>
-    </div>
-    <div id="comments" class="listOfComments" style="display: none;">
-        <div ng-repeat="comment in post.Comments">
-            <hr />
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
-                </div>
-                <div class="col-md-2 imgCol">
-                    <img src="{{comment.ImgSrc}}" />
-                </div>
-                <div class="col-md-10">
-                    <a>Reply to: {{comment.CommentId}}</a>
-                    <p>{{comment.Comment}}</p>
-                </div>
-                <div class="col-xs-12 text-right replyButton">
-                    <button class="btn btn-default">REPLY</button>
-                </div>
+<div class="postRow" ng-repeat="post in posts" id="{{post.Id}}">
+    
+        <div class="row">
+            <div class="col-md-12">
+                <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
             </div>
-            <hr />
+            <div class="col-md-2 imgCol text-center">
+                <img src="{{post.ImgSrc}}" />
+            </div>
+            <div class="col-md-6">
+                <h4>{{post.Titel}}</h4>
+                <p>{{post.Description}}</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <p>Time Left</p>
+                <h4>{{post.TimeLeft}}</h4>
+                <p>minutes</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <p>Lifetime</p>
+                <h4>{{post.TimeAdded}}</h4>
+                <p>minutes</p>
+            </div>
+            <div class="col-xs-12 text-right replyButton">
+                <button class="btn btn-default" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">PREVIEW COMMENTS</button><button class="btn btn-default">REPLY</button>
+            </div>
+        </div>
+        <div id="comments" class="listOfComments" style="display: none;">
+            <div ng-repeat="comment in post.Comments">
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
+                    </div>
+                    <div class="col-md-2 imgCol">
+                        <img src="{{comment.ImgSrc}}" />
+                    </div>
+                    <div class="col-md-10">
+                        <a>Reply to: {{comment.CommentId}}</a>
+                        <p>{{comment.Comment}}</p>
+                    </div>
+                    <div class="col-xs-12 text-right replyButton">
+                        <button class="btn btn-default">REPLY</button>
+                    </div>
+                </div>
+                <hr />
+            </div>
         </div>
     </div>
-</div>
+
 
 
