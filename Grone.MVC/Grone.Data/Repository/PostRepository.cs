@@ -48,7 +48,25 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                //todo: skapa en lista med id's för comments som är kopplade till den poste, foreach id i commenten, ta bort
+                //remove all the comments for the current post
+                List<Guid> commentIds = new List<Guid>();
+
+                foreach (var post in context.Posts.Include("Comments"))
+                {
+                    foreach (var comment in post.Comments)
+                    {
+                        commentIds.Add(comment.Id);
+                    }
+                }
+
+                foreach (var commentId in commentIds)
+                {
+                    var commentToRemove = context.Comments.FirstOrDefault(c => c.Id == commentId);
+
+                    context.Comments.Remove(commentToRemove);
+                }
+
+                //remove the post
                 var postToRemove = context.Posts.FirstOrDefault(p => p.Id == Guid.Parse(id));
 
                 context.Posts.Remove(postToRemove);
@@ -61,6 +79,25 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
+                //remove all the comments for the current post
+                List<Guid> commentIds = new List<Guid>();
+
+                foreach (var post in context.Posts.Include("Comments"))
+                {
+                    foreach (var comment in post.Comments)
+                    {
+                        commentIds.Add(comment.Id);
+                    }
+                }
+
+                foreach (var commentId in commentIds)
+                {
+                    var commentToRemove = context.Comments.FirstOrDefault(c => c.Id == commentId);
+
+                    context.Comments.Remove(commentToRemove);
+                }
+
+                //remove the post
                 var postToRemove = context.Posts.FirstOrDefault(p => p.Id == id);
 
                 context.Posts.Remove(postToRemove);
@@ -92,6 +129,12 @@ namespace Grone.Data.Repository
             {
                 return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == id);
             }
+        }
+
+        public IEnumerable<CommentEntityModel> GetTop3Comments(PostEntityModel post)
+        {
+            //todo: this method
+            throw new NotImplementedException();
         }
     }
 }

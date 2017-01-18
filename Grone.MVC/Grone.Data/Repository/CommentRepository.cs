@@ -17,7 +17,6 @@ namespace Grone.Data.Repository
                 var newComment = new CommentEntityModel()
                 {
                     ImgSrc = comment.ImgSrc,
-                    Uploaded = DateTime.Now,
                     PostEntityModelId = comment.PostEntityModelId,
                     CommentId = comment.CommentId, //commenting on anotehr comment
                     MemberId = comment.MemberId,
