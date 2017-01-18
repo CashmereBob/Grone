@@ -12,7 +12,6 @@ namespace Grone.Data.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int TimeAdded { get; set; }
-        public int TotalAdded { get; set; }
         public string MemberId { get; set; }
         public virtual IEnumerable<CommentEntityModel> Comments { get; set; }
 
@@ -20,6 +19,8 @@ namespace Grone.Data.Models
         {
             Comments = new HashSet<CommentEntityModel>();
             Id = Guid.NewGuid();
+            TimeAdded = 0;
+            Uploaded = DateTime.Now;
         }
     }
 }

@@ -22,12 +22,9 @@ namespace Grone.Data.Repository
                     {
                         Description = post.Description,
                         ImgSrc = post.ImgSrc,
-                        TimeAdded = 0,
-                        TotalAdded = 0,
                         TimeLeft = 120,
                         MemberId = (Guid.NewGuid()).ToString(),
                         Title = post.Title,
-                        Uploaded = DateTime.Now
                     };
 
                     _context.Posts.Add(newPost);
@@ -51,6 +48,7 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
+                //todo: skapa en lista med id's för comments som är kopplade till den poste, foreach id i commenten, ta bort
                 var postToRemove = context.Posts.FirstOrDefault(p => p.Id == Guid.Parse(id));
 
                 context.Posts.Remove(postToRemove);
@@ -75,6 +73,7 @@ namespace Grone.Data.Repository
         {
             using (var _context = new GroneEntities())
             {
+                //todo: sort by senast datum först i listan 
                 return _context.Posts.ToList();
             }
         }
