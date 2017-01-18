@@ -15,7 +15,7 @@ namespace Grone.MVC.ViewModel
         public DateTime Date { get; set; }
         public int TimeLeft{ get; set; }
         public int TimeAdded { get; set; }
-        public Guid MemberId { get; set; }
+        public string MemberId { get; set; }
         public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }
