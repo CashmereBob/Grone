@@ -46,7 +46,7 @@ body {
 }
 
 .postRow:hover {
-    background-color: whitesmoke;
+    background-color:aliceblue;
 }
 
 .imgCol img {
@@ -66,4 +66,8 @@ body {
 
 .infoDataComment {
     color: gray;
+}
+
+.replyButton {
+    padding-right: 60px;
 }

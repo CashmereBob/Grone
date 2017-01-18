@@ -49,12 +49,26 @@ namespace Grone.Data.Repository
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                var postToRemove = context.Posts.FirstOrDefault(p => p.Id == Guid.Parse(id));
+
+                context.Posts.Remove(postToRemove);
+
+                context.SaveChanges();
+            }
         }
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                var postToRemove = context.Posts.FirstOrDefault(p => p.Id == id);
+
+                context.Posts.Remove(postToRemove);
+
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<PostEntityModel> GetAll()
@@ -67,12 +81,18 @@ namespace Grone.Data.Repository
 
         public PostEntityModel GetById(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == Guid.Parse(id));
+            }
         }
 
         public PostEntityModel GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == id);
+            }
         }
     }
 }

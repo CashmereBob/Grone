@@ -8,6 +8,7 @@
 }
 
 @section JavaScript{
+    <script src="~/Scripts/ListPostJq.js"></script>
     <script src="~/Scripts/ListPost.js"></script>
 }
 
@@ -37,55 +38,51 @@
     </div>
 </div>
 <hr />
-<div class="postRow">
+<div class="postRow" ng-repeat="post in posts" id="{{post.Id}}" ng-mouseenter="ShowComments($event)" ng-mouseleave="ShowComments($event)">
     <div class="row">
         <div class="col-md-12">
-            <p class="infoData">Groner: #450b1d33-4938-429e-8d25-7a3b76b5adcc @@ 2017-01-20 18:20 Post: #450b1d33-4938-429e-8d25-7a3b76b5adcc</p>
+            <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
         </div>
         <div class="col-md-2 imgCol text-center">
-            <img src="http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848" />
+            <img src="{{post.ImgSrc}}" />
         </div>
         <div class="col-md-6">
-            <h4>Vad är Lorem Ipsum?</h4>
-            <p>Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....</p>
+            <h4>{{post.Titel}}</h4>
+            <p>{{post.Description}}</p>
         </div>
         <div class="col-md-2 text-center">
             <p>Time Left</p>
-            <h4>50</h4>
+            <h4>{{post.TimeLeft}}</h4>
             <p>minutes</p>
         </div>
         <div class="col-md-2 text-center">
             <p>Lifetime</p>
-            <h4>4000</h4>
+            <h4>{{post.TimeAdded}}</h4>
             <p>minutes</p>
         </div>
-    </div>
-    <div id="comments" style="display: none;">
-        <hr />
-        <div class="row">
-            <div class="col-md-12">
-                <p class="infoDataComment">Groner: #450b1d33-4938-429e-8d25-7a3b76b5adcc @@ 2017-01-20 18:20 Comment: #450b1d33-4938-429e-8d25-7a3b76b5adcc</p>
-            </div>
-            <div class="col-md-2 imgCol">
-                <img src="http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848" />
-            </div>
-            <div class="col-md-10">
-                <a>Reply to: #450b1d33-4938-429e-8d25-7a3b76b5adcc</a>
-                <p>Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....</p>
-            </div>
+        <div class="col-xs-12 text-right replyButton">
+            <button class="btn btn-default">REPLY</button>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-12">
-                <p class="infoDataComment">Groner: #450b1d33-4938-429e-8d25-7a3b76b5adcc @@ 2017-01-20 18:20 Comment: #450b1d33-4938-429e-8d25-7a3b76b5adcc</p>
+    </div>
+    <div id="comments" class="listOfComments" style="display: none;">
+        <div ng-repeat="comment in post.Comments">
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
+                </div>
+                <div class="col-md-2 imgCol">
+                    <img src="{{comment.ImgSrc}}" />
+                </div>
+                <div class="col-md-10">
+                    <a>Reply to: {{comment.CommentId}}</a>
+                    <p>{{comment.Comment}}</p>
+                </div>
+                <div class="col-xs-12 text-right replyButton">
+                    <button class="btn btn-default">REPLY</button>
+                </div>
             </div>
-            <div class="col-md-2 imgCol">
-                <img src="http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848" />
-            </div>
-            <div class="col-md-10">
-                <a>Reply to: #450b1d33-4938-429e-8d25-7a3b76b5adcc</a>
-                <p>Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....</p>
-            </div>
+            <hr />
         </div>
     </div>
 </div>

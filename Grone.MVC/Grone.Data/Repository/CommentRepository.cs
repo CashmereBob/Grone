@@ -10,49 +10,97 @@ namespace Grone.Data.Repository
 {
     public class CommentRepository : ICommentRepository
     {
-        public void AddOrUpdate(CommentEntityModel comment)
+        public void Add(CommentEntityModel comment)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                var newComment = new CommentEntityModel()
+                {
+                    ImgSrc = comment.ImgSrc,
+                    Uploaded = DateTime.Now,
+                    PostEntityModelId = comment.PostEntityModelId,
+                    CommentId = comment.CommentId, //commenting on anotehr comment
+                    MemberId = comment.MemberId,
+                };
+
+                context.Comments.Add(newComment);
+
+                context.SaveChanges();
+            }
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                var commentToDelete = context.Comments
+                    .FirstOrDefault(c => c.Id == Guid.Parse(id));
+
+                context.Comments.Remove(commentToDelete);
+
+                context.SaveChanges();
+            }
         }
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                var commentToDelete = context.Comments
+                    .FirstOrDefault(c => c.Id == id);
+
+                context.Comments.Remove(commentToDelete);
+
+                context.SaveChanges();
+            }
         }
 
         public CommentEntityModel GetByCommentId(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.CommentId == Guid.Parse(id));
+            }
         }
 
         public CommentEntityModel GetByCommentId(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.CommentId == id);
+            }
         }
 
         public CommentEntityModel GetById(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.Id == Guid.Parse(id));
+            }
         }
 
         public CommentEntityModel GetById(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.Id == id);
+            }
         }
 
         public CommentEntityModel GetByPostId(string id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.PostEntityModelId == Guid.Parse(id));
+            }
         }
 
         public CommentEntityModel GetByPostId(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments.FirstOrDefault(c => c.PostEntityModelId == id);
+            }
         }
     }
 }
