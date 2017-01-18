@@ -21,6 +21,7 @@ namespace Grone.Data.Models
             Id = Guid.NewGuid();
             TimeAdded = 0;
             Uploaded = DateTime.Now;
+            TimeLeft = 120;
         }
     }
 }
