@@ -110,8 +110,7 @@ namespace Grone.Data.Repository
         {
             using (var _context = new GroneEntities())
             {
-                //todo: sort by senast datum först i listan 
-                return _context.Posts.ToList();
+                return _context.Posts.OrderByDescending(p => p.TimeAdded).ToList();
             }
         }
 
@@ -133,8 +132,14 @@ namespace Grone.Data.Repository
 
         public IEnumerable<CommentEntityModel> GetTop3Comments(PostEntityModel post)
         {
-            //todo: this method
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Comments
+                    .Where(c => c.PostEntityModelId == post.Id)
+                    .OrderByDescending(c => c.Uploaded)
+                    .ToList()
+                    .Take(3);
+            }
         }
     }
 }
