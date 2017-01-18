@@ -11,48 +11,37 @@ using Grone.MVC.HelpClasses;
 
 namespace Grone.MVC.Controllers
 {
-    class PostController: Controller
+    public class PostController: Controller
     {
         public IPostRepository repository;
+        public ICommentRepository commentRepository;
         public PostController()
         {
             repository = new PostRepository();
+            commentRepository = new CommentRepository();
         }
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+
         [HttpGet]
         public ActionResult GetAllPosts()
         {
-            if (ModelState.IsValid)
-            {
                 List<PostViewModel> viewModel = new List<PostViewModel>();
                 repository.GetAll().ToList().ForEach(x => viewModel.Add(PostViewToEntity.PostEntityViewModelToModel(x)));
-                return Json(viewModel);
-            }
-            else
-            {
-                ModelState.AddModelError("Error", "Something went wrong, reload the page.");
-                return View();
-            }
+                return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public ActionResult Add()
-        {
-            return PartialView("_AddPost");
-        }
+
+        [HttpPost]
         public ActionResult Add(PostViewModel model)
         {
             repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model));
-            return Json(model);
+            return Content("sucsses");
         }
+
         [HttpGet]
         public ActionResult ViewCommentsByPosts(Guid id)
         {
-            var IdOfDesierdComment = repository.GetById(id);
-            return PartialView("_CommentsByPost", IdOfDesierdComment);
+            List<CommentViewModel> viewModel = new List<CommentViewModel>();
+            repository.GetTop3Comments(new PostEntityModel { Id = id }).ToList().ForEach(x => viewModel.Add(CommentViewToEntity.ToModelComment(x)));
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
     }
 }

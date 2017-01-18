@@ -1,72 +1,39 @@
 ﻿var app = angular.module('groneApp', []);
 
-app.factory('groneAppFactory', function () {
+app.factory('groneAppFactory', function ($http) {
 
-    var posts = [
-        {
-            Id: "450b1d33-4938-429e-8d25-7a3b76b5adcc1",
-            Titel: "Vad är Lorem Ipsum?",
-            Description: "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....",
-            ImgSrc: "http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848",
-            Date: "xxxx-xx-xx xx:xx:xxxx",
-            TimeLeft: 20,
-            TimeAdded: 4000,
-            MemberId: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            Comments: [
-        {
-            Id: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            Comment: "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....",
-            Date: "xxxx-xx-xx xx:xx:xxxx",
-            CommentId: "",
-            MemberId: "#450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            ImgSrc: "http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848"
-        },
-        {
-            Id: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            Comment: "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....",
-            Date: "xxxx-xx-xx xx:xx:xxxx",
-            CommentId: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            MemberId: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            ImgSrc: "http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848"
-        }
-            ]
-        },
-        {
-            Id: "450b1d33-4938-429e-8d25-7a3b76b5adcc2",
-            Titel: "Vad är Lorem Ipsum?",
-            Description: "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....",
-            ImgSrc: "http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848",
-            Date: "xxxx-xx-xx xx:xx:xxxx",
-            TimeLeft: 20,
-            TimeAdded: 4000,
-            MemberId: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            Comments: [
-        {
-            Id: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            Comment: "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....",
-            Date: "xxxx-xx-xx xx:xx:xxxx",
-            CommentId: "",
-            MemberId: "#450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            ImgSrc: "http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848"
-        },
-        {
-            Id: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            Comment: "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. Lorem ipsum har varit standard ända sedan 1500-talet.....",
-            Date: "xxxx-xx-xx xx:xx:xxxx",
-            CommentId: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            MemberId: "450b1d33-4938-429e-8d25-7a3b76b5adcc",
-            ImgSrc: "http://www.miataturbo.net/attachments/insert-bs-here-4/78009-random-pictures-thread-only-rule-before-after-kumquats-1682345-slide-slide-1-biz-stone-explains-how-he-turned-91-random-photos-into-movie-jpg?dateline=1370019848"
-        }
-            ]
-        }
-
-    ];
+    var posts = [];
 
 
     var factory = {};
 
     factory.GetPosts = function () {
         return posts;
+    };
+
+    factory.UpdatePostsObject = function () {
+        $http({
+            method: 'GET',
+            url: '/Post/GetAllPosts'
+        }).then(function successCallback(response) {
+            angular.forEach(response.data, function (value, key) {
+                posts.push(value);
+            })
+        }, function errorCallback(response) {
+            console.log('fail')
+        });
+    };
+
+    factory.LoadPreviewCommentsForPost = function (id) {
+        $http({
+            method: 'GET',
+            url: '/Post/ViewCommentsByPosts',
+            params: { Id: id }
+        }).then(function successCallback(response) {
+           console.log(response.data)
+        }, function errorCallback(response) {
+            console.log('fail')
+        });
     };
 
     return factory;
@@ -77,11 +44,14 @@ app.factory('groneAppFactory', function () {
 app.controller('groneAppController', function ($scope, groneAppFactory) {
     $scope.posts = groneAppFactory.GetPosts();
     $scope.PreviewShowComments = function (event) {
+        groneAppFactory.LoadPreviewCommentsForPost(event.target.attributes['data-parentId'].value);
         ToggleCommentSummary(event.target.attributes['data-parentId'].value);
     };
     $scope.ShowComments = function(event) {
         ToggleCommentSummary(event.target.attributes['data-parentId'].value);
     };
-
+    $scope.GetPosts = function () {
+        groneAppFactory.UpdatePostsObject();
+    }
 
 });

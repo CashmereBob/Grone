@@ -25,11 +25,23 @@
 
 <div class="row text-center" id="addPostRow">
     <div class="col-xs-12">
-        <button id="addPostButton" class="btn btn-primary">Add a post groner!</button>
+        <button id="addPostButton" class="btn btn-primary" data-toggle="modal" data-target="#AddPostModal">Add a post groner!</button>
     </div>
 </div>
 
-<div class="row ">
+<div class="modal fade" id="AddPostModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                @{Html.RenderPartial("_AddPost", null);}
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-xs-12">
         <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
@@ -64,9 +76,21 @@
             <p>minutes</p>
         </div>
         <div class="col-xs-12 text-right replyDiv">
-            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button><button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button><button class="btn btn-default" >REPLY</button>
+            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button><button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button><button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost">REPLY</button>
+        </div>
+        <div class="modal fade" id="AddCommentToPost" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        @{Html.RenderPartial("_AddComment");}
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
+
     <div id="comments" class="listOfComments" style="display: none;">
         <div ng-repeat="comment in post.Comments">
             <hr />
@@ -84,7 +108,18 @@
                     <p>{{comment.Comment}}</p>
                 </div>
                 <div class="col-xs-12 text-right replyDiv">
-                    <button class="btn btn-default">REPLY</button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment">REPLY</button>
+                </div>
+                <div class="modal fade" id="AddCommentToComment" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                @{Html.RenderPartial("_AddComment");}
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr />
