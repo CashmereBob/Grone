@@ -10,7 +10,7 @@ namespace Grone.MVC.HelpClasses
 {
     public static class PostViewToEntity
     {
-        public static PostViewModel ToModelPost(PostEntityModel entity)
+        public static PostViewModel PostEntityViewModelToModel(PostEntityModel entity)
         {
             var model = new PostViewModel()
             {
@@ -26,7 +26,7 @@ namespace Grone.MVC.HelpClasses
 
             return model;
         }
-        public static PostEntityModel ToEntityPost(PostViewModel model)
+        public static PostEntityModel PostViewModelToEntity(PostViewModel model)
         {
             var entity = new PostEntityModel()
             {
