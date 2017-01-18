@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Grone.MVC.HelpClasses;
 
 namespace Grone.MVC.Controllers
 {
@@ -28,16 +29,7 @@ namespace Grone.MVC.Controllers
             if (ModelState.IsValid)
             {
                 List<PostViewModel> viewModel = new List<PostViewModel>();
-                repository.GetAll().ToList().ForEach(x => viewModel.Add(new PostViewModel {
-                    Id = x.Id,
-                    Date = x.Uploaded,
-                    Title = x.Title,
-                    ImgSrc = x.ImgSrc,
-                    Description = x.Description,
-                    MemberId = x.MemberId,
-                    TimeAdded = x.TimeAdded,
-                    TimeLeft = x.TimeLeft
-                }));
+                repository.GetAll().ToList().ForEach(x => viewModel.Add(PostViewToEntity.PostEntityViewModelToModel(x)));
                 return Json(viewModel);
             }
             else
@@ -45,6 +37,22 @@ namespace Grone.MVC.Controllers
                 ModelState.AddModelError("Error", "Something went wrong, reload the page.");
                 return View();
             }
+        }
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return PartialView("_AddPost");
+        }
+        public ActionResult Add(PostViewModel model)
+        {
+            repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model));
+            return Json(model);
+        }
+        [HttpGet]
+        public ActionResult ViewCommentsByPosts(Guid id)
+        {
+            var IdOfDesierdComment = repository.GetById(id);
+            return PartialView("_CommentsByPost", IdOfDesierdComment);
         }
     }
 }

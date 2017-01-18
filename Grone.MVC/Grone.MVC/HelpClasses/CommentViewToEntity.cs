@@ -28,7 +28,6 @@ namespace Grone.MVC.HelpClasses
         {
             var entity = new CommentEntityModel()
             {
-
                 CommentId = model.CommentId,
                 PostEntityModelId = model.PostId,
                 MemberId = model.MemberId,
