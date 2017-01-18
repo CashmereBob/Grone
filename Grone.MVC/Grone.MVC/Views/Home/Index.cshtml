@@ -44,7 +44,9 @@
             <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
         </div>
         <div class="col-md-2 imgCol text-center">
-            <img src="{{post.ImgSrc}}" />
+            <a href="{{post.ImgSrc}}" data-toggle="lightbox">
+                <img src="{{post.ImgSrc}}" class="img-fluid">
+            </a>
         </div>
 
         <div class="col-md-6">
@@ -62,7 +64,7 @@
             <p>minutes</p>
         </div>
         <div class="col-xs-12 text-right replyDiv">
-            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button><button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button><button class="btn btn-default">REPLY</button>
+            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button><button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button><button class="btn btn-default" >REPLY</button>
         </div>
     </div>
     <div id="comments" class="listOfComments" style="display: none;">
@@ -73,7 +75,9 @@
                     <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
                 </div>
                 <div class="col-md-2 imgCol">
-                    <img src="{{comment.ImgSrc}}" />
+                    <a href="{{post.ImgSrc}}" data-toggle="lightbox">
+                        <img src="{{post.ImgSrc}}" class="img-fluid">
+                    </a>
                 </div>
                 <div class="col-md-10">
                     <a>Reply to: {{comment.CommentId}}</a>
