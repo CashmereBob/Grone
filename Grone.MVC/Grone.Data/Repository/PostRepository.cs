@@ -22,7 +22,6 @@ namespace Grone.Data.Repository
                     {
                         Description = post.Description,
                         ImgSrc = post.ImgSrc,
-                        TimeLeft = 120,
                         MemberId = (Guid.NewGuid()).ToString(),
                         Title = post.Title,
                     };
@@ -110,7 +109,7 @@ namespace Grone.Data.Repository
         {
             using (var _context = new GroneEntities())
             {
-                return _context.Posts.OrderByDescending(p => p.TimeAdded).ToList();
+                return _context.Posts.OrderByDescending(p => p.Uploaded).ToList();
             }
         }
 
