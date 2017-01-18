@@ -20,6 +20,7 @@ namespace Grone.Data.Repository
                     Uploaded = DateTime.Now,
                     PostEntityModelId = comment.PostEntityModelId,
                     CommentId = comment.CommentId, //commenting on anotehr comment
+                    MemberId = comment.MemberId,
                 };
 
                 context.Comments.Add(newComment);
