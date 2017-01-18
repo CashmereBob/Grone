@@ -1,5 +1,7 @@
 ﻿using Grone.Data.IRepository;
 using Grone.Data.Repository;
+using Grone.MVC.HelpClasses;
+using Grone.MVC.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,20 @@ namespace Grone.MVC.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult AddComment(CommentViewModel model)
+        {
+            if (model != null)
+            {
+                repository.Add(CommentViewToEntity.ToEntityComment(model));
+                return Json(model);
+            }
+            else
+            {
+                ModelState.AddModelError("Error", "Comment not valid");
+                return View("Index");
+            }
+            
         }
     }
 }

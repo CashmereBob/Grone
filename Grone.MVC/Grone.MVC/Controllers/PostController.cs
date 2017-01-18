@@ -48,9 +48,11 @@ namespace Grone.MVC.Controllers
             repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model));
             return Json(model);
         }
+        [HttpGet]
         public ActionResult ViewCommentsByPosts(Guid id)
         {
-            return View();
+            var IdOfDesierdComment = repository.GetById(id);
+            return PartialView("_CommentsByPost", IdOfDesierdComment);
         }
     }
 }
