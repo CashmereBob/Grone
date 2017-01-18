@@ -22,12 +22,23 @@ namespace Grone.MVC.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult GetAllPosts()
         {
             if (ModelState.IsValid)
             {
-                repository.GetAll().ToList();
-                return View();
+                List<PostViewModel> viewModel = new List<PostViewModel>();
+                repository.GetAll().ToList().ForEach(x => viewModel.Add(new PostViewModel {
+                    Id = x.Id,
+                    Date = x.Uploaded,
+                    Title = x.Title,
+                    ImgSrc = x.ImgSrc,
+                    Description = x.Description,
+                    MemberId = x.MemberId,
+                    TimeAdded = x.TimeAdded,
+                    TimeLeft = x.TimeLeft
+                }));
+                return Json(viewModel);
             }
             else
             {
