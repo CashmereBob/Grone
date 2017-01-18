@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Grone.MVC.ViewModel
 {
-    public class Post
+    public class PostViewModel
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -15,7 +15,6 @@ namespace Grone.MVC.ViewModel
         public DateTime Date { get; set; }
         public int TimeLeft{ get; set; }
         public int TimeAdded { get; set; }
-        public int TotalAdded { get; set; }
         public Guid MemberId { get; set; }
         public IEnumerable<CommentViewModel> Comments { get; set; }
     }

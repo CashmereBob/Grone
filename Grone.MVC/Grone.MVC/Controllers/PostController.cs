@@ -22,7 +22,7 @@ namespace Grone.MVC.Controllers
         {
             return View();
         }
-        public ActionResult ListOfComments()
+        public ActionResult GetAllPosts()
         {
             if (ModelState.IsValid)
             {
@@ -31,8 +31,8 @@ namespace Grone.MVC.Controllers
             }
             else
             {
-                TempData["Errormessage"] = "Something went wrong, reload the page.";
-                return View("Index");
+                ModelState.AddModelError("Error", "Something went wrong, reload the page.");
+                return View();
             }
         }
     }
