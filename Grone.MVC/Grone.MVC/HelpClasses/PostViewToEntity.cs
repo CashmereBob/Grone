@@ -26,6 +26,7 @@ namespace Grone.MVC.HelpClasses
 
             return model;
         }
+        //Check if totaladded is removed or not.
         public static PostEntityModel PostViewModelToEntity(PostViewModel model)
         {
             var entity = new PostEntityModel()
@@ -37,7 +38,6 @@ namespace Grone.MVC.HelpClasses
                 MemberId = model.MemberId,
                 TimeLeft = model.TimeLeft,
                 Title = model.Title,
-                TotalAdded = model.TimeAdded,
                 Uploaded = model.Date
             };
             return entity;

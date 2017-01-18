@@ -15,6 +15,7 @@ namespace Grone.Data.Models
         public CommentEntityModel()
         {
             Id = Guid.NewGuid();
+            Uploaded = DateTime.Now;
         }
     }
 }
