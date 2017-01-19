@@ -12,10 +12,12 @@ app.factory('groneAppFactory', function ($http) {
     };
 
     factory.UpdatePostsObject = function () {
+       
         $http({
             method: 'GET',
             url: '/Post/GetAllPosts'
         }).then(function successCallback(response) {
+            posts.length = 0;
             angular.forEach(response.data, function (value, key) {
                 posts.push(value);
             })
@@ -47,16 +49,16 @@ app.factory('groneAppFactory', function ($http) {
 
         console.log(new FormData(formDiv))
 
-        $http({
-            method: 'POST',
-            url: '/Post/Add',
-            params: new FormData(formDiv),
-        }).then(function successCallback(response) {
-            console.log(response.data)
+        //$http({
+        //    method: 'POST',
+        //    url: '/Post/Add',
+        //    params: new FormData(formDiv),
+        //}).then(function successCallback(response) {
+        //    console.log(response.data)
            
-        }, function errorCallback(response) {
-            console.log('fail')
-        });
+        //}, function errorCallback(response) {
+        //    console.log('fail')
+        //});
     }
 
     return factory;
@@ -79,7 +81,8 @@ app.controller('groneAppController', function ($scope, groneAppFactory) {
         groneAppFactory.UpdatePostsObject();
     }
     $scope.SubmitPost = function (event) {
-        var parent = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+        event.preventDefault();
+        var parent = event.target;
         groneAppFactory.AddPostAjax(parent);
 
     };

@@ -30,7 +30,7 @@ namespace Grone.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(PostViewModel model)
+        public ActionResult Add(PostViewModel model, HttpPostedFileBase photoUpload)
         {
             repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model));
             return Content("sucsses");
