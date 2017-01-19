@@ -38,11 +38,26 @@ app.factory('groneAppFactory', function ($http) {
                     })
                 }
             })
-            console.log(posts)
         }, function errorCallback(response) {
             console.log('fail')
         });
     };
+
+    factory.AddPostAjax = function (formDiv) {
+
+        console.log(new FormData(formDiv))
+
+        $http({
+            method: 'POST',
+            url: '/Post/Add',
+            params: new FormData(formDiv),
+        }).then(function successCallback(response) {
+            console.log(response.data)
+           
+        }, function errorCallback(response) {
+            console.log('fail')
+        });
+    }
 
     return factory;
 
@@ -63,5 +78,10 @@ app.controller('groneAppController', function ($scope, groneAppFactory) {
     $scope.GetPosts = function () {
         groneAppFactory.UpdatePostsObject();
     }
+    $scope.SubmitPost = function (event) {
+        var parent = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+        groneAppFactory.AddPostAjax(parent);
+
+    };
 
 });
