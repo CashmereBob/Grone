@@ -15,8 +15,6 @@ $(document).ready(function () {
    
 })
 
-
-
 function AddPost(form, div) {
         $.ajax({
             type: "POST",
@@ -39,12 +37,18 @@ function AddPost(form, div) {
 
 function BindCommentForm() {
     $(".commentForm").each(function (index, element) {
-        SetSubmit($(this))
+        SetSubmit($(this).children())
+    })
+}
+
+function BindPostCommentForm() {
+    $(".commentCommentForm").each(function (index, element) {
+        SetSubmit($(this).children())
     })
 }
 
 function SetSubmit(form) {
-    var div = form.parent().parent().parent().parent();
+    var div = form.parent().parent().parent();
     
 
     form.submit(function (e) {

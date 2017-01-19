@@ -8,6 +8,15 @@ app.directive('postRepeatDirective', function () {
     };
 });
 
+app.directive('postCommentRepeatDirective', function () {
+    return function (scope, element, attrs) {
+        if (scope.$last) {
+            BindPostCommentForm();
+            console.log('hepp1')
+        }
+    };
+});
+
 app.factory('groneAppFactory', function ($http) {
 
     var posts = [];
@@ -54,21 +63,7 @@ app.factory('groneAppFactory', function ($http) {
         });
     };
 
-    factory.AddPostAjax = function (formDiv) {
-
-        console.log(new FormData(formDiv))
-
-        //$http({
-        //    method: 'POST',
-        //    url: '/Post/Add',
-        //    params: new FormData(formDiv),
-        //}).then(function successCallback(response) {
-        //    console.log(response.data)
-           
-        //}, function errorCallback(response) {
-        //    console.log('fail')
-        //});
-    }
+    
 
     return factory;
 
@@ -90,11 +85,6 @@ app.controller('groneAppController', function ($scope, groneAppFactory) {
         groneAppFactory.UpdatePostsObject();
         
     }
-    $scope.SubmitPost = function (event) {
-        event.preventDefault();
-        var parent = event.target;
-        groneAppFactory.AddPostAjax(parent);
-
-    };
+   
 
 });

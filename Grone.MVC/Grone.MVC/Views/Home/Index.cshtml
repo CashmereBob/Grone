@@ -26,6 +26,7 @@
 <div class="row text-center" id="addPostRow">
     <div class="col-xs-12">
         <button id="addPostButton" class="btn btn-primary" data-toggle="modal" data-target="#AddPostModal">Add a post groner!</button>
+        <button id="refrechButton" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true" ng-click="GetPosts()"></span></button>
     </div>
 </div>
 
@@ -43,7 +44,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="input-group">
+        <div class="input-group">      
             <span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
             <input type="text" class="form-control filterInput" placeholder="Filter..">
         </div>
@@ -85,7 +86,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
 
-                        <div class="modal-body">
+                        <div class="modal-body commentForm">
                             @{Html.RenderPartial("_AddComment");}
                         </div>
 
@@ -95,7 +96,7 @@
         </div>
 
         <div id="comments" class="listOfComments" style="display: none;">
-            <div ng-repeat="comment in post.Comments">
+            <div ng-repeat="comment in post.Comments" post-comment-repeat-directive>
                 <hr />
                 <div class="row">
                     <div class="col-md-12">
@@ -117,7 +118,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
 
-                                <div class="modal-body">
+                                <div class="modal-body commentCommentForm">
                                     @{Html.RenderPartial("_AddComment");}
                                 </div>
 
@@ -125,7 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <hr />
+                
             </div>
         </div>
 

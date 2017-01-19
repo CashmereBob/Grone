@@ -17,7 +17,7 @@ namespace Grone.MVC.HelpClasses
                 CommentId = entity.CommentId,
                 MemberId = entity.MemberId,
                 ImgSrc = entity.ImgSrc,
-                Date = entity.Uploaded,
+                Date = entity.Uploaded.ToString(),
                 Id = entity.Id,
                 PostId = entity.PostEntityModelId
             };
@@ -32,7 +32,7 @@ namespace Grone.MVC.HelpClasses
                 PostEntityModelId = model.PostId,
                 MemberId = model.MemberId,
                 ImgSrc = model.ImgSrc,
-                Uploaded = model.Date,
+                Uploaded = DateTime.Parse(model.Date),
                 Id = model.Id
             };
             return entity;

@@ -15,7 +15,7 @@ namespace Grone.MVC.HelpClasses
             var model = new PostViewModel()
             {
                 Id = entity.Id,
-                Date = entity.Uploaded,
+                Date = entity.Uploaded.ToString(),
                 Description = entity.Description,
                 ImgSrc = entity.ImgSrc,
                 MemberId = entity.MemberId,
@@ -38,7 +38,7 @@ namespace Grone.MVC.HelpClasses
                 MemberId = model.MemberId,
                 TimeLeft = model.TimeLeft,
                 Title = model.Title,
-                Uploaded = model.Date
+                Uploaded = DateTime.Parse(model.Date)
             };
             return entity;
         }

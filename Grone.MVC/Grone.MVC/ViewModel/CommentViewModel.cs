@@ -9,7 +9,7 @@ namespace Grone.MVC.ViewModel
     {
         public Guid Id { get; set; }
         public string Comment  { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public Guid CommentId { get; set; }
         public Guid PostId { get; set; }
         public string MemberId { get; set; }
