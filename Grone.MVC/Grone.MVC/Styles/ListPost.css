@@ -16,12 +16,18 @@ body {
 }
 
 #addPostRow {
-    padding: 1%;
-
+    padding-top: 3%;
 }
 
+#addPostRow .inp{
+    margin-top: 10px;
+}
+
+.send {
+    margin-right: 5px;
+}
 #addPostButton {
-    min-width: 30%;
+    width: 100%;
     font-family: 'Ubuntu', sans-serif;
     letter-spacing: 0.5px;
 }
@@ -56,12 +62,12 @@ body {
 }
 
 #comments {
-    padding-left: 6%;
+    padding-left: 10%;
 }
 
 .infoData {
     color: gray;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .infoDataComment {
@@ -76,5 +82,5 @@ body {
 }
 
 #refrechButton {
-    margin-left: 10px;
+    min-width: 100%;
 }

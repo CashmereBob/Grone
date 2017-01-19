@@ -32,7 +32,6 @@ namespace Grone.MVC.HelpClasses
                 PostEntityModelId = model.PostId,
                 MemberId = model.MemberId,
                 ImgSrc = model.ImgSrc,
-                Uploaded = DateTime.Parse(model.Date),
                 Id = model.Id
             };
             return entity;

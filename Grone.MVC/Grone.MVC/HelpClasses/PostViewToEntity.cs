@@ -37,8 +37,7 @@ namespace Grone.MVC.HelpClasses
                 TimeAdded = model.TimeAdded,
                 MemberId = model.MemberId,
                 TimeLeft = model.TimeLeft,
-                Title = model.Title,
-                Uploaded = DateTime.Parse(model.Date)
+                Title = model.Title
             };
             return entity;
         }

@@ -23,12 +23,12 @@
     </div>
 </div>
 
-<div class="row text-center" id="addPostRow">
+@*<div class="row text-center" id="addPostRow">
     <div class="col-xs-12">
         <button id="addPostButton" class="btn btn-primary" data-toggle="modal" data-target="#AddPostModal">Add a post groner!</button>
         <button id="refrechButton" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true" ng-click="GetPosts()"></span></button>
     </div>
-</div>
+</div>*@
 
 <div class="modal fade" id="AddPostModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -42,12 +42,18 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-12">
+<div class="row" id="addPostRow">
+    <div class="col-sm-1 inp">
+        <button id="addPostButton" class="btn btn-primary" data-toggle="modal" data-target="#AddPostModal"><span class="glyphicon glyphicon-send send" aria-hidden="true"></span></button>
+    </div>
+    <div class="col-sm-10 inp">
         <div class="input-group">      
             <span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
             <input type="text" class="form-control filterInput" placeholder="Filter..">
         </div>
+    </div>
+    <div class="col-sm-1 inp">
+        <button id="refrechButton" class="btn btn-primary" ng-click="GetPosts()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
     </div>
 </div>
 <hr />
