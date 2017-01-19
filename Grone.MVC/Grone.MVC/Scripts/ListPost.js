@@ -1,5 +1,13 @@
 ﻿var app = angular.module('groneApp', []);
 
+app.directive('postRepeatDirective', function () {
+    return function (scope, element, attrs) {
+        if (scope.$last) {
+            BindCommentForm();
+        }
+    };
+});
+
 app.factory('groneAppFactory', function ($http) {
 
     var posts = [];
@@ -19,6 +27,7 @@ app.factory('groneAppFactory', function ($http) {
         }).then(function successCallback(response) {
             posts.length = 0;
             angular.forEach(response.data, function (value, key) {
+                value.Comments = [];
                 posts.push(value);
             })
         }, function errorCallback(response) {
@@ -34,7 +43,7 @@ app.factory('groneAppFactory', function ($http) {
         }).then(function successCallback(response) {
             angular.forEach(posts, function (post, key) {
                 if (post.Id == id) {
-                    post.Comments = [];
+                    post.Comments.length = 0;
                     angular.forEach(response.data, function (comment, index) {
                         post.Comments.push(comment);
                     })
@@ -79,6 +88,7 @@ app.controller('groneAppController', function ($scope, groneAppFactory) {
     };
     $scope.GetPosts = function () {
         groneAppFactory.UpdatePostsObject();
+        
     }
     $scope.SubmitPost = function (event) {
         event.preventDefault();

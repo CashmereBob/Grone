@@ -50,85 +50,86 @@
     </div>
 </div>
 <hr />
-<div class="postRow" ng-repeat="post in posts" id="{{post.Id}}">
-    <div class="row">
-        <div class="col-md-12">
-            <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
-        </div>
-        <div class="col-md-2 imgCol text-center">
-            <a href="{{post.ImgSrc}}" data-toggle="lightbox">
-                <img src="{{post.ImgSrc}}" class="img-fluid">
-            </a>
-        </div>
+<div id="postContent">
+    <div class="postRow" ng-repeat="post in posts" post-repeat-directive id="{{post.Id}}">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
+            </div>
+            <div class="col-md-2 imgCol text-center">
+                <a href="{{post.ImgSrc}}" data-toggle="lightbox">
+                    <img src="{{post.ImgSrc}}" class="img-fluid">
+                </a>
+            </div>
 
-        <div class="col-md-6">
-            <h4>{{post.Title}}</h4>
-            <p>{{post.Description}}</p>
-        </div>
-        <div class="col-md-2 text-center">
-            <p>Time Left</p>
-            <h4>{{post.TimeLeft}}</h4>
-            <p>minutes</p>
-        </div>
-        <div class="col-md-2 text-center">
-            <p>Lifetime</p>
-            <h4>{{post.TimeAdded}}</h4>
-            <p>minutes</p>
-        </div>
-        <div class="col-xs-12 text-right replyDiv">
-            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
-            <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>
-            <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
-        </div>
-        <div class="modal fade" id="AddCommentToPost{{post.Id}}" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+            <div class="col-md-6">
+                <h4>{{post.Title}}</h4>
+                <p>{{post.Description}}</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <p>Time Left</p>
+                <h4>{{post.TimeLeft}}</h4>
+                <p>minutes</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <p>Lifetime</p>
+                <h4>{{post.TimeAdded}}</h4>
+                <p>minutes</p>
+            </div>
+            <div class="col-xs-12 text-right replyDiv">
+                <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
+                <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
+            </div>
+            <div class="modal fade" id="AddCommentToPost{{post.Id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
 
-                    <div class="modal-body">
-                        @{Html.RenderPartial("_AddComment");}
+                        <div class="modal-body">
+                            @{Html.RenderPartial("_AddComment");}
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="comments" class="listOfComments" style="display: none;">
-        <div ng-repeat="comment in post.Comments">
-            <hr />
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
-                </div>
-                <div class="col-md-2 imgCol">
-                    <a href="{{post.ImgSrc}}" data-toggle="lightbox">
-                        <img src="{{post.ImgSrc}}" class="img-fluid">
-                    </a>
-                </div>
-                <div class="col-md-10">
-                    <a>Reply to: {{comment.CommentId}}</a>
-                    <p>{{comment.Comment}}</p>
-                </div>
-                <div class="col-xs-12 text-right replyDiv">
-                    <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment{{comment.Id}}">REPLY</button>
-                </div>
-                <div class="modal fade" id="AddCommentToComment{{comment.Id}}" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+        <div id="comments" class="listOfComments" style="display: none;">
+            <div ng-repeat="comment in post.Comments">
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
+                    </div>
+                    <div class="col-md-2 imgCol">
+                        <a href="{{post.ImgSrc}}" data-toggle="lightbox">
+                            <img src="{{post.ImgSrc}}" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-10">
+                        <a>Reply to: {{comment.CommentId}}</a>
+                        <p>{{comment.Comment}}</p>
+                    </div>
+                    <div class="col-xs-12 text-right replyDiv">
+                        <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment{{comment.Id}}">REPLY</button>
+                    </div>
+                    <div class="modal fade" id="AddCommentToComment{{comment.Id}}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
 
-                            <div class="modal-body">
-                                @{Html.RenderPartial("_AddComment");}
+                                <div class="modal-body">
+                                    @{Html.RenderPartial("_AddComment");}
+                                </div>
+
                             </div>
-
                         </div>
                     </div>
                 </div>
+                <hr />
             </div>
-            <hr />
         </div>
+
     </div>
 
 </div>
-
-
 
