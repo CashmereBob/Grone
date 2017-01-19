@@ -86,19 +86,19 @@ namespace Grone.Data.Repository
             }
         }
 
-        public CommentEntityModel GetByPostId(string id)
+        public IEnumerable<CommentEntityModel> GetByPostId(string id)
         {
             using (var context = new GroneEntities())
             {
-                return context.Comments.FirstOrDefault(c => c.PostEntityModelId == Guid.Parse(id));
+                return context.Comments.Where(c => c.PostEntityModelId == Guid.Parse(id));
             }
         }
 
-        public CommentEntityModel GetByPostId(Guid id)
+        public IEnumerable<CommentEntityModel> GetByPostId(Guid id)
         {
             using (var context = new GroneEntities())
             {
-                return context.Comments.FirstOrDefault(c => c.PostEntityModelId == id);
+                return context.Comments.Where(c => c.PostEntityModelId == id);
             }
         }
     }
