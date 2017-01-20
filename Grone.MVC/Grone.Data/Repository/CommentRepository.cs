@@ -20,6 +20,7 @@ namespace Grone.Data.Repository
                     PostEntityModelId = comment.PostEntityModelId,
                     CommentId = comment.CommentId, //commenting on anotehr comment
                     MemberId = comment.MemberId,
+                    Comment = comment.Comment
                 };
 
                 context.Comments.Add(newComment);
