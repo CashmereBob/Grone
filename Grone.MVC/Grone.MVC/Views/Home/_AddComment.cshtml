@@ -10,42 +10,41 @@
                 <h4 class="modal-title">Post Comment</h4>
             </div>
             <br />
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group" ng-if="post.Id">
+                <label class="control-label-left col-md-12" for="PostId">Reply to post:</label>
+                <div class="col-md-12">
+                    <input type="text" name="PostId" class="form-control" value="{{post.Id}}" readonly />
+                </div>
+            </div>
+            <div class="form-group" ng-if="comment.Id">
+                <label class="control-label-left col-md-12" for="CommentId">Reply to comment:</label>
+                <div class="col-md-12">
+                    <input type="text" name="CommentId" class="form-control" value="{{comment.Id}}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="comment.MemberId">>
+                <label class="control-label-left col-md-12" for="MemberId">Groner id:</label>
+                <div class="col-md-12">
+                    <input type="text" name="MemberId" class="form-control" value="{{comment.MemberId}}" readonly />
+                </div>
+            </div>
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label-left col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows = "12"} )
                     @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CommentId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="text" name="CommentId" class="form-control" value="{{comment.Id}}" readonly />
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.PostId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="text" name="PostId" class="form-control" value="{{post.Id}}" readonly />
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.MemberId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MemberId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MemberId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ImgSrc, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ImgSrc, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ImgSrc, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.ImgSrc, htmlAttributes: new { @class = "control-label-left col-md-12" })
+                <div class="col-md-12">
+                    <input type="file" name="photoUpload" id="photoUpload" class="form-control" />
                 </div>
             </div>
 

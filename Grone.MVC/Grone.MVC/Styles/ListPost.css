@@ -84,3 +84,11 @@ body {
 #refrechButton {
     min-width: 100%;
 }
+
+form input {
+    max-width: 100%;
+}
+
+form textarea {
+    max-width: 100%;
+}
