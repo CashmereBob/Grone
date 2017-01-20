@@ -103,7 +103,7 @@
                             <img src="{{comment.ImgSrc}}" class="img-fluid">
                     </div>
                     <div class="col-md-10">
-                        <a>Reply to: {{comment.CommentId}}</a>
+                        <a ng-if="comment.CommentId">Reply to: {{comment.CommentId}}</a>
                         <p>{{comment.Comment}}</p>
                     </div>
                     <div class="col-xs-12 text-right replyDiv">

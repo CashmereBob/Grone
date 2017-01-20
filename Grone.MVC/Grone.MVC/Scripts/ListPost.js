@@ -12,7 +12,6 @@ app.directive('postCommentRepeatDirective', function () {
     return function (scope, element, attrs) {
         if (scope.$last) {
             BindPostCommentForm();
-            console.log('hepp1')
         }
     };
 });
@@ -54,6 +53,9 @@ app.factory('groneAppFactory', function ($http) {
                 if (post.Id == id) {
                     post.Comments.length = 0;
                     angular.forEach(response.data, function (comment, index) {
+                        if (comment.CommentId == "00000000-0000-0000-0000-000000000000") {
+                            comment.CommentId = "";
+                        }
                         post.Comments.push(comment);
                     })
                 }
