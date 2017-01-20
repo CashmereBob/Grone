@@ -51,6 +51,15 @@
   <ItemGroup>
     <Compile Include="IRepository\ICommentRepository.cs" />
     <Compile Include="IRepository\IPostRepository.cs" />
+    <Compile Include="Migrations\201701181914213_InitialCreate.cs" />
+    <Compile Include="Migrations\201701181914213_InitialCreate.Designer.cs">
+      <DependentUpon>201701181914213_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701200821213_AddedCommentPropertyToCommentEntity.cs" />
+    <Compile Include="Migrations\201701200821213_AddedCommentPropertyToCommentEntity.Designer.cs">
+      <DependentUpon>201701200821213_AddedCommentPropertyToCommentEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommentEntityModel.cs" />
     <Compile Include="Models\GroneEntities.cs" />
     <Compile Include="Models\PostEntityModel.cs" />
@@ -58,7 +67,14 @@
     <Compile Include="Repository\CommentRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701181914213_InitialCreate.resx">
+      <DependentUpon>201701181914213_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701200821213_AddedCommentPropertyToCommentEntity.resx">
+      <DependentUpon>201701200821213_AddedCommentPropertyToCommentEntity.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

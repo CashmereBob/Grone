@@ -5,6 +5,7 @@ namespace Grone.Data.Models
     public class CommentEntityModel
     {
         public Guid Id { get; set; }
+        public string Comment { get; set; }
         public DateTime Uploaded { get; set; }
         public string ImgSrc { get; set; }
         public Guid CommentId { get; set; }
