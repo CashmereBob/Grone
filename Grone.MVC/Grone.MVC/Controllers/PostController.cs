@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Grone.MVC.HelpClasses;
+using System.IO;
 
 namespace Grone.MVC.Controllers
 {
@@ -32,7 +33,15 @@ namespace Grone.MVC.Controllers
         [HttpPost]
         public ActionResult Add(PostViewModel model, HttpPostedFileBase photoUpload)
         {
-            repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model));
+            //TODO : maximera filuppladdningen till 5mb
+            string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
+            string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
+            string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
+
+            model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
+
+            photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+            repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model)); //Spara modellen i databasen
             return Content("sucsses");
         }
 
