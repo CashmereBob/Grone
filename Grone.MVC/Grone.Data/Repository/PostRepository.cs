@@ -12,7 +12,7 @@ namespace Grone.Data.Repository
     public class PostRepository : IPostRepository
     {
         //GroneEntities _context = new GroneEntities();
-
+        // todo: ta bort bild när post tas bort av admin
         public void AddOrUpdate(PostEntityModel post)
         {
             using (var _context = new GroneEntities())
