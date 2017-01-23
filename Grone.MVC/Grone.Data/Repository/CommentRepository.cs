@@ -22,6 +22,13 @@ namespace Grone.Data.Repository
                     MemberId = comment.MemberId,
                     Comment = comment.Comment
                 };
+                // todo: find the post and add some time to the post
+
+                var postCommentedOn = context.Posts.FirstOrDefault(p => p.Id == newComment.PostEntityModelId);
+
+                postCommentedOn.TimeLeft += 60;
+
+                postCommentedOn.TotalTimeAdded += 60;
 
                 context.Comments.Add(newComment);
 

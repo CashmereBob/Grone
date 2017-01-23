@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201701200821213_AddedCommentPropertyToCommentEntity.Designer.cs">
       <DependentUpon>201701200821213_AddedCommentPropertyToCommentEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701230759249_AddedTotalLifetime.cs" />
+    <Compile Include="Migrations\201701230759249_AddedTotalLifetime.Designer.cs">
+      <DependentUpon>201701230759249_AddedTotalLifetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommentEntityModel.cs" />
     <Compile Include="Models\GroneEntities.cs" />
@@ -73,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701200821213_AddedCommentPropertyToCommentEntity.resx">
       <DependentUpon>201701200821213_AddedCommentPropertyToCommentEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701230759249_AddedTotalLifetime.resx">
+      <DependentUpon>201701230759249_AddedTotalLifetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

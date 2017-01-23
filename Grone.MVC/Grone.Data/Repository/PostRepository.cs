@@ -25,7 +25,7 @@ namespace Grone.Data.Repository
                         MemberId = (Guid.NewGuid()).ToString(),
                         Title = post.Title,
                     };
-
+                    
                     _context.Posts.Add(newPost);
 
                     _context.SaveChanges();

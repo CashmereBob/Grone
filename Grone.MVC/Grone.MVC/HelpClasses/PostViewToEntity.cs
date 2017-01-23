@@ -19,7 +19,7 @@ namespace Grone.MVC.HelpClasses
                 Description = entity.Description,
                 ImgSrc = entity.ImgSrc,
                 MemberId = entity.MemberId,
-                TimeAdded = entity.TimeAdded,
+                TimeAdded = entity.TotalTimeAdded,
                 TimeLeft = entity.TimeLeft,
                 Title = entity.Title,
             };
@@ -34,7 +34,7 @@ namespace Grone.MVC.HelpClasses
                 Id = model.Id,
                 Description = model.Description,
                 ImgSrc = model.ImgSrc,
-                TimeAdded = model.TimeAdded,
+                TotalTimeAdded = model.TimeAdded,
                 MemberId = model.MemberId,
                 TimeLeft = model.TimeLeft,
                 Title = model.Title
