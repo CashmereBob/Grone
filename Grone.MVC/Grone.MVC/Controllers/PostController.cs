@@ -39,9 +39,10 @@ namespace Grone.MVC.Controllers
             {
                 Session["User"] = Guid.NewGuid();
             }
+            if (photoUpload != null) { 
+                //TODO : maximera filuppladdningen till 5mb
 
-            //TODO : maximera filuppladdningen till 5mb
-            string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
+                string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
             string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
             string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
@@ -49,6 +50,7 @@ namespace Grone.MVC.Controllers
             model.MemberId = Session["User"].ToString();
 
             photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+            }
             repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model)); //Spara modellen i databasen
             return Content("sucsses");
         }
