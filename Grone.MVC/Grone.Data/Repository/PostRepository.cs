@@ -12,7 +12,7 @@ namespace Grone.Data.Repository
     public class PostRepository : IPostRepository
     {
         //GroneEntities _context = new GroneEntities();
-
+        // todo: ta bort bild när post tas bort av admin
         public void AddOrUpdate(PostEntityModel post)
         {
             using (var _context = new GroneEntities())
@@ -23,7 +23,7 @@ namespace Grone.Data.Repository
                     {
                         Description = post.Description,
                         ImgSrc = post.ImgSrc,
-                        MemberId = (Guid.NewGuid()).ToString(),
+                        MemberId = post.MemberId,
                         Title = post.Title,
                     };
 
@@ -162,7 +162,18 @@ namespace Grone.Data.Repository
                 {
                     foreach (var post in context.Posts)
                     {
-                        post.TimeLeft -= 1;
+                        //todo remove post that has 0
+                        if (post.TimeLeft > 0)
+                            post.TimeLeft -= 1;
+                        else
+                        {
+                            //remove post image from folder
+
+
+                            //remove post itself
+                            context.Posts.Remove(post);
+
+                        }
                     }
 
                     context.SaveChanges();
