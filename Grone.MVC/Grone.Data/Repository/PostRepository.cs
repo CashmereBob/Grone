@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Grone.Data.Models;
 using System.Threading;
+using System.IO;
+using System.Diagnostics;
 
 namespace Grone.Data.Repository
 {
@@ -153,34 +155,33 @@ namespace Grone.Data.Repository
             }
         }
 
-
         public void RemoveOneFromEveryPost()
         {
-            do
-            {
-                using (var context = new GroneEntities())
-                {
-                    foreach (var post in context.Posts)
-                    {
-                        //todo remove post that has 0
-                        if (post.TimeLeft > 0)
-                            post.TimeLeft -= 1;
-                        else
-                        {
-                            //remove post image from folder
+            //do
+            //{
+            //    using (var context = new GroneEntities())
+            //    {
+            //        foreach (var post in context.Posts)
+            //        {
+            //            if (post.TimeLeft > 0)
+            //                post.TimeLeft -= 1;
+            //            else
+            //            {
+            //                //remove file from img folder
+                          
 
+            //                //remove post itself
+            //                context.Posts.Remove(post);
 
-                            //remove post itself
-                            context.Posts.Remove(post);
+            //                context.SaveChanges();
+            //            }
+            //        }
 
-                        }
-                    }
+            //        context.SaveChanges();
 
-                    context.SaveChanges();
-
-                    Thread.Sleep(60000);
-                }
-            } while (true);
+            //        Thread.Sleep(60000);
+            //    }
+            //} while (true);
         }
     }
 }
