@@ -68,7 +68,7 @@ app.factory('groneAppFactory', function ($http) {
     factory.LoadCommentsForPost = function (id) {
         $http({
             method: 'GET',
-            url: '/Post/GetCommentsByPosts',
+            url: '/Post/GetCommentsBypost',
             params: { Id: id }
         }).then(function successCallback(response) {
             angular.forEach(posts, function (post, key) {

@@ -63,8 +63,8 @@ namespace Grone.MVC.Controllers
         //TODO: Fixa så att jag kan få tag på alla comments via ett post. byta plats på top3comments och getcommentsbypost
         public ActionResult GetCommentsBypost(Guid id)
         {
-            List<PostViewModel> viewModel = new List<PostViewModel>();
-            commentRepository.GetByPostId(id).ToList().ForEach(x => viewModel.Where(y => y.Id == id));
+            List<CommentViewModel> viewModel = new List<CommentViewModel>();
+            commentRepository.GetByPostId(id).ToList().ForEach(x => viewModel.Add(CommentViewToEntity.ToModelComment(x)));
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
     }
