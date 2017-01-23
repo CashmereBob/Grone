@@ -32,17 +32,17 @@ namespace Grone.MVC.Controllers
                 {
                     Session["User"] = Guid.NewGuid();
                 }
+                if (photoUpload != null)
+                {
+                    //TODO : maximera filuppladdningen till 5mb *****
+                    string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
+                    string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
+                    string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
-
-                //TODO : maximera filuppladdningen till 5mb
-                string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
-                string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
-                string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
-
-                model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
-                model.MemberId = Session["User"].ToString();
-                photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
-
+                    model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
+                    model.MemberId = Session["User"].ToString();
+                    photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+                }
                 repository.Add(CommentViewToEntity.ToEntityComment(model));
                 return Json(model);
             }
@@ -51,7 +51,7 @@ namespace Grone.MVC.Controllers
                 ModelState.AddModelError("Error", "Comment not valid");
                 return View("Index");
             }
-            
+
         }
     }
 }
