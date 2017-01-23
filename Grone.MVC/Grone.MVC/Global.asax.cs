@@ -19,27 +19,27 @@ namespace Grone.MVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            //var updatePostsThread = new Thread(RemoveOneFromEveryPost);
+            var updatePostsThread = new Thread(RemoveOneFromEveryPost);
 
-            //updatePostsThread.Start();
+            updatePostsThread.Start();
         }
 
-        //public void RemoveOneFromEveryPost()
-        //{
-        //    do
-        //    {
-        //        using (var context = new GroneEntities())
-        //        {
-        //            foreach (var post in context.Posts)
-        //            {
-        //                post.TimeLeft -= 1;
-        //            }
+        public void RemoveOneFromEveryPost()
+        {
+            do
+            {
+                using (var context = new GroneEntities())
+                {
+                    foreach (var post in context.Posts)
+                    {
+                        post.TimeLeft -= 1;
+                    }
 
-        //            context.SaveChanges();
+                    context.SaveChanges();
 
-        //            Thread.Sleep(60000);
-        //        }
-        //    } while (true);
-        //}
+                    Thread.Sleep(60000);
+                }
+            } while (true);
+        }
     }
 }
