@@ -1,10 +1,18 @@
 ﻿var app = angular.module('groneApp', []);
 
-app.directive('postRepeatDirective', function () {
+app.directive('postRepeatDirective', function ($location, groneAppFactory, $timeout) {
     return function (scope, element, attrs) {
         if (scope.$last) {
             BindCommentForm();
+            $timeout(function () {
+                if (groneAppFactory.getParams) {
+                    groneAppFactory.LoadCommentsForPost($location.search().post);
+                    ToggleComments($location.search().post);
+                    groneAppFactory.getParams = false;
+                }
+            }, 0);
         }
+        
     };
 });
 
@@ -16,16 +24,21 @@ app.directive('postCommentRepeatDirective', function () {
     };
 });
 
+
+
 app.factory('groneAppFactory', function ($http) {
 
-    var posts = [];
+    
 
+    var posts = [];
 
     var factory = {};
 
     factory.GetPosts = function () {
         return posts;
     };
+
+    factory.getParams = true;
 
     factory.UpdatePostsObject = function () {
        
@@ -87,14 +100,15 @@ app.factory('groneAppFactory', function ($http) {
         });
     };
 
-    
-
     return factory;
 
 });
 
 
-app.controller('groneAppController', function ($scope, groneAppFactory) {
+app.controller('groneAppController', function ($scope, groneAppFactory, $location) {
+
+    var getParams = true;
+
     $scope.posts = groneAppFactory.GetPosts();
     $scope.PreviewShowComments = function (event) {
 
@@ -105,13 +119,14 @@ app.controller('groneAppController', function ($scope, groneAppFactory) {
     $scope.ShowComments = function (event) {
 
         groneAppFactory.LoadCommentsForPost(event.target.attributes['data-parentId'].value);
-
-        ToggleCommentSummary(event.target.attributes['data-parentId'].value);
+        ToggleComments(event.target.attributes['data-parentId'].value);
     };
     $scope.GetPosts = function () {
         groneAppFactory.UpdatePostsObject();
         
     }
-   
+
+
 
 });
+

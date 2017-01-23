@@ -1,8 +1,31 @@
 ﻿function ToggleCommentSummary(id) {
-    if (id.length > 10 && $('.listOfComments', '#' + id).is( ":hidden" )) {
-        $('.listOfComments', '#' + id).slideToggle();
+    var div = $('.listOfComments', '#' + id);
+
+    if (div.hasClass("full")) {
+        div.slideToggle();
+        div.toggleClass("full");
+    }
+
+    if (id.length > 10) {
+        div.slideToggle();
+        div.toggleClass("preview")
     }
 }
+
+function ToggleComments(id) {
+    var div = $('.listOfComments', '#' + id);
+
+    if (div.hasClass("preview")) {
+        div.slideToggle();
+        div.toggleClass("preview");
+    }
+
+    if (id.length > 10) {
+        div.slideToggle();
+        div.toggleClass("full");
+    }
+}
+
 
 $(document).ready(function () {
  
@@ -12,8 +35,12 @@ $(document).ready(function () {
         e.preventDefault();
         AddPost(postForm, $(this).parent().parent().parent().parent());
     })
-   
+
+
+
 })
+
+
 
 function AddPost(form, div) {
         $.ajax({
@@ -44,7 +71,7 @@ function BindCommentForm() {
 function BindPostCommentForm() {
     $(".commentCommentForm").each(function (index, element) {
         SetSubmit($(this).children())
-    })
+    }) 
 }
 
 function SetSubmit(form) {
