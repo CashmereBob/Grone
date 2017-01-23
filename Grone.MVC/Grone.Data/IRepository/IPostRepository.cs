@@ -16,6 +16,7 @@ namespace Grone.Data.IRepository
         PostEntityModel GetById(string id);
         IEnumerable<PostEntityModel> GetAll();
         IEnumerable<CommentEntityModel> GetTop3Comments(PostEntityModel post);
+        IEnumerable<CommentEntityModel> GetComments(PostEntityModel post);
         void RemoveOneFromEveryPost();
     }
 }

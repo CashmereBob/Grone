@@ -142,6 +142,18 @@ namespace Grone.Data.Repository
             }
         }
 
+        public IEnumerable<CommentEntityModel> GetComments(PostEntityModel post)
+        {
+            using (var context = new GroneEntities())
+            {
+                return context.Comments
+                    .Where(c => c.PostEntityModelId == post.Id)
+                    .OrderByDescending(c => c.Uploaded)
+                    .ToList();
+            }
+        }
+
+
         public void RemoveOneFromEveryPost()
         {
             do

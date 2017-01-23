@@ -1,5 +1,5 @@
 ﻿function ToggleCommentSummary(id) {
-    if (id.length > 10) {
+    if (id.length > 10 && $('.listOfComments', '#' + id).is( ":hidden" )) {
         $('.listOfComments', '#' + id).slideToggle();
     }
 }
