@@ -7,7 +7,7 @@ namespace Grone.Data.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.PostEntityModels", "TotalTimeAdded", c => c.String());
+            AddColumn("dbo.PostEntityModels", "TotalTimeAdded", c => c.Int());
         }
 
         public override void Down()
