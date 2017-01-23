@@ -63,6 +63,14 @@
     <Compile Include="Migrations\201701230759249_AddedTotalLifetime.Designer.cs">
       <DependentUpon>201701230759249_AddedTotalLifetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701230915126_Demo.cs" />
+    <Compile Include="Migrations\201701230915126_Demo.Designer.cs">
+      <DependentUpon>201701230915126_Demo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701230921248_RemovedDemoField.cs" />
+    <Compile Include="Migrations\201701230921248_RemovedDemoField.Designer.cs">
+      <DependentUpon>201701230921248_RemovedDemoField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommentEntityModel.cs" />
     <Compile Include="Models\GroneEntities.cs" />
@@ -80,6 +88,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701230759249_AddedTotalLifetime.resx">
       <DependentUpon>201701230759249_AddedTotalLifetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701230915126_Demo.resx">
+      <DependentUpon>201701230915126_Demo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701230921248_RemovedDemoField.resx">
+      <DependentUpon>201701230921248_RemovedDemoField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
