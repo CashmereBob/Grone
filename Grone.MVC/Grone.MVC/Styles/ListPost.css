@@ -55,10 +55,18 @@ body {
     background-color: floralwhite;
 }
 
-.imgCol img {
+.imgCol {
     max-width: 100%;
     max-height: 100px;
+    float: left;
     border-radius: 3px;
+    margin-left: 15px;
+    margin-right: 15px;
+    cursor:pointer;
+}
+
+.CommentContent {
+    padding-left: 15px;
 }
 
 #comments {
@@ -91,4 +99,9 @@ form input {
 
 form textarea {
     max-width: 100%;
+}
+
+.modalImg {
+    max-width: 100%;
+    
 }
