@@ -142,22 +142,22 @@ namespace Grone.Data.Repository
             }
         }
 
-        //public void RemoveOneFromEveryPost()
-        //{
-        //    // todo: function som tar bort 1 från varje post
-        //    using (var context = new GroneEntities())
-        //    {
-        //        var allPosts = context.Posts.ToList();
+        public void RemoveOneFromEveryPost()
+        {
+            do
+            {
+                using (var context = new GroneEntities())
+                {
+                    foreach (var post in context.Posts)
+                    {
+                        post.TimeLeft -= 1;
+                    }
 
-        //        foreach (var post in allPosts)
-        //        {
-        //            post.TimeLeft -= 1;
-        //        }
+                    context.SaveChanges();
 
-        //        context.SaveChanges();
-
-        //        Thread.Sleep(60000);
-        //    }
-        //}
+                    Thread.Sleep(60000);
+                }
+            } while (true);
+        }
     }
 }
