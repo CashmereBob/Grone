@@ -154,34 +154,5 @@ namespace Grone.Data.Repository
                     .ToList();
             }
         }
-
-        public void RemoveOneFromEveryPost()
-        {
-            //do
-            //{
-            //    using (var context = new GroneEntities())
-            //    {
-            //        foreach (var post in context.Posts)
-            //        {
-            //            if (post.TimeLeft > 0)
-            //                post.TimeLeft -= 1;
-            //            else
-            //            {
-            //                //remove file from img folder
-                          
-
-            //                //remove post itself
-            //                context.Posts.Remove(post);
-
-            //                context.SaveChanges();
-            //            }
-            //        }
-
-            //        context.SaveChanges();
-
-            //        Thread.Sleep(60000);
-            //    }
-            //} while (true);
-        }
     }
 }
