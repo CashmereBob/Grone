@@ -26,10 +26,10 @@
                 </div>
             </div>
 
-            <div class="form-group" ng-if="comment.MemberId">
+            <div class="form-group">
                 <label class="control-label-left col-md-12" for="MemberId">Groner id:</label>
                 <div class="col-md-12">
-                    <input type="text" name="MemberId" class="form-control" value="{{comment.MemberId}}" readonly />
+                    <input type="text" name="MemberId" class="form-control" value="@Session["User"].ToString()" readonly />
                 </div>
             </div>
 
