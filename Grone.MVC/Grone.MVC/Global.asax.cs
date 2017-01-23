@@ -1,8 +1,10 @@
 ﻿using Grone.Data.IRepository;
 using Grone.Data.Models;
 using Grone.Data.Repository;
+using Grone.MVC.HelpClasses;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -19,8 +21,35 @@ namespace Grone.MVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            var updatePostsThread = new Thread(repo.RemoveOneFromEveryPost);
+            var updatePostsThread = new Thread(RemoveOneFromEveryPost);
             updatePostsThread.Start();
+        }
+
+        private void RemoveOneFromEveryPost()
+        {
+            do
+            {
+                using (var context = new GroneEntities())
+                {
+                    foreach (var post in context.Posts)
+                    {
+                        if (post.TimeLeft > 0)
+                            post.TimeLeft -= 1;
+                        else
+                        {
+                            string filename = Path.GetFileName(post.ImgSrc);
+
+                            FileHelper.RemoveFile(filename);
+
+                            context.Posts.Remove(post);
+                        }
+                    }
+
+                    context.SaveChanges();
+
+                    Thread.Sleep(60000);
+                }
+            } while (true);
         }
     }
 }
