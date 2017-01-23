@@ -58,14 +58,28 @@
             <div class="col-md-12">
                 <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
             </div>
-            <div class="col-md-2 imgCol text-center">
-                    <img src="{{post.ImgSrc}}">
+
+            <div class="col-md-8">
+                <a data-toggle="modal" data-target="#img{{post.Id}}"><img class="imgCol" src="{{post.ImgSrc}}"></a>
+                <div class="CommentContent">
+                    <h4>{{post.Title}}</h4>
+                    <p>{{post.Description}}</p>
+                </div>
             </div>
 
-            <div class="col-md-6">
-                <h4>{{post.Title}}</h4>
-                <p>{{post.Description}}</p>
+            <div class="modal fade" id="img{{post.Id}}" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <img class="modalImg" src="{{post.ImgSrc}}">
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
+
             <div class="col-md-2 text-center">
                 <p>Time Left</p>
                 <h4>{{post.TimeLeft}}</h4>
@@ -101,13 +115,25 @@
                     <div class="col-md-12">
                         <p class="infoDataComment">Groner: {{comment.MemberId}} @@ {{comment.Date}} Comment: {{comment.Id}}</p>
                     </div>
-                    <div class="col-md-2 imgCol"> 
-                            <img src="{{comment.ImgSrc}}" class="img-fluid">
-                    </div>
-                    <div class="col-md-10">
+                    <div class="col-md-12">
+                        <a data-toggle="modal" data-target="#img{{comment.Id}}"><img src="{{comment.ImgSrc}}" class="img-fluid imgCol"></a>
                         <a ng-if="comment.CommentId">Reply to: {{comment.CommentId}}</a>
                         <p>{{comment.Comment}}</p>
                     </div>
+
+                    <div class="modal fade" id="img{{comment.Id}}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+                                    <img class="modalImg" src="{{comment.ImgSrc}}">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col-xs-12 text-right replyDiv">
                         <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment{{comment.Id}}">REPLY</button>
                     </div>
