@@ -22,7 +22,7 @@ namespace Grone.Data.Repository
                     MemberId = comment.MemberId,
                     Comment = comment.Comment
                 };
-                // todo: find the post and add some time to the post
+                // finding the post commented on and adding more total time to it.
 
                 var postCommentedOn = context.Posts.FirstOrDefault(p => p.Id == newComment.PostEntityModelId);
 
@@ -35,7 +35,7 @@ namespace Grone.Data.Repository
                 context.SaveChanges();
             }
         }
-
+        
         public void Delete(string id)
         {
             using (var context = new GroneEntities())

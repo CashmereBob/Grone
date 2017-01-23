@@ -25,7 +25,7 @@ namespace Grone.Data.Repository
                         MemberId = (Guid.NewGuid()).ToString(),
                         Title = post.Title,
                     };
-                    
+
                     _context.Posts.Add(newPost);
 
                     _context.SaveChanges();
@@ -138,6 +138,22 @@ namespace Grone.Data.Repository
                     .OrderByDescending(c => c.Uploaded)
                     .ToList()
                     .Take(3);
+            }
+        }
+
+        public void RemoveOneFromEveryPost()
+        {
+            // todo: function som tar bort 1 från varje post
+            using (var context = new GroneEntities())
+            {
+                var allPosts = context.Posts.ToList();
+
+                foreach (var post in allPosts)
+                {
+                    post.TimeLeft -= 1;
+                }
+
+                context.SaveChanges();
             }
         }
     }
