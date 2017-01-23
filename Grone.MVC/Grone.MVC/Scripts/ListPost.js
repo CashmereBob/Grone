@@ -46,7 +46,29 @@ app.factory('groneAppFactory', function ($http) {
     factory.LoadPreviewCommentsForPost = function (id) {
         $http({
             method: 'GET',
-            url: '/Post/ViewCommentsByPosts',
+            url: '/Post/GetPreviewCommentsByPosts',
+            params: { Id: id }
+        }).then(function successCallback(response) {
+            angular.forEach(posts, function (post, key) {
+                if (post.Id == id) {
+                    post.Comments.length = 0;
+                    angular.forEach(response.data, function (comment, index) {
+                        if (comment.CommentId == "00000000-0000-0000-0000-000000000000") {
+                            comment.CommentId = "";
+                        }
+                        post.Comments.push(comment);
+                    })
+                }
+            })
+        }, function errorCallback(response) {
+            console.log('fail')
+        });
+    };
+
+    factory.LoadCommentsForPost = function (id) {
+        $http({
+            method: 'GET',
+            url: '/Post/GetCommentsByPosts',
             params: { Id: id }
         }).then(function successCallback(response) {
             angular.forEach(posts, function (post, key) {
@@ -80,7 +102,10 @@ app.controller('groneAppController', function ($scope, groneAppFactory) {
 
         ToggleCommentSummary(event.target.attributes['data-parentId'].value);
     };
-    $scope.ShowComments = function(event) {
+    $scope.ShowComments = function (event) {
+
+        groneAppFactory.LoadCommentsForPost(event.target.attributes['data-parentId'].value);
+
         ToggleCommentSummary(event.target.attributes['data-parentId'].value);
     };
     $scope.GetPosts = function () {

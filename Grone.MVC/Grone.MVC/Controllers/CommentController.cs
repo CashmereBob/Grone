@@ -17,6 +17,7 @@ namespace Grone.MVC.Controllers
         public CommentController()
         {
             repository = new CommentRepository();
+
         }
         public ActionResult Index()
         {
@@ -26,13 +27,20 @@ namespace Grone.MVC.Controllers
         {
             if (model != null)
             {
+
+                if (Session["User"] == null)
+                {
+                    Session["User"] = Guid.NewGuid();
+                }
+
+
                 //TODO : maximera filuppladdningen till 5mb
                 string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
                 string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
                 string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
                 model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
-
+                model.MemberId = Session["User"].ToString();
                 photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
 
                 repository.Add(CommentViewToEntity.ToEntityComment(model));
