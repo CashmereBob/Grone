@@ -57,12 +57,12 @@ function AddPost(form, div) {
             url: "/Post/Add",
             data: new FormData(form[0]),
             success: function (data) {
+                angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
+                angular.element($("#GroneAppController")).scope().$apply();
                 form[0].reset();
                 angular.element($("#GroneAppController")).scope().GetPosts();
                 angular.element($("#GroneAppController")).scope().$apply();
                 div.modal('hide');
-                console.log($('#'+data))
-                
             },
 
             error: function (e) {

@@ -31,7 +31,6 @@ namespace Grone.MVC.HelpClasses
         {
             var entity = new PostEntityModel()
             {
-                Id = model.Id,
                 Description = model.Description,
                 ImgSrc = model.ImgSrc,
                 TotalTimeAdded = model.TimeAdded,

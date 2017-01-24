@@ -29,7 +29,7 @@ namespace Grone.Data.Repository
                         Title = post.Title,
                     };
 
-                    _context.Posts.Add(newPost);
+                    _context.Posts.Add(post);
 
                     _context.SaveChanges();
                 }
