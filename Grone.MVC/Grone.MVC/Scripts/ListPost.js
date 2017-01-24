@@ -6,21 +6,16 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
             BindCommentForm();
             $timeout(function () {
 
-                if (typeof groneAppFactory.getParams !== 'undefined' && typeof $location.search().post !== 'undefined') {
+                if (groneAppFactory.getParams == true  && typeof $location.search().post !== 'undefined') {
                     console.log('handling params')
                     groneAppFactory.LoadCommentsForPost($location.search().post);
                     ToggleComments($location.search().post);
 
-                    if (typeof $location.search().comment !== 'undefined') {
-                        $location.hash($location.search().comment);
-                        $anchorScroll();
-                        BlinkDiv($location.search().comment);
-                    } else {
                         $location.hash($location.search().post);
                         $anchorScroll();
                         BlinkDiv($location.search().post);
-                    }
-                    groneAppFactory.getParams = false;
+                        if (typeof $location.search().comment == 'undefined') { groneAppFactory.getParams = false; }
+                    
                 }
 
                 if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
@@ -48,6 +43,14 @@ app.directive('postCommentRepeatDirective', function ($location, groneAppFactory
             BindPostCommentForm();
 
             $timeout(function () {
+
+                if (groneAppFactory.getParams == true && typeof $location.search().comment !== 'undefined') {
+                        $location.hash($location.search().comment);
+                        $anchorScroll();
+                        BlinkDiv($location.search().comment);
+                   
+                    groneAppFactory.getParams = false;
+                }
 
                 if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
                     console.log('handling SCROLLING')
@@ -79,6 +82,20 @@ app.factory('groneAppFactory', function ($http, $location) {
     factory.ScrollObject = {};
 
     factory.getParams = true;
+
+    factory.CountDownTime = function () {
+        console.log('counting');
+
+        angular.forEach(posts, function (value, key) {
+            
+            value.TimeLeft = value.TimeLeft - 1;
+            
+            if (value.TimeLeft == 0) {
+                posts.splice(key, 1);
+            }
+        });
+
+    }
 
     factory.UpdatePostsObject = function () {
        
@@ -175,6 +192,21 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         $location.hash(event.target.attributes['data-parentId'].value);
         $anchorScroll();
     }
+
+    $scope.sortBy = {};
+    $scope.sortBy.item = '-Date';
+
+    $scope.OrderList = [
+        { id: '-Date', name: "DATE desc" },
+        { id: '+Date', name: "DATE asc" },
+        { id: '-TimeLeft', name: "TIME LEFT desc" },
+        { id: '+TimeLeft', name: "TIME LEFT asc" }];
+
+    
+
+    setInterval(function () { groneAppFactory.CountDownTime(); $scope.$apply()  }, 60000);
+    
+
 
 });
 
