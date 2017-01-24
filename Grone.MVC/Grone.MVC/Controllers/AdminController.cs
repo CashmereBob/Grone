@@ -29,7 +29,9 @@ namespace Grone.MVC.Controllers
             return View();
         }
 
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(UserLoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -68,7 +70,8 @@ namespace Grone.MVC.Controllers
                     //return RedirectToAction("Index", "Home");
                 }
             }
-            return Content("login failed");
+            return View(model);
+            //return Content("login failed");
             //return View();//we stay on the login page if login fails
         }
 
