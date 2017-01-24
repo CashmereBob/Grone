@@ -9,7 +9,7 @@ namespace Grone.Data.IRepository
 {
     public interface IUserRepository
     {
-        void Add(UserEntityModel newAdmin);
+        void Add(UserEntityModel entity);
         void Delete(PostEntityModel entity);
     }
 }
