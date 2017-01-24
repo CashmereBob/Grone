@@ -1,6 +1,7 @@
 ﻿using Grone.Data.IRepository;
 using Grone.Data.Models;
 using Grone.Data.Repository;
+using Grone.MVC.App_Start;
 using Grone.MVC.HelpClasses;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Grone.MVC
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             var updatePostsThread = new Thread(RemoveOneFromEveryPost);
             updatePostsThread.Start();
