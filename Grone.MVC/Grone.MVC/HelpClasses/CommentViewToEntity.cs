@@ -33,7 +33,6 @@ namespace Grone.MVC.HelpClasses
                 PostEntityModelId = model.PostId,
                 MemberId = model.MemberId,
                 ImgSrc = model.ImgSrc,
-                Id = model.Id,
                 Comment = model.Comment
             };
             return entity;

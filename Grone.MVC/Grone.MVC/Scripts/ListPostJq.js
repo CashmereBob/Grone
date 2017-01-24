@@ -1,12 +1,14 @@
 ﻿function ToggleCommentSummary(id) {
     var div = $('.listOfComments', '#' + id);
 
+    
+
     if (div.hasClass("full")) {
         div.slideToggle();
         div.toggleClass("full");
     }
 
-    if (id.length > 10) {
+    if (typeof id !== 'undefined') {
         div.slideToggle();
         div.toggleClass("preview")
     }
@@ -15,12 +17,14 @@
 function ToggleComments(id) {
     var div = $('.listOfComments', '#' + id);
 
+    
+    
     if (div.hasClass("preview")) {
         div.slideToggle();
         div.toggleClass("preview");
     }
 
-    if (id.length > 10) {
+    if (typeof id !== 'undefined') {
         div.slideToggle();
         div.toggleClass("full");
     }
@@ -29,6 +33,7 @@ function ToggleComments(id) {
 function ScrollAndTogglePost(id) {
     var div = $('.listOfComments', '#' + id);
 
+    console.log('toggel');
     if (div.hasClass("preview")) {
         div.slideToggle();
         div.toggleClass("preview");
@@ -38,6 +43,18 @@ function ScrollAndTogglePost(id) {
         div.slideToggle();
         div.toggleClass("full");
     }
+}
+
+function BlinkDiv(id) {
+    var div = $('#' + id);
+
+    div.toggleClass('blink');
+    div.toggleClass('hoverColor');
+
+    setTimeout(function () {
+        div.toggleClass('blink');
+        div.toggleClass('hoverColor');
+    }, 500);
 }
 
 $(document).ready(function () {
@@ -97,6 +114,8 @@ function SetSubmit(form) {
             url: "/Comment/AddComment",
             data: new FormData(form[0]),
             success: function (data) {
+                angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
+                angular.element($("#GroneAppController")).scope().$apply();
                 form[0].reset();
                 angular.element($("#GroneAppController")).scope().GetPosts();
                 angular.element($("#GroneAppController")).scope().$apply();

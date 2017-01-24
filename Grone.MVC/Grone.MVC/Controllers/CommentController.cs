@@ -46,7 +46,7 @@ namespace Grone.MVC.Controllers
                 model.MemberId = Session["User"].ToString();
                 var entity = CommentViewToEntity.ToEntityComment(model);
                 repository.Add(entity);
-                return Content(entity.Id.ToString());
+                return Json(entity);
             }
             else
             {

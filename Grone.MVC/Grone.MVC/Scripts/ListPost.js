@@ -1,20 +1,40 @@
 ﻿var app = angular.module('groneApp', []);
 
-app.directive('postRepeatDirective', function ($location, groneAppFactory, $timeout) {
+app.directive('postRepeatDirective', function ($location, groneAppFactory, $timeout, $anchorScroll) {
     return function (scope, element, attrs) {
         if (scope.$last) {
             BindCommentForm();
             $timeout(function () {
-                if (groneAppFactory.getParams) {
+
+                if (typeof groneAppFactory.getParams !== 'undefined' && typeof $location.search().post !== 'undefined') {
+                    console.log('handling params')
                     groneAppFactory.LoadCommentsForPost($location.search().post);
                     ToggleComments($location.search().post);
+
+                    if (typeof $location.search().comment !== 'undefined') {
+                        $location.hash($location.search().comment);
+                        $anchorScroll();
+                        BlinkDiv($location.search().comment);
+                    } else {
+                        $location.hash($location.search().post);
+                        $anchorScroll();
+                        BlinkDiv($location.search().post);
+                    }
                     groneAppFactory.getParams = false;
                 }
-                if (groneAppFactory.ScrollObject.id > 30) {
-                    $location.hash(groneAppFactory.ScrollObject.id);
-                    $anchorScroll();
-                }
 
+                if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
+                    console.log('handling comment')
+                    groneAppFactory.LoadCommentsForPost(groneAppFactory.ScrollObject.PostEntityModelId);
+                    ScrollAndTogglePost(groneAppFactory.ScrollObject.PostEntityModelId);
+
+                } else if (typeof groneAppFactory.ScrollObject.Id !== 'undefined') {
+                    console.log('handling post')
+                    $location.hash(groneAppFactory.ScrollObject.Id);
+                    $anchorScroll();
+                    BlinkDiv(groneAppFactory.ScrollObject.Id);
+                    groneAppFactory.ScrollObject = {};
+                }
 
             }, 0);
         }
@@ -22,10 +42,24 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
     };
 });
 
-app.directive('postCommentRepeatDirective', function () {
+app.directive('postCommentRepeatDirective', function ($location, groneAppFactory, $timeout, $anchorScroll) {
     return function (scope, element, attrs) {
         if (scope.$last) {
             BindPostCommentForm();
+
+            $timeout(function () {
+
+                if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
+                    console.log('handling SCROLLING')
+                    $location.hash(groneAppFactory.ScrollObject.Id);
+                    $anchorScroll();
+                    BlinkDiv(groneAppFactory.ScrollObject.Id);
+                    groneAppFactory.ScrollObject = {};
+
+                }
+
+
+            }, 0);
         }
     };
 });
@@ -111,7 +145,7 @@ app.factory('groneAppFactory', function ($http, $location) {
 });
 
 
-app.controller('groneAppController', function ($scope, groneAppFactory, $location) {
+app.controller('groneAppController', function ($scope, groneAppFactory, $location, $anchorScroll) {
 
     var getParams = true;
 
@@ -134,7 +168,12 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
 
     $scope.UpdateScrollItem = function (object) {
         groneAppFactory.ScrollObject = object;
-        console.log(groneAppFactory.ScrollObject.Id)
+    }
+
+    $scope.ScrollToAnchor = function (event) {
+        BlinkDiv(event.target.attributes['data-parentId'].value);
+        $location.hash(event.target.attributes['data-parentId'].value);
+        $anchorScroll();
     }
 
 });

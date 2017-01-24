@@ -21,7 +21,7 @@ namespace Grone.Data.Repository
             {
                 if (_context.Posts.FirstOrDefault(p => p.Id == post.Id) == null)
                 {
-                    var newPost = new PostEntityModel()
+                    var newPost = new PostEntityModel(post.Id)
                     {
                         Description = post.Description,
                         ImgSrc = post.ImgSrc,
@@ -29,7 +29,7 @@ namespace Grone.Data.Repository
                         Title = post.Title,
                     };
 
-                    _context.Posts.Add(post);
+                    _context.Posts.Add(newPost);
 
                     _context.SaveChanges();
                 }

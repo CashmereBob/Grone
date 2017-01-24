@@ -49,9 +49,14 @@ body {
     border-radius: 5px;
     padding: 1% 0;
     margin: 1% 0;
+    transition: background 500ms ease-out;
 }
 
-.postRow:hover {
+.commentRow {
+    transition: background 500ms ease-out;
+}
+
+.hoverColor:hover {
     background-color: floralwhite;
 }
 
@@ -104,4 +109,8 @@ form textarea {
 .modalImg {
     max-width: 100%;
     
+}
+
+.blink {
+    background-color: aliceblue;
 }

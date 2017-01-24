@@ -23,5 +23,13 @@ namespace Grone.Data.Models
             TimeLeft = 120;
             TotalTimeAdded = 120;
         }
+        public PostEntityModel(Guid id)
+        {
+            Comments = new HashSet<CommentEntityModel>();
+            Id = id;
+            Uploaded = DateTime.Now;
+            TimeLeft = 120;
+            TotalTimeAdded = 120;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                var newComment = new CommentEntityModel()
+                var newComment = new CommentEntityModel(comment.Id)
                 {
                     ImgSrc = comment.ImgSrc,
                     PostEntityModelId = comment.PostEntityModelId,
