@@ -4,6 +4,7 @@
 
 @section CssStyle {
     <link href="~/Styles/ListPost.css" rel="stylesheet" />
+    <link href="~/Styles/BigLoader.css" rel="stylesheet" />
 }
 
 @section JavaScript{
@@ -34,6 +35,7 @@
     </div>
 </div>
 
+
 <div class="row" id="addPostRow">
     <div class="col-md-1 inp">
         <button id="addPostButton" class="btn btn-primary" data-toggle="modal" data-target="#AddPostModal"><span class="glyphicon glyphicon-send send" aria-hidden="true"></span></button>
@@ -54,7 +56,13 @@
     </div>
 </div>
 <hr />
-<div id="postContent" onload="onLoad">
+<div class="row" id="bigLoaderContent">
+    <div class="col-xs-12 text-center">
+        <div id="bigloader" class='uil-ring-css' style='transform:scale(0.6);'><div></div></div>
+    </div>
+
+</div>
+<div id="postContent">
     <div class="postRow hoverColor" ng-repeat="post in posts | filter:filterText | orderBy:sortBy.item" post-repeat-directive posts-is-loaded id="{{post.Id}}">
         <div class="row">
             <div class="col-md-12">

@@ -43,6 +43,9 @@ body {
     max-width: 100%;
     
 }
+#postContent {
+    display: none;
+}
 
 .postRow {
     border: solid 1px lightgray;
@@ -113,4 +116,9 @@ form textarea {
 
 .blink {
     background-color: aliceblue;
+}
+
+#bigloader {
+    margin-left:auto;
+    margin-right:auto;
 }

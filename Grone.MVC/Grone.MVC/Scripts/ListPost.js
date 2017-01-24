@@ -98,7 +98,7 @@ app.factory('groneAppFactory', function ($http, $location) {
     }
 
     factory.UpdatePostsObject = function () {
-       
+        StartBigLoad();
         $http({
             method: 'GET',
             url: '/Post/GetAllPosts'
@@ -108,6 +108,7 @@ app.factory('groneAppFactory', function ($http, $location) {
                 value.Comments = [];
                 posts.push(value);
             })
+            StopBigLoad();
         }, function errorCallback(response) {
             console.log('fail')
         });
@@ -200,7 +201,9 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         { id: '-Date', name: "DATE desc" },
         { id: '+Date', name: "DATE asc" },
         { id: '-TimeLeft', name: "TIME LEFT desc" },
-        { id: '+TimeLeft', name: "TIME LEFT asc" }];
+        { id: '+TimeLeft', name: "TIME LEFT asc" },
+        { id: '-TimeAdded', name: "LIFETIME desc" },
+        { id: '+TimeAdded', name: "LIFETIME asc" }];
 
     
 

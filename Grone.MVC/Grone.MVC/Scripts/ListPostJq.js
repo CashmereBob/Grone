@@ -70,6 +70,7 @@ function AddPost(form, div) {
             url: "/Post/Add",
             data: new FormData(form[0]),
             success: function (data) {
+                angular.element($("#GroneAppController")).scope().sortBy.item = '-Date';
                 angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
                 angular.element($("#GroneAppController")).scope().$apply();
                 form[0].reset();
@@ -128,4 +129,14 @@ function SetSubmit(form) {
         });
     })
 
+}
+
+function StartBigLoad() {
+    $('#bigLoaderContent').show();
+    $('#postContent').hide();
+}
+
+function StopBigLoad() {
+    $('#bigLoaderContent').hide();
+    $('#postContent').show();
 }
