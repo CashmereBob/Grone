@@ -1,8 +1,6 @@
 ﻿function ToggleCommentSummary(id) {
     var div = $('.listOfComments', '#' + id);
 
-    
-
     if (div.hasClass("full")) {
         div.slideToggle();
         div.toggleClass("full");
@@ -16,8 +14,6 @@
 
 function ToggleComments(id) {
     var div = $('.listOfComments', '#' + id);
-
-    
     
     if (div.hasClass("preview")) {
         div.slideToggle();

@@ -25,11 +25,11 @@
 <div class="modal fade" id="AddPostModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            
+
             <div class="modal-body">
                 @{Html.RenderPartial("_AddPost", null);}
             </div>
-           
+
         </div>
     </div>
 </div>
@@ -39,12 +39,15 @@
         <button id="addPostButton" class="btn btn-primary" data-toggle="modal" data-target="#AddPostModal"><span class="glyphicon glyphicon-send send" aria-hidden="true"></span></button>
     </div>
     <div class="col-md-8 inp">
-        <div class="input-group">      
+        <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></span>
-            <input type="text" class="form-control filterInput" placeholder="Filter..">
+            <input type="text" class="form-control filterInput" ng-model="filterText">
         </div>
-    </div><div class="col-md-2 inp">
-        <button id="refrechButton" class="btn btn-default" >Sort</button>
+    </div>
+    <div class="col-md-2 inp">
+        <select class="form-control" ng-model="sortBy.item" ng-options="item.id as item.name for item in OrderList">
+            
+        </select>
     </div>
     <div class="col-md-1 inp">
         <button id="refrechButton" class="btn btn-primary" ng-click="GetPosts()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
@@ -52,14 +55,14 @@
 </div>
 <hr />
 <div id="postContent" onload="onLoad">
-    <div class="postRow hoverColor" ng-repeat="post in posts" post-repeat-directive posts-is-loaded id="{{post.Id}}">
+    <div class="postRow hoverColor" ng-repeat="post in posts | filter:filterText | orderBy:sortBy.item" post-repeat-directive posts-is-loaded id="{{post.Id}}">
         <div class="row">
             <div class="col-md-12">
                 <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
             </div>
 
             <div class="col-md-8">
-                <a data-toggle="modal" data-target="#img{{post.Id}}"><img class="imgCol" src="{{post.ImgSrc}}"></a>
+                <a ng-if="post.ImgSrc" data-toggle="modal" data-target="#img{{post.Id}}"><img class="imgCol" src="{{post.ImgSrc}}"></a>
                 <div class="CommentContent">
                     <h4>{{post.Title}}</h4>
                     <p>{{post.Description}}</p>
@@ -118,7 +121,7 @@
                         <p class="infoDataComment">Groner: #{{comment.MemberId}} @@ {{comment.Date}} Comment: #{{comment.Id}}</p>
                     </div>
                     <div class="col-md-12">
-                        <a data-toggle="modal" data-target="#img{{comment.Id}}"><img src="{{comment.ImgSrc}}" class="img-fluid imgCol"></a>
+                        <a ng-if="comment.ImgSrc" data-toggle="modal" data-target="#img{{comment.Id}}"><img src="{{comment.ImgSrc}}" class="img-fluid imgCol"></a>
                         <a data-parentId="{{comment.CommentId}}" ng-click="ScrollToAnchor($event)" ng-if="comment.CommentId">Reply to: {{comment.CommentId}}</a>
                         <p>{{comment.Comment}}</p>
                     </div>
@@ -154,7 +157,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
