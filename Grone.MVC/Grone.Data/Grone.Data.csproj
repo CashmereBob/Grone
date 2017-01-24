@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="IRepository\ICommentRepository.cs" />
     <Compile Include="IRepository\IPostRepository.cs" />
+    <Compile Include="IRepository\IUserRepository.cs" />
     <Compile Include="Migrations\201701181914213_InitialCreate.cs" />
     <Compile Include="Migrations\201701181914213_InitialCreate.Designer.cs">
       <DependentUpon>201701181914213_InitialCreate.cs</DependentUpon>
@@ -91,10 +92,15 @@
     <Compile Include="Migrations\201701230921248_RemovedDemoField.Designer.cs">
       <DependentUpon>201701230921248_RemovedDemoField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701241027209_AddedUserEntityThatIsAdmin.cs" />
+    <Compile Include="Migrations\201701241027209_AddedUserEntityThatIsAdmin.Designer.cs">
+      <DependentUpon>201701241027209_AddedUserEntityThatIsAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommentEntityModel.cs" />
     <Compile Include="Models\GroneEntities.cs" />
     <Compile Include="Models\PostEntityModel.cs" />
+    <Compile Include="Models\UserEntityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CommentRepository.cs" />
     <Compile Include="Repository\PostRepository.cs" />
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701230921248_RemovedDemoField.resx">
       <DependentUpon>201701230921248_RemovedDemoField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701241027209_AddedUserEntityThatIsAdmin.resx">
+      <DependentUpon>201701241027209_AddedUserEntityThatIsAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
