@@ -17,7 +17,6 @@ namespace Grone.Data.Models
         public UserEntityModel()
         {
             Id = Guid.NewGuid();
-            //todo create the salt hash here
         }
     }
 }

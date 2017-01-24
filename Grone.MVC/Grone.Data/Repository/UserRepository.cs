@@ -8,7 +8,7 @@ using Grone.Data.Models;
 
 namespace Grone.Data.Repository
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         public void Add(UserEntityModel entity)
         {
@@ -20,6 +20,8 @@ namespace Grone.Data.Repository
                     Fullname = entity.Fullname,
                     Password = entity.Password,
                 };
+
+                // todo: check if email already exists
 
                 context.Users.Add(newAdmin);
 
@@ -50,6 +52,21 @@ namespace Grone.Data.Repository
 
                 context.SaveChanges();
             }
+        }
+
+        public IEnumerable<UserEntityModel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserEntityModel GetUser(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(UserEntityModel entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
