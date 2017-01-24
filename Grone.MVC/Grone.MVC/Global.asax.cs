@@ -21,7 +21,7 @@ namespace Grone.MVC
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             var updatePostsThread = new Thread(RemoveOneFromEveryPost);
             updatePostsThread.Start();

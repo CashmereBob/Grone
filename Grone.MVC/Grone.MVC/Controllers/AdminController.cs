@@ -29,9 +29,8 @@ namespace Grone.MVC.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public ActionResult Login(UserLoginViewModel model)
+        public ActionResult Index(UserLoginViewModel model)
         {
             if (ModelState.IsValid)
             {

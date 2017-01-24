@@ -208,6 +208,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_AddPost.cshtml" />
     <Content Include="Views\Home\_AddComment.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -218,7 +219,6 @@
   <ItemGroup>
     <Folder Include="Img\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
