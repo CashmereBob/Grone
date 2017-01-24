@@ -59,11 +59,34 @@ namespace Grone.Data.Repository
             throw new NotImplementedException();
         }
 
-        public UserEntityModel GetUser(Guid id)
+        public UserEntityModel GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Users.FirstOrDefault(u => u.Id == id);
+            }
         }
 
+        public UserEntityModel CheckCredentials(string email, string password)
+        {
+            using (var context = new GroneEntities())
+            {
+                foreach (var user in context.Users)
+                {
+                    if (user.eMail == email && user.Password == password)
+                        return user;
+                }
+                return null;
+            }
+        }
+
+        public UserEntityModel GetUserByMail(string eMail)
+        {
+            using (var context = new GroneEntities())
+            {
+                return context.Users.FirstOrDefault(u => u.eMail == eMail);
+            }
+        }
         public void Update(UserEntityModel entity)
         {
             throw new NotImplementedException();

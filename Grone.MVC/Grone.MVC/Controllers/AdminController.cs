@@ -24,26 +24,33 @@ namespace Grone.MVC.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
+        private bool SuccessfullLogin(UserEntityModel userToBeLoggedIn)
+        {
+            using (var context = new GroneEntities())
+            {
+                foreach (var user in context.Users)
+                {
+                    if (user.eMail == userToBeLoggedIn.eMail && user.Password == userToBeLoggedIn.Password)
+                        return true;
+                }
+                return false;
+            }
+        }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Index(UserLoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var userToLogin = new UserEntityModel();
-
-                using (var context = new GroneEntities())
-                {
-                    userToLogin = context.Users
-                        .FirstOrDefault(u => u.eMail == model.eMail &&
-                        u.Password == model.Password);
-                }
+                UserEntityModel userToLogin = repo.CheckCredentials(model.eMail,model.Password);
 
                 if (userToLogin != null)
                 {
@@ -61,9 +68,7 @@ namespace Grone.MVC.Controllers
                     }, "ApplicationCookie");
 
                     IOwinContext owinCtx = HttpContext.GetOwinContext();
-
                     IAuthenticationManager authManager = owinCtx.Authentication;
-
                     authManager.SignIn(identity);
 
                     return RedirectToAction("Index", "Home");

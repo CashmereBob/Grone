@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Grone.MVC.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 
