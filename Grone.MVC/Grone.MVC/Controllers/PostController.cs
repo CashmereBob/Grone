@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Grone.MVC.Controllers
 {
-    public class PostController: Controller
+    public class PostController : Controller
     {
         public IPostRepository repository;
         public ICommentRepository commentRepository;
@@ -26,9 +26,9 @@ namespace Grone.MVC.Controllers
         [HttpGet]
         public ActionResult GetAllPosts()
         {
-                List<PostViewModel> viewModel = new List<PostViewModel>();
-                repository.GetAll().ToList().ForEach(x => viewModel.Add(PostViewToEntity.PostEntityViewModelToModel(x)));
-                return Json(viewModel, JsonRequestBehavior.AllowGet);
+            List<PostViewModel> viewModel = new List<PostViewModel>();
+            repository.GetAll().ToList().ForEach(x => viewModel.Add(PostViewToEntity.PostEntityViewModelToModel(x)));
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -39,20 +39,21 @@ namespace Grone.MVC.Controllers
             {
                 Session["User"] = Guid.NewGuid();
             }
-            if (photoUpload != null) { 
+            if (photoUpload != null)
+            {
                 //TODO : maximera filuppladdningen till 5mb
 
                 string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
-            string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
-            string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
+                string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
+                string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
-            model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
-            model.MemberId = Session["User"].ToString();
-
-            photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+                model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
+                photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
             }
-            repository.AddOrUpdate(PostViewToEntity.PostViewModelToEntity(model)); //Spara modellen i databasen
-            return Content("sucsses");
+            model.MemberId = Session["User"].ToString();
+            var entity = PostViewToEntity.PostViewModelToEntity(model);
+            repository.AddOrUpdate(entity); //Spara modellen i databasen
+            return Content(entity.Id.ToString());
         }
 
         [HttpGet]

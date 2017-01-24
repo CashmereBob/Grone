@@ -40,11 +40,13 @@ namespace Grone.MVC.Controllers
                     string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
                     model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
-                    model.MemberId = Session["User"].ToString();
                     photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
                 }
-                repository.Add(CommentViewToEntity.ToEntityComment(model));
-                return Json(model);
+
+                model.MemberId = Session["User"].ToString();
+                var entity = CommentViewToEntity.ToEntityComment(model);
+                repository.Add(entity);
+                return Content(entity.Id.ToString());
             }
             else
             {

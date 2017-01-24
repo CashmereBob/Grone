@@ -26,9 +26,7 @@ app.directive('postCommentRepeatDirective', function () {
 
 
 
-app.factory('groneAppFactory', function ($http) {
-
-    
+app.factory('groneAppFactory', function ($http, $location) {
 
     var posts = [];
 

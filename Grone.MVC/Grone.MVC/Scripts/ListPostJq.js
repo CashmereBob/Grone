@@ -26,6 +26,19 @@ function ToggleComments(id) {
     }
 }
 
+function ScrollAndTogglePost(id) {
+    var div = $('.listOfComments', '#' + id);
+
+    if (div.hasClass("preview")) {
+        div.slideToggle();
+        div.toggleClass("preview");
+    }
+
+    if (!div.hasClass("full")) {
+        div.slideToggle();
+        div.toggleClass("full");
+    }
+}
 
 $(document).ready(function () {
  
@@ -36,11 +49,7 @@ $(document).ready(function () {
         AddPost(postForm, $(this).parent().parent().parent().parent());
     })
 
-
-
 })
-
-
 
 function AddPost(form, div) {
         $.ajax({
@@ -52,6 +61,8 @@ function AddPost(form, div) {
                 angular.element($("#GroneAppController")).scope().GetPosts();
                 angular.element($("#GroneAppController")).scope().$apply();
                 div.modal('hide');
+                console.log($('#'+data))
+                
             },
 
             error: function (e) {
