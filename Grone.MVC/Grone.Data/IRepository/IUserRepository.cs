@@ -13,7 +13,9 @@ namespace Grone.Data.IRepository
         void Delete(PostEntityModel entity);
         void Delete(CommentEntityModel entity);
         IEnumerable<UserEntityModel> GetAll();
-        UserEntityModel GetUser(Guid id);
+        UserEntityModel GetUserByMail(string eMail);
+        UserEntityModel GetUserById(Guid id);
         void Update(UserEntityModel entity); //check for existsing email
+        UserEntityModel CheckCredentials(string email, string password);
     }
 }

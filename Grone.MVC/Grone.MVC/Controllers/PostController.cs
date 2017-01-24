@@ -12,6 +12,7 @@ using System.IO;
 
 namespace Grone.MVC.Controllers
 {
+    [AllowAnonymous]
     public class PostController : Controller
     {
         public IPostRepository repository;

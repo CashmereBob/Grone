@@ -11,7 +11,7 @@ namespace Grone.MVC.App_Start
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthorizeAttribute()); //so that we can use authorize attribute
+            filters.Add(new AuthorizeAttribute()); //all requests will have authorize by default, and hyperlink to loginpage 
         }
     }
 }
