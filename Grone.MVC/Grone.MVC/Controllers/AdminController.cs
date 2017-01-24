@@ -66,13 +66,10 @@ namespace Grone.MVC.Controllers
 
                     authManager.SignIn(identity);
 
-                    return Content("succeeded");
-                    //return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(model);
-            //return Content("login failed");
-            //return View();//we stay on the login page if login fails
         }
 
         public ActionResult Logout()
