@@ -53,7 +53,7 @@ namespace Grone.MVC.Controllers
             model.MemberId = Session["User"].ToString();
             var entity = PostViewToEntity.PostViewModelToEntity(model);
             repository.AddOrUpdate(entity); //Spara modellen i databasen
-            return Content(entity.Id.ToString());
+            return Json(entity);
         }
 
         [HttpGet]

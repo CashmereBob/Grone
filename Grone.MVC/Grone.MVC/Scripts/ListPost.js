@@ -10,6 +10,12 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                     ToggleComments($location.search().post);
                     groneAppFactory.getParams = false;
                 }
+                if (groneAppFactory.ScrollObject.id > 30) {
+                    $location.hash(groneAppFactory.ScrollObject.id);
+                    $anchorScroll();
+                }
+
+
             }, 0);
         }
         
@@ -35,6 +41,8 @@ app.factory('groneAppFactory', function ($http, $location) {
     factory.GetPosts = function () {
         return posts;
     };
+
+    factory.ScrollObject = {};
 
     factory.getParams = true;
 
@@ -124,7 +132,10 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         
     }
 
-
+    $scope.UpdateScrollItem = function (object) {
+        groneAppFactory.ScrollObject = object;
+        console.log(groneAppFactory.ScrollObject.Id)
+    }
 
 });
 

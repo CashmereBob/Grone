@@ -31,6 +31,25 @@ namespace Grone.MVC
         {
             do
             {
+                //var allPosts = repo.GetAll().ToList();
+
+                //foreach (var post in allPosts)
+                //{
+                //    if (post.TimeLeft > 0)
+                //        post.TimeLeft -= 1;
+                //    else
+                //    {
+                //        string filename = Path.GetFileName(post.ImgSrc);
+
+                //        FileHelper.RemoveFile(filename);
+
+                //        repo.Delete(post.Id);
+
+                //    }
+                //}
+
+                //));
+
                 using (var context = new GroneEntities())
                 {
                     foreach (var post in context.Posts)
@@ -39,10 +58,14 @@ namespace Grone.MVC
                             post.TimeLeft -= 1;
                         else
                         {
-                            string filename = Path.GetFileName(post.ImgSrc);
+                            if (!string.IsNullOrWhiteSpace(post.ImgSrc))
+                            {
+                                string filename = Path.GetFileName(post.ImgSrc);
 
-                            FileHelper.RemoveFile(filename);
+                                FileHelper.RemoveFile(filename);
 
+                                
+                            }
                             context.Posts.Remove(post);
                         }
                     }
