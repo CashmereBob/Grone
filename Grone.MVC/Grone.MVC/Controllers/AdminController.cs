@@ -30,19 +30,6 @@ namespace Grone.MVC.Controllers
             return View();
         }
 
-        private bool SuccessfullLogin(UserEntityModel userToBeLoggedIn)
-        {
-            using (var context = new GroneEntities())
-            {
-                foreach (var user in context.Users)
-                {
-                    if (user.eMail == userToBeLoggedIn.eMail && user.Password == userToBeLoggedIn.Password)
-                        return true;
-                }
-                return false;
-            }
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
