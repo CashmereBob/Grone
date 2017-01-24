@@ -11,5 +11,6 @@ namespace Grone.Data.IRepository
     {
         void Add(UserEntityModel entity);
         void Delete(PostEntityModel entity);
+        void Delete(CommentEntityModel entity);
     }
 }

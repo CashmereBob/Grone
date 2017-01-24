@@ -28,6 +28,18 @@ namespace Grone.Data.Repository
             throw new NotImplementedException();
         }
 
+        public void Delete(CommentEntityModel entity)
+        {
+            ICommentRepository repo = new CommentRepository();
+
+            using (var context = new GroneEntities())
+            {
+                repo.Delete(entity.Id);
+
+                context.SaveChanges();
+            }
+        }
+
         public void Delete(PostEntityModel entity)
         {
             IPostRepository repo = new PostRepository();
