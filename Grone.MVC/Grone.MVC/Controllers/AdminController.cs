@@ -92,24 +92,33 @@ namespace Grone.MVC.Controllers
         }
 
 
-        //public ActionResult Update(UpdateUserViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (repo.EmailAlreadyExists(model.eMail))
-        //            return View(model);
+        public ActionResult Update(UpdateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (repo.EmailAlreadyExists(model.Email))
+                    return View(model);
 
-        //        else
-        //        {
-        //            var entityToUpdate = repo.GetUserById(model.id);
+                else
+                {
+                    //get current user id
+                    ClaimsIdentity currentIdentity = User.Identity as ClaimsIdentity;
+                    Guid userid = Guid.Parse(currentIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-        //            repo.Update(entityToUpdate);
+                    //create entity and populate with updated info
+                    var entity = new UserEntityModel();
+                    entity.Id = userid;
+                    entity.eMail = model.Email;
+                    entity.Fullname = model.FullName;
+                    entity.Password = model.Password;
+                    
+                    repo.Update(entity);
 
-        //            return View("Index");
-        //        }
-        //    }
-        //    return View(model);
-        //}
+                    return View("Index");
+                }
+            }
+            return View(model);
+        }
 
         public ActionResult Logout()
         {
