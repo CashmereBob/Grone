@@ -133,6 +133,7 @@ namespace Grone.MVC.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult Logout()
         {
             var ctx = Request.GetOwinContext();
