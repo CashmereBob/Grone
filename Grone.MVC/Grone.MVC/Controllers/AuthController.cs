@@ -15,10 +15,10 @@ using System.Web.Mvc;
 
 namespace Grone.MVC.Controllers
 {
-    public class AdminController : Controller
+    public class AuthController : Controller
     {
         public IUserRepository repo;
-        public AdminController()
+        public AuthController()
         {
             repo = new UserRepository();
         }
@@ -27,7 +27,12 @@ namespace Grone.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            List<UserEntityModel> usersFromDb = repo.GetAll();
+
+            if (usersFromDb.Count == 0 || usersFromDb == null)
+                return RedirectToAction("Add");
+            else
+                return View();
         }
 
         [HttpPost]
@@ -37,40 +42,47 @@ namespace Grone.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<UserEntityModel> usersFromDb = repo.GetAll();
-                if (usersFromDb.Count == 0 || usersFromDb == null)
-                    return View("Register");
-                else
+                UserEntityModel userToLogin = repo.CheckCredentials(model.eMail, model.Password);
+
+                if (userToLogin != null)
                 {
-                    UserEntityModel userToLogin = repo.CheckCredentials(model.eMail, model.Password);
+                    // when user is found, set the necessary userloginviewmodel properties
+                    model.Id = userToLogin.Id;
+                    model.Fullname = userToLogin.Fullname;
+                    model.eMail = userToLogin.eMail;
+                    model.Password = userToLogin.Password;
 
-                    if (userToLogin != null)
+                    var identity = new ClaimsIdentity(new[]
                     {
-                        // when user is found, set the necessary userloginviewmodel properties
-                        model.Id = userToLogin.Id;
-                        model.Fullname = userToLogin.Fullname;
-                        model.eMail = userToLogin.eMail;
-                        model.Password = userToLogin.Password;
-
-                        var identity = new ClaimsIdentity(new[]
-                        {
                         new Claim(ClaimTypes.Name, model.Fullname),
                         new Claim(ClaimTypes.Email, model.eMail),
                         new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
                     }, "ApplicationCookie");
 
-                        IOwinContext owinCtx = HttpContext.GetOwinContext();
-                        IAuthenticationManager authManager = owinCtx.Authentication;
-                        authManager.SignIn(identity);
+                    IOwinContext owinCtx = HttpContext.GetOwinContext();
+                    IAuthenticationManager authManager = owinCtx.Authentication;
+                    authManager.SignIn(identity);
 
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(model);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Add()
+        {
+            if (User.Identity.IsAuthenticated == false && repo.GetAll().Count > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+                return View();
+        }
+
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Add(AddUserViewModel model)
         {
@@ -85,13 +97,14 @@ namespace Grone.MVC.Controllers
 
                     repo.Add(entity);
 
-                    return View("Index");
+                    return RedirectToAction("Index");
                 }
             }
             return View(model);
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(UpdateUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -111,7 +124,7 @@ namespace Grone.MVC.Controllers
                     entity.eMail = model.Email;
                     entity.Fullname = model.FullName;
                     entity.Password = model.Password;
-                    
+
                     repo.Update(entity);
 
                     return View("Index");
