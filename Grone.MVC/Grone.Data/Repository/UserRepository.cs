@@ -97,17 +97,16 @@ namespace Grone.Data.Repository
 
         public bool EmailAlreadyExists(string eMail)
         {
-            using (var context = new GroneEntities())
+            List<UserEntityModel> usersFromDb = GetAll();
+
+            foreach (var user in usersFromDb)
             {
-                foreach (var user in GetAll())
+                if (user.eMail == eMail)
                 {
-                    if (user.eMail == eMail)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                return false;
             }
+            return false;
         }
     }
 }
