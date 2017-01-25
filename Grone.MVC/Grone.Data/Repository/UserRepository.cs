@@ -83,25 +83,13 @@ namespace Grone.Data.Repository
 
         public void Update(UserEntityModel entity)
         {
-            // todo ivan: dont check for existing email here!
-
             using (var context = new GroneEntities())
             {
                 var userToUpdate = context.Users.FirstOrDefault(u => u.Id == entity.Id);
 
-                /*if email is already taken, 
-                update everything except the email*/
-                if (EmailAlreadyExists(entity.eMail))
-                {
-                    userToUpdate.Fullname = entity.Fullname;
-                    userToUpdate.Password = entity.Password;
-                }
-                else
-                {
-                    userToUpdate.eMail = entity.eMail;
-                    userToUpdate.Fullname = entity.Fullname;
-                    userToUpdate.Password = entity.Password;
-                }
+                userToUpdate.eMail = entity.eMail;
+                userToUpdate.Fullname = entity.Fullname;
+                userToUpdate.Password = entity.Password;
 
                 context.SaveChanges();
             }

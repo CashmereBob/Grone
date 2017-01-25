@@ -85,7 +85,27 @@ namespace Grone.MVC.Controllers
 
                     repo.Add(entity);
 
-                    return View();
+                    return View("Index");
+                }
+            }
+            return View(model);
+        }
+
+
+        public ActionResult Update(UserUpdateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (repo.EmailAlreadyExists(model.eMail))
+                    return View(model);
+
+                else
+                {
+                    var entityToUpdate = repo.GetUserById(model.id);
+
+                    repo.Update(entityToUpdate);
+
+                    return View("Index");
                 }
             }
             return View(model);
