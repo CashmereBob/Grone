@@ -70,12 +70,19 @@ namespace Grone.MVC.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Add()
         {
-            return View();
+            if (User.Identity.IsAuthenticated == false && repo.GetAll().Count > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+                return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Add(AddUserViewModel model)
         {
