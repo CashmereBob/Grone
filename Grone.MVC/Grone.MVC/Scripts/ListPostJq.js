@@ -50,7 +50,7 @@ function BlinkDiv(id) {
     setTimeout(function () {
         div.toggleClass('blink');
         div.toggleClass('hoverColor');
-    }, 500);
+    }, 1000);
 }
 
 $(document).ready(function () {
@@ -65,18 +65,22 @@ $(document).ready(function () {
 })
 
 function AddPost(form, div) {
+    StartPostLoad();
         $.ajax({
             type: "POST",
             url: "/Post/Add",
             data: new FormData(form[0]),
             success: function (data) {
+                setTimeout(function () {
                 angular.element($("#GroneAppController")).scope().sortBy.item = '-Date';
                 angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
                 angular.element($("#GroneAppController")).scope().$apply();
                 form[0].reset();
+                StopPostLoad();
                 angular.element($("#GroneAppController")).scope().GetPosts();
                 angular.element($("#GroneAppController")).scope().$apply();
                 div.modal('hide');
+                }, 1000);
             },
 
             error: function (e) {
@@ -106,19 +110,25 @@ function SetSubmit(form) {
     form.submit(function (e) {
         e.preventDefault();
         
+        StartCommentLoad();
+
         $.ajax({
             type: "POST",
             url: "/Comment/AddComment",
             data: new FormData(form[0]),
             success: function (data) {
+                setTimeout(function () {
                 angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
                 angular.element($("#GroneAppController")).scope().$apply();
                 form[0].reset();
+                StopCommentLoad();
+
                 angular.element($("#GroneAppController")).scope().GetPosts();
                 angular.element($("#GroneAppController")).scope().$apply();
                 div.modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
+                }, 1000);
             },
 
             error: function (e) {
@@ -132,11 +142,51 @@ function SetSubmit(form) {
 }
 
 function StartBigLoad() {
-    $('#bigLoaderContent').show();
     $('#postContent').hide();
+    
+    $('#postContent').fadeOut("slow", function () {
+        $('#bigLoaderContent').fadeIn("slow");
+        
+    });
 }
 
 function StopBigLoad() {
-    $('#bigLoaderContent').hide();
-    $('#postContent').show();
+    
+    $('#bigLoaderContent').fadeOut("slow", function () {
+        $('#postContent').fadeIn("slow");
+       
+    });
+}
+
+function StartPostLoad() {
+    $('#postLoader').fadeIn("slow").css("display", "inline-block");
+}
+
+function StopPostLoad() {
+    $('#postLoader').fadeOut("slow").css("display", "none");
+}
+
+function StartCommentLoad() {
+    $('.commentLoader').each(function (e) {
+        $(this).css("display", "inline-block");
+
+    });
+}
+
+function StopCommentLoad() {
+    $('.commentLoader').each(function (e) {
+        $('#postLoader').fadeOut("slow").css("display", "none");
+    });
+}
+
+function StartGetAllCommentLoad(id) {
+    var div = $('#' + id);
+    var loader = $($(div.children()[0]).children()[6]);
+    loader.fadeIn("slow");
+}
+
+function StopGetAllCommentLoad(id) {
+    var div = $('#' + id);
+    var loader = $($(div.children()[0]).children()[6]);
+    loader.fadeOut();
 }

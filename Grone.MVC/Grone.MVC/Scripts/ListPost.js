@@ -115,11 +115,13 @@ app.factory('groneAppFactory', function ($http, $location) {
     };
 
     factory.LoadPreviewCommentsForPost = function (id) {
+        StartGetAllCommentLoad(id);
         $http({
             method: 'GET',
             url: '/Post/GetPreviewCommentsByPosts',
             params: { Id: id }
         }).then(function successCallback(response) {
+            StopGetAllCommentLoad(id);
             angular.forEach(posts, function (post, key) {
                 if (post.Id == id) {
                     post.Comments.length = 0;
@@ -137,11 +139,13 @@ app.factory('groneAppFactory', function ($http, $location) {
     };
 
     factory.LoadCommentsForPost = function (id) {
+        StartGetAllCommentLoad(id);
         $http({
             method: 'GET',
             url: '/Post/GetCommentsBypost',
             params: { Id: id }
         }).then(function successCallback(response) {
+            
             angular.forEach(posts, function (post, key) {
                 if (post.Id == id) {
                     post.Comments.length = 0;
@@ -153,6 +157,7 @@ app.factory('groneAppFactory', function ($http, $location) {
                     })
                 }
             })
+            StopGetAllCommentLoad(id);
         }, function errorCallback(response) {
             console.log('fail')
         });
