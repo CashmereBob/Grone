@@ -12,6 +12,8 @@ namespace Grone.Data.Repository
     {
         public void Add(UserEntityModel entity)
         {
+            // todo ivan: dont check for existing email here!
+
             using (var context = new GroneEntities())
             {
                 if (EmailAlreadyExists(entity.eMail))
@@ -97,6 +99,8 @@ namespace Grone.Data.Repository
 
         public void Update(UserEntityModel entity)
         {
+            // todo ivan: dont check for existing email here!
+
             using (var context = new GroneEntities())
             {
                 var userToUpdate = context.Users.FirstOrDefault(u => u.Id == entity.Id);
@@ -119,7 +123,7 @@ namespace Grone.Data.Repository
             }
         }
 
-        private bool EmailAlreadyExists(string eMail)
+        public bool EmailAlreadyExists(string eMail)
         {
             using (var context = new GroneEntities())
             {

@@ -70,6 +70,28 @@ namespace Grone.MVC.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(UserAddViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if(repo.EmailAlreadyExists(model.eMail))
+                    return View(model);
+
+                else
+                {
+                    //create new user
+                    
+
+                    repo.Add(EFMapper.ModelToEntity(model));
+
+                    return View();
+                }
+            }
+            return View(model);
+        }
+
         public ActionResult Logout()
         {
             var ctx = Request.GetOwinContext();

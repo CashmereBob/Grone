@@ -9,13 +9,14 @@ namespace Grone.Data.IRepository
 {
     public interface IUserRepository
     {
-        void Add(UserEntityModel entity);//check for existsing email
+        void Add(UserEntityModel entity);
         void Delete(PostEntityModel entity);
         void Delete(CommentEntityModel entity);
         List<UserEntityModel> GetAll();
         UserEntityModel GetUserByMail(string eMail);
         UserEntityModel GetUserById(Guid id);
-        void Update(UserEntityModel entity); //check for existsing email
+        void Update(UserEntityModel entity);
         UserEntityModel CheckCredentials(string email, string password);
+        bool EmailAlreadyExists(string eMail);
     }
 }
