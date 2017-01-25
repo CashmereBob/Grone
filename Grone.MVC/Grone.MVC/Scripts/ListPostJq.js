@@ -65,21 +65,22 @@ $(document).ready(function () {
 })
 
 function AddPost(form, div) {
-    StartPostLoad();
+    if (form.valid()) {
+        StartPostLoad();
         $.ajax({
             type: "POST",
             url: "/Post/Add",
             data: new FormData(form[0]),
             success: function (data) {
                 setTimeout(function () {
-                angular.element($("#GroneAppController")).scope().sortBy.item = '-Date';
-                angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
-                angular.element($("#GroneAppController")).scope().$apply();
-                form[0].reset();
-                StopPostLoad();
-                angular.element($("#GroneAppController")).scope().GetPosts();
-                angular.element($("#GroneAppController")).scope().$apply();
-                div.modal('hide');
+                    angular.element($("#GroneAppController")).scope().sortBy.item = '-Date';
+                    angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
+                    angular.element($("#GroneAppController")).scope().$apply();
+                    form[0].reset();
+                    StopPostLoad();
+                    angular.element($("#GroneAppController")).scope().GetPosts();
+                    angular.element($("#GroneAppController")).scope().$apply();
+                    div.modal('hide');
                 }, 1000);
             },
 
@@ -89,6 +90,7 @@ function AddPost(form, div) {
             processData: false,
             contentType: false
         });
+    }
 }
 
 function BindCommentForm() {
@@ -112,6 +114,8 @@ function SetSubmit(form) {
         
         StartCommentLoad();
 
+        if (form.valid())
+        {
         $.ajax({
             type: "POST",
             url: "/Comment/AddComment",
@@ -137,6 +141,7 @@ function SetSubmit(form) {
             processData: false,
             contentType: false
         });
+        }
     })
 
 }

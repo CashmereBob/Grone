@@ -10,10 +10,14 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="https://use.fontawesome.com/7026bbd10a.js"></script>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("JavaScript")
+    
 </head>
 <body ng-controller="groneAppController" ng-init="GetPosts()" id="GroneAppController">
     <div class="container body-content">
