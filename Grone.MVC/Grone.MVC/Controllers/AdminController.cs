@@ -72,11 +72,11 @@ namespace Grone.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(UserAddViewModel model)
+        public ActionResult Add(AddUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                if (repo.EmailAlreadyExists(model.eMail))
+                if (repo.EmailAlreadyExists(model.Email))
                     return View(model);
 
                 else
@@ -92,24 +92,24 @@ namespace Grone.MVC.Controllers
         }
 
 
-        public ActionResult Update(UserUpdateViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (repo.EmailAlreadyExists(model.eMail))
-                    return View(model);
+        //public ActionResult Update(UpdateUserViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (repo.EmailAlreadyExists(model.eMail))
+        //            return View(model);
 
-                else
-                {
-                    var entityToUpdate = repo.GetUserById(model.id);
+        //        else
+        //        {
+        //            var entityToUpdate = repo.GetUserById(model.id);
 
-                    repo.Update(entityToUpdate);
+        //            repo.Update(entityToUpdate);
 
-                    return View("Index");
-                }
-            }
-            return View(model);
-        }
+        //            return View("Index");
+        //        }
+        //    }
+        //    return View(model);
+        //}
 
         public ActionResult Logout()
         {
