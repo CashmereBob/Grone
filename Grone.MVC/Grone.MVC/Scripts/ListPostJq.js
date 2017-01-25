@@ -184,12 +184,17 @@ function StopCommentLoad() {
 
 function StartGetAllCommentLoad(id) {
     var div = $('#' + id);
-    var loader = $($(div.children()[0]).children()[6]);
+    var loader = $($($(div.children()[0]).children()[5]).children()[0]);
     loader.fadeIn("slow");
+    console.log(loader);
+
 }
 
 function StopGetAllCommentLoad(id) {
     var div = $('#' + id);
-    var loader = $($(div.children()[0]).children()[6]);
-    loader.fadeOut();
+    var loader = $($($(div.children()[0]).children()[5]).children()[0]);
+    loader.fadeOut("slow");
+    console.log(loader);
+
+    
 }

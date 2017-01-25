@@ -103,10 +103,12 @@
                 <h4>{{post.TimeAdded}}</h4>
                 <p>minutes</p>
             </div>
-            <div class="col-xs-12 text-right replyDiv">
-                <div class="getCommentLoader">
-                    <div class='uil-ring-css loader'><div></div></div>
+                <div class="col-xs-12">
+                    <div class="getCommentLoader">
+                        <div class='uil-ring-css loader'><div></div></div>
+                    </div>
                 </div>
+            <div class="col-xs-12 text-right replyDiv">
                 <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
                 <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>
                 <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
