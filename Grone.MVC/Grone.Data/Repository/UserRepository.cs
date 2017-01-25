@@ -12,27 +12,11 @@ namespace Grone.Data.Repository
     {
         public void Add(UserEntityModel entity)
         {
-            // todo ivan: dont check for existing email here!
-
             using (var context = new GroneEntities())
             {
-                if (EmailAlreadyExists(entity.eMail))
-                {
+                context.Users.Add(entity);
 
-                }
-                else
-                {
-                    var newAdmin = new UserEntityModel()
-                    {
-                        eMail = entity.eMail,
-                        Fullname = entity.Fullname,
-                        Password = entity.Password,
-                    };
-
-                    context.Users.Add(newAdmin);
-
-                    context.SaveChanges();
-                }
+                context.SaveChanges();
             }
         }
 

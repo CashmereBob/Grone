@@ -81,9 +81,9 @@ namespace Grone.MVC.Controllers
 
                 else
                 {
-                    //create new user
+                    var entity = EFMapper.ModelToEntity(model);
 
-                    repo.Add(EFMapper.ModelToEntity(model));
+                    repo.Add(entity);
 
                     return View();
                 }
