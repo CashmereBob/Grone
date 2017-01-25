@@ -12,22 +12,28 @@ namespace Grone.Data.Repository
     {
         public void Add(UserEntityModel entity)
         {
+            // todo ivan: dont check for existing email here!
+
             using (var context = new GroneEntities())
             {
-                var newAdmin = new UserEntityModel()
+                if (EmailAlreadyExists(entity.eMail))
                 {
-                    eMail = entity.eMail,
-                    Fullname = entity.Fullname,
-                    Password = entity.Password,
-                };
 
-                // todo: check if email already exists
+                }
+                else
+                {
+                    var newAdmin = new UserEntityModel()
+                    {
+                        eMail = entity.eMail,
+                        Fullname = entity.Fullname,
+                        Password = entity.Password,
+                    };
 
-                context.Users.Add(newAdmin);
+                    context.Users.Add(newAdmin);
 
-                context.SaveChanges();
+                    context.SaveChanges();
+                }
             }
-            throw new NotImplementedException();
         }
 
         public void Delete(CommentEntityModel entity)
@@ -54,9 +60,12 @@ namespace Grone.Data.Repository
             }
         }
 
-        public IEnumerable<UserEntityModel> GetAll()
+        public List<UserEntityModel> GetAll()
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Users.ToList();
+            }
         }
 
         public UserEntityModel GetUserById(Guid id)
@@ -87,9 +96,46 @@ namespace Grone.Data.Repository
                 return context.Users.FirstOrDefault(u => u.eMail == eMail);
             }
         }
+
         public void Update(UserEntityModel entity)
         {
-            throw new NotImplementedException();
+            // todo ivan: dont check for existing email here!
+
+            using (var context = new GroneEntities())
+            {
+                var userToUpdate = context.Users.FirstOrDefault(u => u.Id == entity.Id);
+
+                /*if email is already taken, 
+                update everything except the email*/
+                if (EmailAlreadyExists(entity.eMail))
+                {
+                    userToUpdate.Fullname = entity.Fullname;
+                    userToUpdate.Password = entity.Password;
+                }
+                else
+                {
+                    userToUpdate.eMail = entity.eMail;
+                    userToUpdate.Fullname = entity.Fullname;
+                    userToUpdate.Password = entity.Password;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public bool EmailAlreadyExists(string eMail)
+        {
+            using (var context = new GroneEntities())
+            {
+                foreach (var user in GetAll())
+                {
+                    if (user.eMail == eMail)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
     }
 }
