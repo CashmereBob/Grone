@@ -70,23 +70,42 @@ namespace Grone.MVC.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Add(UserAddViewModel model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(AddUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (repo.EmailAlreadyExists(model.Email))
+                    return View(model);
+
+                else
+                {
+                    var entity = EFMapper.ModelToEntity(model);
+
+                    repo.Add(entity);
+
+                    return View("Index");
+                }
+            }
+            return View(model);
+        }
+
+
+        //public ActionResult Update(UpdateUserViewModel model)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        if(repo.EmailAlreadyExists(model.eMail))
+        //        if (repo.EmailAlreadyExists(model.eMail))
         //            return View(model);
 
         //        else
         //        {
-        //            //create new user
-                    
+        //            var entityToUpdate = repo.GetUserById(model.id);
 
-        //            repo.Add(EFMapper.ModelToEntity(model));
+        //            repo.Update(entityToUpdate);
 
-        //            return View();
+        //            return View("Index");
         //        }
         //    }
         //    return View(model);
