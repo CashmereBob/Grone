@@ -62,6 +62,8 @@ $(document).ready(function () {
         AddPost(postForm, $(this).parent().parent().parent().parent());
     })
 
+    
+
 })
 
 function AddPost(form, div) {
@@ -186,7 +188,7 @@ function StartGetAllCommentLoad(id) {
     var div = $('#' + id);
     var loader = $($($(div.children()[0]).children()[5]).children()[0]);
     loader.fadeIn("slow");
-    console.log(loader);
+    
 
 }
 
@@ -194,7 +196,7 @@ function StopGetAllCommentLoad(id) {
     var div = $('#' + id);
     var loader = $($($(div.children()[0]).children()[5]).children()[0]);
     loader.fadeOut("slow");
-    console.log(loader);
+   
 
     
 }

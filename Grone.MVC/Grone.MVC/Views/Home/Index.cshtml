@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="col-md-2 inp">
-        <select class="form-control" ng-model="sortBy.item" ng-options="item.id as item.name for item in OrderList">
+        <select id="sortDropdown" class="form-control" ng-model="sortBy.item" ng-options="item.id as item.name for item in OrderList">
             
         </select>
     </div>
@@ -69,7 +69,7 @@
                 <p class="infoData">Groner: #{{post.MemberId}} @@ {{post.Date}} Post: #{{post.Id}}</p>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-sm-8">
                 <a ng-if="post.ImgSrc" data-toggle="modal" data-target="#img{{post.Id}}"><img class="imgCol" src="{{post.ImgSrc}}"></a>
                 <div class="CommentContent">
                     <h4>{{post.Title}}</h4>
@@ -93,12 +93,12 @@
             </div>
 
 
-            <div class="col-md-2 text-center">
+            <div class="col-xs-6 col-sm-2 text-center">
                 <p>Time Left</p>
                 <h4>{{post.TimeLeft}}</h4>
                 <p>minutes</p>
             </div>
-            <div class="col-md-2 text-center">
+            <div class="col-xs-6 col-sm-2 text-center">
                 <p>Lifetime</p>
                 <h4>{{post.TimeAdded}}</h4>
                 <p>minutes</p>
@@ -111,7 +111,7 @@
             <div class="col-xs-12 text-right replyDiv">
                 <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
                 <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>
-                <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
+                <button class="btn btn-default replyButton" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
             </div>
             
 
@@ -158,7 +158,7 @@
 
 
                     <div class="col-xs-12 text-right replyDiv">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#AddCommentToComment{{comment.Id}}">REPLY</button>
+                        <button class="btn btn-default replyButton" data-toggle="modal" data-target="#AddCommentToComment{{comment.Id}}">REPLY</button>
                     </div>
                     <div class="modal fade" id="AddCommentToComment{{comment.Id}}" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">

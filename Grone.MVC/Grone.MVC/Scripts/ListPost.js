@@ -6,16 +6,18 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
             BindCommentForm();
             $timeout(function () {
 
-                if (groneAppFactory.getParams == true  && typeof $location.search().post !== 'undefined') {
+                if (groneAppFactory.getParams == true && typeof $location.search().post !== 'undefined') {
                     console.log('handling params')
                     groneAppFactory.LoadCommentsForPost($location.search().post);
                     ToggleComments($location.search().post);
 
-                        $location.hash($location.search().post);
-                        $anchorScroll();
-                        BlinkDiv($location.search().post);
-                        if (typeof $location.search().comment == 'undefined') { groneAppFactory.getParams = false; }
-                    
+                    //$location.hash($location.search().post);
+                    //$anchorScroll();
+                    EPPZScrollTo.scrollVerticalToElementById($location.search().post, 20);
+
+                    BlinkDiv($location.search().post);
+                    if (typeof $location.search().comment == 'undefined') { groneAppFactory.getParams = false; }
+
                 }
 
                 if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
@@ -25,15 +27,18 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
 
                 } else if (typeof groneAppFactory.ScrollObject.Id !== 'undefined') {
                     console.log('handling post')
-                    $location.hash(groneAppFactory.ScrollObject.Id);
-                    $anchorScroll();
+
+                    //$location.hash(groneAppFactory.ScrollObject.Id);
+                    //$anchorScroll
+                    EPPZScrollTo.scrollVerticalToElementById(groneAppFactory.ScrollObject.Id, 20);
+
                     BlinkDiv(groneAppFactory.ScrollObject.Id);
                     groneAppFactory.ScrollObject = {};
                 }
 
-            }, 0);
+            }, 200);
         }
-        
+
     };
 });
 
@@ -45,24 +50,30 @@ app.directive('postCommentRepeatDirective', function ($location, groneAppFactory
             $timeout(function () {
 
                 if (groneAppFactory.getParams == true && typeof $location.search().comment !== 'undefined') {
-                        $location.hash($location.search().comment);
-                        $anchorScroll();
-                        BlinkDiv($location.search().comment);
-                   
+                    //$location.hash($location.search().comment);
+                    //$anchorScroll();
+
+                    EPPZScrollTo.scrollVerticalToElementById($location.search().comment, 20);
+
+                    BlinkDiv($location.search().comment);
+
                     groneAppFactory.getParams = false;
                 }
 
                 if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
                     console.log('handling SCROLLING')
-                    $location.hash(groneAppFactory.ScrollObject.Id);
-                    $anchorScroll();
+
+                    //$location.hash(groneAppFactory.ScrollObject.Id);
+                    //$anchorScroll();
+                    EPPZScrollTo.scrollVerticalToElementById(groneAppFactory.ScrollObject.Id, 20);
+
                     BlinkDiv(groneAppFactory.ScrollObject.Id);
                     groneAppFactory.ScrollObject = {};
 
                 }
 
 
-            }, 0);
+            }, 200);
         }
     };
 });
@@ -87,9 +98,9 @@ app.factory('groneAppFactory', function ($http, $location) {
         console.log('counting');
 
         angular.forEach(posts, function (value, key) {
-            
+
             value.TimeLeft = value.TimeLeft - 1;
-            
+
             if (value.TimeLeft == 0) {
                 posts.splice(key, 1);
             }
@@ -145,7 +156,7 @@ app.factory('groneAppFactory', function ($http, $location) {
             url: '/Post/GetCommentsBypost',
             params: { Id: id }
         }).then(function successCallback(response) {
-            
+
             angular.forEach(posts, function (post, key) {
                 if (post.Id == id) {
                     post.Comments.length = 0;
@@ -186,7 +197,7 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
     };
     $scope.GetPosts = function () {
         groneAppFactory.UpdatePostsObject();
-        
+
     }
 
     $scope.UpdateScrollItem = function (object) {
@@ -195,8 +206,7 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
 
     $scope.ScrollToAnchor = function (event) {
         BlinkDiv(event.target.attributes['data-parentId'].value);
-        $location.hash(event.target.attributes['data-parentId'].value);
-        $anchorScroll();
+        EPPZScrollTo.scrollVerticalToElementById(event.target.attributes['data-parentId'].value, 20);
     }
 
     $scope.sortBy = {};
@@ -210,10 +220,10 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         { id: '-TimeAdded', name: "LIFETIME desc" },
         { id: '+TimeAdded', name: "LIFETIME asc" }];
 
-    
 
-    setInterval(function () { groneAppFactory.CountDownTime(); $scope.$apply()  }, 60000);
-    
+
+    setInterval(function () { groneAppFactory.CountDownTime(); $scope.$apply() }, 60000);
+
 
 
 });

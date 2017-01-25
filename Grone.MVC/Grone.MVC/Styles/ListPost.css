@@ -82,6 +82,7 @@ body {
 
 .CommentContent {
     padding-left: 15px;
+    min-height: 100px;
 }
 
 #comments {
@@ -98,13 +99,17 @@ body {
 }
 
 .replyDiv {
-    padding-right: 65px;
+    padding: 0 10px;
 }
 .replyButton {
-    margin-right: 23px;
+    margin: 5px 10px;
 }
 
 #refrechButton {
+    min-width: 100%;
+}
+
+#sortDropdown {
     min-width: 100%;
 }
 
@@ -150,6 +155,7 @@ form textarea {
     transform:scale(0.18); 
     max-height: 0;
     display: none;
+    margin-right: 90%;
   
 }
 
