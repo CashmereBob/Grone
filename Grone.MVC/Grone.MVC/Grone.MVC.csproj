@@ -196,6 +196,7 @@
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\CommentViewModel.cs" />
     <Compile Include="ViewModel\PostViewModel.cs" />
+    <Compile Include="ViewModel\UpdateUserViewModel.cs" />
     <Compile Include="ViewModel\UserLoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
