@@ -54,9 +54,12 @@ namespace Grone.Data.Repository
             }
         }
 
-        public IEnumerable<UserEntityModel> GetAll()
+        public List<UserEntityModel> GetAll()
         {
-            throw new NotImplementedException();
+            using (var context = new GroneEntities())
+            {
+                return context.Users.ToList();
+            }
         }
 
         public UserEntityModel GetUserById(Guid id)

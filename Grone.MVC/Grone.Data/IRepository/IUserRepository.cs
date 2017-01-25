@@ -12,7 +12,7 @@ namespace Grone.Data.IRepository
         void Add(UserEntityModel entity);//check for existsing email
         void Delete(PostEntityModel entity);
         void Delete(CommentEntityModel entity);
-        IEnumerable<UserEntityModel> GetAll();
+        List<UserEntityModel> GetAll();
         UserEntityModel GetUserByMail(string eMail);
         UserEntityModel GetUserById(Guid id);
         void Update(UserEntityModel entity); //check for existsing email

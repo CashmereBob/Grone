@@ -37,28 +37,34 @@ namespace Grone.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserEntityModel userToLogin = repo.CheckCredentials(model.eMail,model.Password);
-
-                if (userToLogin != null)
+                List<UserEntityModel> usersFromDb = repo.GetAll();
+                if (usersFromDb.Count == 0 || usersFromDb == null)
+                    return View("Register");
+                else
                 {
-                    // when user is found, set the necessary userloginviewmodel properties
-                    model.Id = userToLogin.Id;
-                    model.Fullname = userToLogin.Fullname;
-                    model.eMail = userToLogin.eMail;
-                    model.Password = userToLogin.Password;
+                    UserEntityModel userToLogin = repo.CheckCredentials(model.eMail, model.Password);
 
-                    var identity = new ClaimsIdentity(new[]
+                    if (userToLogin != null)
                     {
+                        // when user is found, set the necessary userloginviewmodel properties
+                        model.Id = userToLogin.Id;
+                        model.Fullname = userToLogin.Fullname;
+                        model.eMail = userToLogin.eMail;
+                        model.Password = userToLogin.Password;
+
+                        var identity = new ClaimsIdentity(new[]
+                        {
                         new Claim(ClaimTypes.Name, model.Fullname),
                         new Claim(ClaimTypes.Email, model.eMail),
                         new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
                     }, "ApplicationCookie");
 
-                    IOwinContext owinCtx = HttpContext.GetOwinContext();
-                    IAuthenticationManager authManager = owinCtx.Authentication;
-                    authManager.SignIn(identity);
+                        IOwinContext owinCtx = HttpContext.GetOwinContext();
+                        IAuthenticationManager authManager = owinCtx.Authentication;
+                        authManager.SignIn(identity);
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
             return View(model);
