@@ -21,5 +21,6 @@ namespace Grone.MVC.ViewModel
         [Required(ErrorMessage = "Please type in your email")]
         [EmailAddress(ErrorMessage = "Must be a valid emailform")]
         public string Email { get; set; }
+        //hej
     }
 }
