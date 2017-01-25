@@ -15,19 +15,19 @@ using System.Web.Mvc;
 
 namespace Grone.MVC.Controllers
 {
-    public class AdminController : Controller
+    public class UserController : Controller
     {
         public IUserRepository repo;
-        public AdminController()
+        public UserController()
         {
             repo = new UserRepository();
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Index() //LOGIN 
+        public ActionResult Index() 
         {
-           List<UserEntityModel> usersFromDb = repo.GetAll();
+            List<UserEntityModel> usersFromDb = repo.GetAll();
 
             if (usersFromDb.Count == 0 || usersFromDb == null)
                 return View("Add");
@@ -38,7 +38,7 @@ namespace Grone.MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(UserLoginViewModel model) //VALIDATE LOGIN 
+        public ActionResult Index(UserLoginViewModel model) 
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace Grone.MVC.Controllers
                     IAuthenticationManager authManager = owinCtx.Authentication;
                     authManager.SignIn(identity);
 
-                    return View("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(model);
