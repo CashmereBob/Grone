@@ -14,7 +14,7 @@
 
 function ToggleComments(id) {
     var div = $('.listOfComments', '#' + id);
-    
+
     if (div.hasClass("preview")) {
         div.slideToggle();
         div.toggleClass("preview");
@@ -54,7 +54,7 @@ function BlinkDiv(id) {
 }
 
 $(document).ready(function () {
- 
+
     var postForm = $('#AddPostForm');
 
     postForm.submit(function (e) {
@@ -102,45 +102,43 @@ function BindCommentForm() {
 function BindPostCommentForm() {
     $(".commentCommentForm").each(function (index, element) {
         SetSubmit($(this).children())
-    }) 
+    })
 }
 
 function SetSubmit(form) {
     var div = form.parent().parent().parent();
-    
+    $.validator.unobtrusive.parse(form);
 
     form.submit(function (e) {
         e.preventDefault();
-        
-        StartCommentLoad();
+        if (form.valid()) {
+            StartCommentLoad();
 
-        if (form.valid())
-        {
-        $.ajax({
-            type: "POST",
-            url: "/Comment/AddComment",
-            data: new FormData(form[0]),
-            success: function (data) {
-                setTimeout(function () {
-                angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
-                angular.element($("#GroneAppController")).scope().$apply();
-                form[0].reset();
-                StopCommentLoad();
+            $.ajax({
+                type: "POST",
+                url: "/Comment/AddComment",
+                data: new FormData(form[0]),
+                success: function (data) {
+                    setTimeout(function () {
+                        angular.element($("#GroneAppController")).scope().UpdateScrollItem(data);
+                        angular.element($("#GroneAppController")).scope().$apply();
+                        form[0].reset();
+                        StopCommentLoad();
 
-                angular.element($("#GroneAppController")).scope().GetPosts();
-                angular.element($("#GroneAppController")).scope().$apply();
-                div.modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
-                }, 1000);
-            },
+                        angular.element($("#GroneAppController")).scope().GetPosts();
+                        angular.element($("#GroneAppController")).scope().$apply();
+                        div.modal('hide');
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                    }, 1000);
+                },
 
-            error: function (e) {
-                console.log('no');
-            },
-            processData: false,
-            contentType: false
-        });
+                error: function (e) {
+                    console.log('no');
+                },
+                processData: false,
+                contentType: false
+            });
         }
     })
 
@@ -148,18 +146,18 @@ function SetSubmit(form) {
 
 function StartBigLoad() {
     $('#postContent').hide();
-    
+
     $('#postContent').fadeOut("slow", function () {
         $('#bigLoaderContent').fadeIn("slow");
-        
+
     });
 }
 
 function StopBigLoad() {
-    
+
     $('#bigLoaderContent').fadeOut("slow", function () {
         $('#postContent').fadeIn("slow");
-       
+
     });
 }
 

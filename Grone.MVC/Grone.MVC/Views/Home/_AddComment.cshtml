@@ -1,7 +1,7 @@
 ﻿@model Grone.MVC.ViewModel.CommentViewModel
 
 
-    <form action="/Comment/AddComment" class="ng-pristine ng-valid" enctype="multipart/form-data" method="post">
+    <form action="/Comment/AddComment" id="comment{{comment.Id}}" class="ng-pristine ng-valid comForm" enctype="multipart/form-data" method="post">
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
