@@ -34,48 +34,39 @@ namespace Grone.MVC
         {
             do
             {
-                //var allPosts = repo.GetAll().ToList();
+                Thread.Sleep(60000);
 
-                //foreach (var post in allPosts)
-                //{
-                //    if (post.TimeLeft > 0)
-                //        post.TimeLeft -= 1;
-                //    else
-                //    {
-                //        string filename = Path.GetFileName(post.ImgSrc);
+                var allPosts = repo.GetAll().ToList();
 
-                //        FileHelper.RemoveFile(filename);
-
-                //        repo.Delete(post.Id);
-
-                //    }
-                //}
-
-                //));
-
-                using (var context = new GroneEntities())
+                foreach (var post in allPosts)
                 {
-                    foreach (var post in context.Posts)
+                    post.TimeLeft -= 1;
+                    if (post.TimeLeft > 0)
                     {
-                        if (post.TimeLeft > 0)
-                            post.TimeLeft -= 1;
-                        else
-                        {
-                            if (!string.IsNullOrWhiteSpace(post.ImgSrc))
-                            {
-                                string filename = Path.GetFileName(post.ImgSrc);
-
-                                FileHelper.RemoveFile(filename);
-
-                                
-                            }
-                            context.Posts.Remove(post);
-                        }
+                        repo.AddOrUpdate(post);
                     }
+                    else
+                    {
+                        if (!string.IsNullOrWhiteSpace(post.ImgSrc))
+                        {
+                            string filename = Path.GetFileName(post.ImgSrc);
 
-                    context.SaveChanges();
+                            FileHelper.RemoveFile(filename);
+                        }
+                        var comments = repo.GetComments(post);
 
-                    Thread.Sleep(60000);
+                        foreach (var comment in comments)
+                        {
+                            if (!string.IsNullOrWhiteSpace(comment.ImgSrc))
+                            {
+                                string commentImgFilename = Path.GetFileName(comment.ImgSrc);
+                                FileHelper.RemoveFile(commentImgFilename);
+                            }
+                        }
+
+                        repo.Delete(post.Id);
+
+                    }
                 }
             } while (true);
         }
