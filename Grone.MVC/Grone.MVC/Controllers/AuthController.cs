@@ -136,10 +136,15 @@ namespace Grone.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Logout()
         {
-            var ctx = Request.GetOwinContext();
-            var authManager = ctx.Authentication;
-            authManager.SignOut("ApplicationCookie");
-            return RedirectToAction("index", "home");
+            if (User.Identity.IsAuthenticated == true)
+            {
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                authManager.SignOut("ApplicationCookie");
+                return RedirectToAction("index", "home");
+            }
+            else
+                return RedirectToAction("Index");
         }
     }
 }
