@@ -26,35 +26,55 @@ namespace Grone.MVC.Controllers
         }
         public ActionResult AddComment(CommentViewModel model, HttpPostedFileBase photoUpload)
         {
-            if (model != null)
+            try
             {
-
-                if (Session["User"] == null)
+                ValidationHandler val = new ValidationHandler();
+                if (val.ValidateCommentViewModel(model))
                 {
-                    Session["User"] = Guid.NewGuid();
-                }
-                if (photoUpload != null)
-                {
-                    //TODO : maximera filuppladdningen till 5mb *****
-                    string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
-                    string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
-                    string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
+                    if (model != null)
+                    {
+                        if (model.Comment.Count() <= 500)
+                        {
+                            if (Session["User"] == null)
+                            {
+                                Session["User"] = Guid.NewGuid();
+                            }
+                            if (photoUpload != null)
+                            {
+                                //TODO : maximera filuppladdningen till 5mb *****
+                                string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
+                                string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
+                                string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
-                    model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
-                    photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
-                }
+                                model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
+                                photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+                            }
+                            else
+                            {
+                                return Content("Photo not applied properly.");
+                            }
 
-                model.MemberId = Session["User"].ToString();
-                var entity = CommentViewToEntity.ToEntityComment(model);
-                repository.Add(entity);
-                return Json(entity);
+                            model.MemberId = Session["User"].ToString();
+                            var entity = CommentViewToEntity.ToEntityComment(model);
+                            repository.Add(entity);
+                            return Json(entity);
+                        }
+                        else
+                        {
+                            return Content("Commentmodel problem");
+                        }
+                    }
+                }
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (InvalidOperationException e)
             {
-                ModelState.AddModelError("Error", "Comment not valid");
-                return View("Index");
+                return Content("Problem with comment and InvalidOperationException: " + e.Message);
             }
-
+            catch (Exception e)
+            {
+                return Content("Problem with comment: " + e.Message);
+            }
         }
     }
 }

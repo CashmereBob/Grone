@@ -200,6 +200,7 @@
     <Compile Include="HelpClasses\FileHelper.cs" />
     <Compile Include="HelpClasses\PostViewToEntity.cs" />
     <Compile Include="HelpClasses\SaltHelper.cs" />
+    <Compile Include="HelpClasses\ValidationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\CommentViewModel.cs" />
