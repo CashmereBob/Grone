@@ -163,3 +163,7 @@ form textarea {
     max-height: 0;
     
 }
+
+.replyLink {
+    cursor: pointer;
+}
