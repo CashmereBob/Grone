@@ -98,7 +98,7 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                return context.Comments.Where(c => c.PostEntityModelId == Guid.Parse(id));
+                return context.Comments.Where(c => c.PostEntityModelId == Guid.Parse(id)).ToList();
             }
         }
 
@@ -106,7 +106,7 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                return context.Comments.Where(c => c.PostEntityModelId == id);
+                return context.Comments.Where(c => c.PostEntityModelId == id).ToList();
             }
         }
     }

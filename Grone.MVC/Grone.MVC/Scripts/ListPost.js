@@ -174,6 +174,17 @@ app.factory('groneAppFactory', function ($http, $location) {
         });
     };
 
+    factory.DeletePost = function (id) {
+        $http({
+            method: 'POST',
+            url: '/Auth/DeletePost',
+            params: { Id: id }
+        }).then(function successCallback(response) {
+            factory.GetPosts();
+        }, function errorCallback(response) {
+            console.log('fail')
+        });
+    };
     return factory;
 
 });
@@ -209,6 +220,10 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         EPPZScrollTo.scrollVerticalToElementById(event.target.attributes['data-parentId'].value, 20);
     }
 
+    $scope.DeletePost = function (event) {
+        groneAppFactory.DeletePost(event.target.attributes["data-parentId"].value);
+    }
+
     $scope.sortBy = {};
     $scope.sortBy.item = '-Date';
 
@@ -220,7 +235,7 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         { id: '-TimeAdded', name: "LIFETIME desc" },
         { id: '+TimeAdded', name: "LIFETIME asc" }];
 
-
+    $scope.currentUrl = window.location.protocol + "//" + window + location.host + "/";
 
     setInterval(function () { groneAppFactory.CountDownTime(); $scope.$apply() }, 60000);
 
