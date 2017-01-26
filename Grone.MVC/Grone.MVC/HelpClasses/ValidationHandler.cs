@@ -39,6 +39,14 @@ namespace Grone.MVC.HelpClasses
                         {
                             return true;
                         }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+
                     }
                 }
                 else
