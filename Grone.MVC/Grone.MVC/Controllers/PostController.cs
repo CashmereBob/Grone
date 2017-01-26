@@ -35,26 +35,42 @@ namespace Grone.MVC.Controllers
         [HttpPost]
         public ActionResult Add(PostViewModel model, HttpPostedFileBase photoUpload)
         {
-
-            if (Session["User"] == null)
+            ValidationHandler val = new ValidationHandler();
+            if (val.ValidatePostViewModel(model))
             {
-                Session["User"] = Guid.NewGuid();
-            }
-            if (photoUpload != null)
-            {
-                //TODO : maximera filuppladdningen till 5mb
+                try
+                {
+                    if (Session["User"] == null)
+                    {
+                        Session["User"] = Guid.NewGuid();
+                    }
+                    if (photoUpload != null)
+                    {
+                        //TODO : maximera filuppladdningen till 5mb
 
-                string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
-                string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
-                string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
+                        string extension = Path.GetExtension(photoUpload.FileName); //Plockar ut filtypen (jpg, eller gif)
+                        string fileName = Guid.NewGuid().ToString() + extension; //Sätte ett nytt namn och lägger till filtypen
+                        string renamedPhotoPath = Server.MapPath("~/Img/" + fileName); //Sätter var filen ska läggas
 
-                model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
-                photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+                        model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
+                        photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
+                    }
+                    else
+                    {
+                        return Content("Photo not applied properly.");
+                    }
+                    model.MemberId = Session["User"].ToString();
+                    var entity = PostViewToEntity.PostViewModelToEntity(model);
+                    repository.AddOrUpdate(entity); //Spara modellen i databasen
+                    return Json(entity);
+                }
+                catch (Exception f)
+                {
+                   return Content("PostAddException", "Something went horribly wrong send the following information to an admin and/or reload the page: " + f.Message);
+                }
+                //return Json(model, JsonRequestBehavior.AllowGet);
             }
-            model.MemberId = Session["User"].ToString();
-            var entity = PostViewToEntity.PostViewModelToEntity(model);
-            repository.AddOrUpdate(entity); //Spara modellen i databasen
-            return Json(entity);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
