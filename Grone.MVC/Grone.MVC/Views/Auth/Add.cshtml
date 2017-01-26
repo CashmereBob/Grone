@@ -2,16 +2,24 @@
 
 @{
     ViewBag.Title = "RegisterUser";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CssStyle {
+    <link href="~/Styles/ListPost.css" rel="stylesheet" />
+}
+
+@section JavaScript{
+    <script src="~/Scripts/ListPost.js"></script>
+    <script src="~/Scripts/ListPostJq.js"></script>
 }
 
 <h2>RegisterUser</h2>
 
-
-@using (Html.BeginForm()) 
+@*  *@
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>AddUserViewModel</h4>
         <hr />
@@ -19,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RePassword, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RePassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.RePassword, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RePassword, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
