@@ -235,7 +235,7 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         { id: '-TimeAdded', name: "LIFETIME desc" },
         { id: '+TimeAdded', name: "LIFETIME asc" }];
 
-    $scope.currentUrl = window.location.protocol + "//" + window + location.host + "/";
+    $scope.currentUrl = window.location.protocol + "//" + window.location.host + "/";
 
     setInterval(function () { groneAppFactory.CountDownTime(); $scope.$apply() }, 60000);
 

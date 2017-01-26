@@ -49,10 +49,6 @@ namespace Grone.MVC.Controllers
                                 model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
                                 photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
                             }
-                            else
-                            {
-                                return Content("Photo not applied properly.");
-                            }
 
                             model.MemberId = Session["User"].ToString();
                             var entity = CommentViewToEntity.ToEntityComment(model);
