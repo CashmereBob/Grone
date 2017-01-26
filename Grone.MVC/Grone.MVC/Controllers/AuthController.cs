@@ -100,6 +100,10 @@ namespace Grone.MVC.Controllers
                 {
                     var entity = EFMapper.ModelToEntity(model);
 
+                    //hashing and salting user password for secure storing in db
+                    entity.Salt = SaltHelper.CreateSalt(10);
+                    entity.Password = SaltHelper.GenerateSHA256Hash(model.Password, entity.Salt);
+
                     repo.Add(entity);
 
                     return RedirectToAction("Index");
