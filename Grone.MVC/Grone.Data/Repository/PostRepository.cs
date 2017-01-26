@@ -39,6 +39,7 @@ namespace Grone.Data.Repository
                     postToUpdate.Description = post.Description;
                     postToUpdate.ImgSrc = post.ImgSrc;
                     postToUpdate.Title = post.Title;
+                    postToUpdate.TimeLeft = post.TimeLeft;
 
                     _context.SaveChanges();
                 }
@@ -84,12 +85,9 @@ namespace Grone.Data.Repository
                 //remove all the comments for the current post
                 List<Guid> commentIds = new List<Guid>();
 
-                foreach (var post in context.Posts.Include("Comments"))
+                foreach (var comment in context.Comments.Where(x => x.PostEntityModelId == id))
                 {
-                    foreach (var comment in post.Comments)
-                    {
                         commentIds.Add(comment.Id);
-                    }
                 }
 
                 foreach (var commentId in commentIds)

@@ -18,9 +18,14 @@ namespace Grone.MVC.Controllers
     public class AuthController : Controller
     {
         public IUserRepository repo;
+        public IPostRepository postRepo;
+        public ICommentRepository commentRepo;
+
         public AuthController()
         {
             repo = new UserRepository();
+            postRepo = new PostRepository();
+            commentRepo = new CommentRepository();
         }
 
         [HttpGet]
@@ -136,10 +141,57 @@ namespace Grone.MVC.Controllers
         [AllowAnonymous]
         public ActionResult Logout()
         {
-            var ctx = Request.GetOwinContext();
-            var authManager = ctx.Authentication;
-            authManager.SignOut("ApplicationCookie");
-            return RedirectToAction("index", "home");
+            if (User.Identity.IsAuthenticated == true)
+            {
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                authManager.SignOut("ApplicationCookie");
+                return RedirectToAction("index", "home");
+            }
+            else
+                return RedirectToAction("Index");
+        }
+
+        public ActionResult DeletePost(PostViewModel model)
+        {
+            //if post has an image, remove it
+            if (!string.IsNullOrWhiteSpace(model.ImgSrc))
+            {
+                string postImg = Path.GetFileName(model.ImgSrc);
+                FileHelper.RemoveFile(postImg);
+            }
+
+            //if comments belonging to post has images, remove them
+            var postComments = commentRepo.GetByPostId(model.Id);
+            foreach (var comment in postComments)
+            {
+                if (!string.IsNullOrWhiteSpace(comment.ImgSrc))
+                {
+                    //if current comment has an image, remove it
+                    string commentImg = Path.GetFileName(comment.ImgSrc);
+                    FileHelper.RemoveFile(commentImg);
+                }
+            }
+
+            // remove the post
+            postRepo.Delete(model.Id);
+
+            return Content("Post Deleted Successfull");
+        }
+        public ActionResult DeleteComment(CommentViewModel model)
+        {
+            model.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
+
+            if (!string.IsNullOrWhiteSpace(model.ImgSrc)) // if comment has an image
+            {
+                //remove the image for the comment
+                string commentImg = Path.GetFileName(model.ImgSrc);
+
+                FileHelper.RemoveFile(commentImg);
+
+                model.ImgSrc = null;
+            }
+            return Content("Comment Deleted Successfull");
         }
     }
 }
