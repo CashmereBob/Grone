@@ -176,7 +176,7 @@ namespace Grone.MVC.Controllers
             // remove the post
             postRepo.Delete(model.Id);
 
-            return RedirectToAction("Index", "Home");
+            return Content("Post Deleted Successfull");
         }
         public ActionResult DeleteComment(CommentViewModel model)
         {
@@ -191,7 +191,7 @@ namespace Grone.MVC.Controllers
 
                 model.ImgSrc = null;
             }
-            return View(model);
+            return Content("Comment Deleted Successfull");
         }
     }
 }
