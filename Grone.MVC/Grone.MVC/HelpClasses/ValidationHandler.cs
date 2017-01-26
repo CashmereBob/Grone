@@ -31,9 +31,15 @@ namespace Grone.MVC.HelpClasses
         {
             try
             {
-                if (model.Id == Guid.Empty && model.Id != null)
+                if (model.Id == Guid.Empty && model.Id != null )
                 {
-                    return true;
+                    if(model.Description.Count() <= 500)
+                    {
+                        if(model.Title.Count() <= 30)
+                        {
+                            return true;
+                        }
+                    }
                 }
                 else
                 {
