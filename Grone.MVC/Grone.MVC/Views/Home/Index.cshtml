@@ -109,6 +109,8 @@
                     </div>
                 </div>
             <div class="col-xs-12 text-right replyDiv">
+                @{if (User.Identity.IsAuthenticated)
+                    { <button class="btn btn-warning replyButton" data-parentId="{{post.Id}}" ng-click="DeletePost($event)">DELETE</button> } }
                 <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
                 <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>
                 <button class="btn btn-default replyButton" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
@@ -145,6 +147,8 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
+                                    @{if (User.Identity.IsAuthenticated)
+                                        { <button class="btn btn-warning replyButton" data-parentId="{{comment.Id}}" ng-click="DeleteComment($event)">DELETE</button> } }
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title">{{comment.ImgSrc}}</h4>
                                 </div>
