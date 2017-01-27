@@ -16,7 +16,6 @@ namespace Grone.MVC.HelpClasses
             entity.eMail = model.Email;
             entity.Fullname = model.FullName;
             entity.Password = model.Password;
-            //TODO ivan: salt hashing
 
             return entity;
         }
