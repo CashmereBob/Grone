@@ -29,8 +29,8 @@ namespace Grone.MVC.Controllers
         {
             List<PostViewModel> viewModel = new List<PostViewModel>();
             repository.GetAll().ToList().ForEach(x => viewModel.Add(PostViewToEntity.PostEntityViewModelToModel(x)));
-            
-            foreach(var post in viewModel)
+
+            foreach (var post in viewModel)
             {
                 repository.GetComments(new PostEntityModel(post.Id)).ToList().ForEach(x => post.Comments.Add(CommentViewToEntity.ToModelComment(x)));
             }
@@ -46,10 +46,16 @@ namespace Grone.MVC.Controllers
             {
                 try
                 {
-                    if (Session["User"] == null)
+                    if (Session["User"] == null || Session["User"].ToString() == " **ADMIN**")
                     {
                         Session["User"] = Guid.NewGuid();
                     }
+
+                    if (User.Identity.IsAuthenticated && Session["User"].ToString().Count() == 36)
+                    {
+                        Session["User"] = " **ADMIN**";
+                    }
+
                     if (photoUpload != null)
                     {
                         //TODO : maximera filuppladdningen till 5mb
@@ -61,7 +67,7 @@ namespace Grone.MVC.Controllers
                         model.ImgSrc = $" /Img/{fileName}"; //Sparar sökvägen i modellen
                         photoUpload.SaveAs(renamedPhotoPath); //Sparar bilden i vald mapp
                     }
-                    
+
                     model.MemberId = Session["User"].ToString();
                     var entity = PostViewToEntity.PostViewModelToEntity(model);
                     repository.AddOrUpdate(entity); //Spara modellen i databasen
@@ -69,7 +75,7 @@ namespace Grone.MVC.Controllers
                 }
                 catch (Exception f)
                 {
-                   return Content("PostAddException", "Something went horribly wrong send the following information to an admin and/or reload the page: " + f.Message);
+                    return Content("PostAddException", "Something went horribly wrong send the following information to an admin and/or reload the page: " + f.Message);
                 }
                 //return Json(model, JsonRequestBehavior.AllowGet);
             }

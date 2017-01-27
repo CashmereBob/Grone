@@ -28,7 +28,8 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                 if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
                     console.log('handling comment')
                     groneAppFactory.LoadCommentsForPost(groneAppFactory.ScrollObject.PostEntityModelId);
-                    
+                    ScrollAndTogglePost(groneAppFactory.ScrollObject.PostEntityModelId);
+                    BlinkDiv(groneAppFactory.ScrollObject.PostEntityModelId);
 
                 } else if (typeof groneAppFactory.ScrollObject.Id !== 'undefined') {
                     console.log('handling post')
@@ -89,10 +90,16 @@ app.factory('groneAppFactory', function ($http, $location) {
 
     var posts = [];
 
+    var gotPosts = false;
+
     var factory = {};
 
     factory.GetPosts = function () {
         return posts;
+    };
+
+    factory.GotPost = function () {
+        return gotPosts;
     };
 
     factory.ScrollObject = {};
@@ -113,6 +120,7 @@ app.factory('groneAppFactory', function ($http, $location) {
 
     factory.UpdatePostsObject = function () {
         StartBigLoad();
+        gotPosts = false;
         $http({
             method: 'GET',
             url: '/Post/GetAllPosts'
@@ -122,8 +130,12 @@ app.factory('groneAppFactory', function ($http, $location) {
                 if (value.Comments.length == 0) {
                     value.Comments = "";
                 }
+                value.numberofcomments = " " + "(" + value.Comments.length + ")";
                 posts.push(value);
             })
+            if (posts.length == 0) {
+                gotPosts = true;
+            }
             StopBigLoad();
         }, function errorCallback(response) {
             console.log('fail')
@@ -271,6 +283,10 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
 
     setInterval(function () { groneAppFactory.CountDownTime(); $scope.$apply() }, 60000);
 
+    $scope.gotPosts = function () {
+        if (groneAppFactory.GotPost()) { return true }
+        else {return false}
+    }
 
 
 });
