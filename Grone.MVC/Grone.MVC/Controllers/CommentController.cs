@@ -35,10 +35,16 @@ namespace Grone.MVC.Controllers
                     {
                         if (model.Comment.Count() <= 500)
                         {
-                            if (Session["User"] == null)
+                            if (Session["User"] == null || Session["User"].ToString() == " **ADMIN**")
                             {
                                 Session["User"] = Guid.NewGuid();
+                            } 
+                            
+                            if (User.Identity.IsAuthenticated && Session["User"].ToString().Count() == 36)
+                            {
+                                Session["User"] = " **ADMIN**";
                             }
+
                             if (photoUpload != null)
                             {
                                 //TODO : maximera filuppladdningen till 5mb *****

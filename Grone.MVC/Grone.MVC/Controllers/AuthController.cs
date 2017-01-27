@@ -190,7 +190,7 @@ namespace Grone.MVC.Controllers
         [Authorize]
         public ActionResult DeleteComment(CommentViewModel model)
         {
-            model.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
+            model.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism.";
 
             if (!string.IsNullOrWhiteSpace(model.ImgSrc)) // if comment has an image
             {

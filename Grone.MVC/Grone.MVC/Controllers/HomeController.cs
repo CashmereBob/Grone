@@ -13,11 +13,15 @@ namespace Grone.MVC.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (Session["User"] == null)
+            if (Session["User"] == null || Session["User"].ToString() == " **ADMIN**")
             {
                 Session["User"] = Guid.NewGuid();
             }
 
+            if (User.Identity.IsAuthenticated && Session["User"].ToString().Count() == 36)
+            {
+                Session["User"] = " **ADMIN**";
+            }
 
             return View();
         }
