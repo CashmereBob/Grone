@@ -130,7 +130,7 @@ app.factory('groneAppFactory', function ($http, $location) {
                 if (value.Comments.length == 0) {
                     value.Comments = "";
                 }
-                value.numberofcomments = value.Comments.length;
+                value.numberofcomments = " " + "(" + value.Comments.length + ")";
                 posts.push(value);
             })
             if (posts.length == 0) {
