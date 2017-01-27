@@ -1,4 +1,6 @@
-﻿function ToggleCommentSummary(id) {
+﻿/// <reference path="jquery-3.1.1.js" />
+
+function ToggleCommentSummary(id) {
     var div = $('.listOfComments', '#' + id);
 
     if (div.hasClass("full")) {
@@ -15,10 +17,10 @@
 function ToggleComments(id) {
     var div = $('.listOfComments', '#' + id);
 
-    
-        div.slideToggle();
-        div.toggleClass("full");
-    
+
+    div.slideToggle();
+    div.toggleClass("full");
+
 
     //if (typeof id !== 'undefined') {
     //    div.slideToggle();
@@ -47,13 +49,42 @@ function BlinkDiv(id) {
     }, 700);
 }
 
+function FileinputIsOk() {
+    var fileInput = $('#photoUpload');
+    var maxSize = fileInput.data('max-size');
+
+    if (fileInput.get(0).files.length) {
+        var fileSize = fileInput.get(0).files[0].size; // in bytes
+        if (fileSize > maxSize) {
+            //alert('file size is more then' + maxSize + ' bytes');
+            return false;
+        } else {
+            //alert('file size is correct- ' + fileSize + ' bytes');
+            return true;
+        }
+    }
+    else
+        return true;
+    //else {
+    //    //alert('choose file, please');
+    //    return false;
+    //}
+}
+
 $(document).ready(function () {
 
     var postForm = $('#AddPostForm');
 
     postForm.submit(function (e) {
         e.preventDefault();
-        AddPost(postForm, $(this).parent().parent().parent().parent());
+        if (FileinputIsOk()) {
+            AddPost(postForm, $(this).parent().parent().parent().parent());
+        }
+        else {
+            $("#AddPostForm #uploadImageFormDiv :last-child").html('Filesize is larger than 2mb');
+            //return false;
+            //alert("filesize is more than 2mb");
+        }
     })
 
 
@@ -83,6 +114,8 @@ function AddPost(form, div) {
                         angular.element($("#GroneAppController")).scope().$apply();
                         div.modal('hide');
                         form.removeAttr('disabled')
+
+                        $("#AddPostForm #uploadImageFormDiv :last-child").html('');
                     }, 1000);
                 },
 
@@ -167,9 +200,9 @@ function StartBigLoad() {
 function StopBigLoad() {
 
     $('#bigLoaderContent').hide();
-        $('#postContent').fadeIn();
+    $('#postContent').fadeIn();
 
-    
+
 }
 
 function StartPostLoad() {

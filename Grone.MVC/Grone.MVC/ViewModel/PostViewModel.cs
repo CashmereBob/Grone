@@ -16,6 +16,7 @@ namespace Grone.MVC.ViewModel
         [MaxLength (500, ErrorMessage = "The lengt must be between 1-500 characters")]
 
         public string Description { get; set; }
+        [Display(Name ="Image")]
         public string ImgSrc { get; set; }
         public string Date { get; set; }
         public int TimeLeft{ get; set; }

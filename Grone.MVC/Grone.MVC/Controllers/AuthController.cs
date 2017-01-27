@@ -163,22 +163,27 @@ namespace Grone.MVC.Controllers
         [Authorize]
         public ActionResult DeletePost(PostViewModel model)
         {
-            //if post has an image, remove it
-            if (!string.IsNullOrWhiteSpace(model.ImgSrc))
+            using (var context = new GroneEntities())
             {
-                string postImg = Path.GetFileName(model.ImgSrc);
-                FileHelper.RemoveFile(postImg);
-            }
+                var entity = context.Posts.FirstOrDefault(p => p.Id == model.Id);
 
-            //if comments belonging to post has images, remove them
-            var postComments = commentRepo.GetByPostId(model.Id);
-            foreach (var comment in postComments)
-            {
-                if (!string.IsNullOrWhiteSpace(comment.ImgSrc))
+                //if post has an image, remove it
+                if (!string.IsNullOrWhiteSpace(entity.ImgSrc))
                 {
-                    //if current comment has an image, remove it
-                    string commentImg = Path.GetFileName(comment.ImgSrc);
-                    FileHelper.RemoveFile(commentImg);
+                    string postImg = Path.GetFileName(entity.ImgSrc);
+                    FileHelper.RemoveFile(postImg);
+                }
+
+                //if comments belonging to post has images, remove them
+                var postComments = commentRepo.GetByPostId(model.Id);
+                foreach (var comment in postComments)
+                {
+                    if (!string.IsNullOrWhiteSpace(comment.ImgSrc))
+                    {
+                        //if current comment has an image, remove it
+                        string commentImg = Path.GetFileName(comment.ImgSrc);
+                        FileHelper.RemoveFile(commentImg);
+                    }
                 }
             }
 
@@ -190,24 +195,27 @@ namespace Grone.MVC.Controllers
         [Authorize]
         public ActionResult DeleteComment(CommentViewModel model)
         {
-            model.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
+            // only thing comming in is an id from the model for the comment
 
-            if (!string.IsNullOrWhiteSpace(model.ImgSrc)) // if comment has an image
+            using (var context = new GroneEntities())
             {
-                if (model.ImgSrc != "/Content/forbidden.png")
+                CommentEntityModel entity = context.Comments.FirstOrDefault(c => c.Id == model.Id);
+
+                entity.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
+
+                if (!string.IsNullOrWhiteSpace(entity.ImgSrc)) // if comment has an image
                 {
                     //remove the image for the comment
-                    string commentImg = Path.GetFileName(model.ImgSrc);
+                    string commentImg = Path.GetFileName(entity.ImgSrc);
 
                     FileHelper.RemoveFile(commentImg);
-
-                    model.ImgSrc = null;
                 }
+                entity.ImgSrc = "/Content/forbidden.png";
+
+                context.SaveChanges();
             }
 
-            model.ImgSrc = "/Content/forbidden.png";
-
-            commentRepo.Update(CommentViewToEntity.ToEntityComment(model));
+            //commentRepo.Update(EFMapper.ModelToEntity(model));
 
             return Content("Comment Deleted Successfull");
         }
