@@ -9,21 +9,26 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                 if (groneAppFactory.getParams == true && typeof $location.search().post !== 'undefined') {
                     console.log('handling params')
                     groneAppFactory.LoadCommentsForPost($location.search().post);
-                    ToggleComments($location.search().post);
 
-                    //$location.hash($location.search().post);
-                    //$anchorScroll();
-                    EPPZScrollTo.scrollVerticalToElementById($location.search().post, 20);
+                    ScrollAndTogglePost($location.search().post);
+                    console.log($location.search());
+                    if ($location.search().length != 2) {
+                        
+                        console.log('scroll to post')
+                        console.log($location.search().comment)
+                        EPPZScrollTo.scrollVerticalToElementById($location.search().post, 20);
 
-                    BlinkDiv($location.search().post);
-                    if (typeof $location.search().comment == 'undefined') { groneAppFactory.getParams = false; }
+                        BlinkDiv($location.search().post);
+                        groneAppFactory.getParams = false;
+                    }
+                   
 
                 }
 
                 if (typeof groneAppFactory.ScrollObject.PostEntityModelId !== 'undefined') {
                     console.log('handling comment')
                     groneAppFactory.LoadCommentsForPost(groneAppFactory.ScrollObject.PostEntityModelId);
-                    ScrollAndTogglePost(groneAppFactory.ScrollObject.PostEntityModelId);
+                    
 
                 } else if (typeof groneAppFactory.ScrollObject.Id !== 'undefined') {
                     console.log('handling post')
@@ -31,12 +36,12 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                     //$location.hash(groneAppFactory.ScrollObject.Id);
                     //$anchorScroll
                     EPPZScrollTo.scrollVerticalToElementById(groneAppFactory.ScrollObject.Id, 20);
-
+                    ScrollAndTogglePost(groneAppFactory.ScrollObject.PostEntityModelId);
                     BlinkDiv(groneAppFactory.ScrollObject.Id);
                     groneAppFactory.ScrollObject = {};
                 }
 
-            }, 200);
+            },0);
         }
 
     };
@@ -73,7 +78,7 @@ app.directive('postCommentRepeatDirective', function ($location, groneAppFactory
                 }
 
 
-            }, 200);
+            },0);
         }
     };
 });
@@ -95,8 +100,6 @@ app.factory('groneAppFactory', function ($http, $location) {
     factory.getParams = true;
 
     factory.CountDownTime = function () {
-        console.log('counting');
-
         angular.forEach(posts, function (value, key) {
 
             value.TimeLeft = value.TimeLeft - 1;
@@ -116,7 +119,9 @@ app.factory('groneAppFactory', function ($http, $location) {
         }).then(function successCallback(response) {
             posts.length = 0;
             angular.forEach(response.data, function (value, key) {
-                value.Comments = [];
+                if (value.Comments.length == 0) {
+                    value.Comments = "";
+                }
                 posts.push(value);
             })
             StopBigLoad();
@@ -135,6 +140,7 @@ app.factory('groneAppFactory', function ($http, $location) {
             StopGetAllCommentLoad(id);
             angular.forEach(posts, function (post, key) {
                 if (post.Id == id) {
+                    post.Comments = [];
                     post.Comments.length = 0;
                     angular.forEach(response.data, function (comment, index) {
                         if (comment.CommentId == "00000000-0000-0000-0000-000000000000") {
@@ -156,7 +162,6 @@ app.factory('groneAppFactory', function ($http, $location) {
             url: '/Post/GetCommentsBypost',
             params: { Id: id }
         }).then(function successCallback(response) {
-
             angular.forEach(posts, function (post, key) {
                 if (post.Id == id) {
                     post.Comments.length = 0;
@@ -165,10 +170,12 @@ app.factory('groneAppFactory', function ($http, $location) {
                             comment.CommentId = "";
                         }
                         post.Comments.push(comment);
+                        
                     })
                 }
             })
             StopGetAllCommentLoad(id);
+            
         }, function errorCallback(response) {
             console.log('fail')
         });
@@ -180,11 +187,26 @@ app.factory('groneAppFactory', function ($http, $location) {
             url: '/Auth/DeletePost',
             params: { Id: id }
         }).then(function successCallback(response) {
-            factory.GetPosts();
+            factory.UpdatePostsObject();
         }, function errorCallback(response) {
             console.log('fail')
         });
     };
+
+    factory.DeleteComment = function (id) {
+        $http({
+            method: 'POST',
+            url: '/Auth/DeleteComment',
+            params: { Id: id }
+        }).then(function successCallback(response) {
+            factory.UpdatePostsObject();
+        }, function errorCallback(response) {
+            console.log('fail')
+        });
+    };
+
+
+
     return factory;
 
 });
@@ -222,6 +244,16 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
 
     $scope.DeletePost = function (event) {
         groneAppFactory.DeletePost(event.target.attributes["data-parentId"].value);
+    }
+
+    $scope.DeleteComment = function (event) {
+
+        groneAppFactory.DeleteComment(event.target.attributes["data-parentId"].value)
+    }
+
+    $scope.Copy = function (event) {
+        copyToClipboard(document.getElementById(event.target.attributes["data-copy"].value))
+        BlinkDiv(event.target.attributes["data-copy"].value)
     }
 
     $scope.sortBy = {};

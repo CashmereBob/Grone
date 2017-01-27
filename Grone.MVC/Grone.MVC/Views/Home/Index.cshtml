@@ -111,8 +111,7 @@
             <div class="col-xs-12 text-right replyDiv">
                 @{if (User.Identity.IsAuthenticated)
                     { <button class="btn btn-danger replyButton" data-parentId="{{post.Id}}" ng-click="DeletePost($event)">DELETE</button> } }
-                <button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
-                @*<button class="btn btn-default replyButton" data-parentId="{{post.Id}}" ng-click="PreviewShowComments($event)">PREVIEW COMMENTS</button>*@
+                <button class="btn btn-default replyButton" ng-if="post.Comments" data-parentId="{{post.Id}}" ng-click="ShowComments($event)">COMMENTS</button>
                 <button class="btn btn-default replyButton" data-toggle="modal" data-target="#SharePost{{post.Id}}">SHARE</button>
                 <button class="btn btn-default replyButton" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
             </div>
@@ -121,7 +120,15 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                            <input type="text" class="form-control" name="share" value="{{currentUrl}}#/?post={{post.Id}}" />
+                            <input type="text" id="input{{post.Id}}" class="form-control shareInput" name="share" value="{{currentUrl}}#/?post={{post.Id}}" />
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">DONE</button>
+                                    <button data-copy="input{{post.Id}}" type="button" class="btn btn-primary" ng-click="Copy($event)">COPY</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,7 +188,15 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" name="share" value="{{currentUrl}}#/?post={{post.Id}}" />
+                                    <input type="text" id="input{{comment.Id}}" class="form-control shareInput" name="share" value="{{currentUrl}}#/?post={{post.Id}}&comment={{comment.Id}}" />
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">DONE</button>
+                                            <button data-copy="input{{comment.Id}}" type="button" class="btn btn-primary" ng-click="Copy($event)">COPY</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

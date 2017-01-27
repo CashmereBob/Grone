@@ -5,6 +5,8 @@ using Grone.MVC.App_Start;
 using Grone.MVC.HelpClasses;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -28,12 +30,21 @@ namespace Grone.MVC
 
             var updatePostsThread = new Thread(RemoveOneFromEveryPost);
             updatePostsThread.Start();
+
+            if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
+            {
+                var configuration = new Grone.Data.Migrations.Configuration();
+                var migrator = new DbMigrator(configuration);
+                migrator.Update();
+            }
+
         }
 
         private void RemoveOneFromEveryPost()
         {
             do
             {
+
                 Thread.Sleep(60000);
 
                 var allPosts = repo.GetAll().ToList();
@@ -41,18 +52,18 @@ namespace Grone.MVC
                 foreach (var post in allPosts)
                 {
                     post.TimeLeft -= 1;
-                    if (post.TimeLeft > 0)
+                    repo.AddOrUpdate(post);
+
+                    if (post.TimeLeft == 0)
                     {
-                        repo.AddOrUpdate(post);
-                    }
-                    else
-                    {
+
                         if (!string.IsNullOrWhiteSpace(post.ImgSrc))
                         {
                             string filename = Path.GetFileName(post.ImgSrc);
 
                             FileHelper.RemoveFile(filename);
                         }
+
                         var comments = repo.GetComments(post);
 
                         foreach (var comment in comments)
@@ -68,7 +79,9 @@ namespace Grone.MVC
 
                     }
                 }
+
             } while (true);
+
         }
     }
 }

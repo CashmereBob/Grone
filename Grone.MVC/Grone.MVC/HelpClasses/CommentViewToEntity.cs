@@ -27,6 +27,7 @@ namespace Grone.MVC.HelpClasses
         }
         public static CommentEntityModel ToEntityComment(CommentViewModel model)
         {
+            if (model.Id == Guid.Empty) { 
             var entity = new CommentEntityModel()
             {
                 CommentId = model.CommentId,
@@ -35,7 +36,23 @@ namespace Grone.MVC.HelpClasses
                 ImgSrc = model.ImgSrc,
                 Comment = model.Comment
             };
-            return entity;
+                return entity;
+            } else
+            {
+                var entity = new CommentEntityModel(model.Id)
+                {
+                    CommentId = model.CommentId,
+                    PostEntityModelId = model.PostId,
+                    MemberId = model.MemberId,
+                    ImgSrc = model.ImgSrc,
+                    Comment = model.Comment
+                };
+                return entity;
+
+
+            }
+
+            
         }
     }
 }

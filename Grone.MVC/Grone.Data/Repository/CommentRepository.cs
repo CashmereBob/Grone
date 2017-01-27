@@ -109,5 +109,19 @@ namespace Grone.Data.Repository
                 return context.Comments.Where(c => c.PostEntityModelId == id).ToList();
             }
         }
+
+        public void Update(CommentEntityModel model) {
+            using (var context = new GroneEntities())
+            {
+                var entity = context.Comments.FirstOrDefault(x => x.Id == model.Id);
+
+                entity.ImgSrc = model.ImgSrc;
+                entity.Comment = model.Comment;
+
+                context.SaveChanges();
+
+            }
+        }
+     
     }
 }

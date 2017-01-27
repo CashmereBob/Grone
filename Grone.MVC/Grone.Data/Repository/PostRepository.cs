@@ -35,7 +35,7 @@ namespace Grone.Data.Repository
                 }
                 else
                 {
-                    var postToUpdate = _context.Posts.FirstOrDefault();
+                    var postToUpdate = _context.Posts.FirstOrDefault(p => p.Id == post.Id);
                     postToUpdate.Description = post.Description;
                     postToUpdate.ImgSrc = post.ImgSrc;
                     postToUpdate.Title = post.Title;

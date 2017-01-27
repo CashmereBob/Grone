@@ -91,25 +91,33 @@ namespace Grone.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(AddUserViewModel model)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated == false && repo.GetAll().Count > 0)
             {
-                if (repo.EmailAlreadyExists(model.Email))
-                    return View(model);
-
-                else
-                {
-                    var entity = EFMapper.ModelToEntity(model);
-
-                    repo.Add(entity);
-
-                    return RedirectToAction("Index");
-                }
+                return RedirectToAction("Index");
             }
-            return View(model);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    if (repo.EmailAlreadyExists(model.Email))
+                        return View(model);
+
+                    else
+                    {
+                        var entity = EFMapper.ModelToEntity(model);
+
+                        repo.Add(entity);
+
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View(model);
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Update(UpdateUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -138,7 +146,7 @@ namespace Grone.MVC.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Logout()
         {
             if (User.Identity.IsAuthenticated == true)
@@ -152,6 +160,7 @@ namespace Grone.MVC.Controllers
                 return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult DeletePost(PostViewModel model)
         {
             //if post has an image, remove it
@@ -178,19 +187,28 @@ namespace Grone.MVC.Controllers
 
             return Content("Post Deleted Successfull");
         }
+        [Authorize]
         public ActionResult DeleteComment(CommentViewModel model)
         {
             model.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
 
             if (!string.IsNullOrWhiteSpace(model.ImgSrc)) // if comment has an image
             {
-                //remove the image for the comment
-                string commentImg = Path.GetFileName(model.ImgSrc);
+                if (model.ImgSrc != "/Content/forbidden.png")
+                {
+                    //remove the image for the comment
+                    string commentImg = Path.GetFileName(model.ImgSrc);
 
-                FileHelper.RemoveFile(commentImg);
+                    FileHelper.RemoveFile(commentImg);
 
-                model.ImgSrc = null;
+                    model.ImgSrc = null;
+                }
             }
+
+            model.ImgSrc = "/Content/forbidden.png";
+
+            commentRepo.Update(CommentViewToEntity.ToEntityComment(model));
+
             return Content("Comment Deleted Successfull");
         }
     }

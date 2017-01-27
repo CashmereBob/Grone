@@ -29,6 +29,12 @@ namespace Grone.MVC.Controllers
         {
             List<PostViewModel> viewModel = new List<PostViewModel>();
             repository.GetAll().ToList().ForEach(x => viewModel.Add(PostViewToEntity.PostEntityViewModelToModel(x)));
+            
+            foreach(var post in viewModel)
+            {
+                repository.GetComments(new PostEntityModel(post.Id)).ToList().ForEach(x => post.Comments.Add(CommentViewToEntity.ToModelComment(x)));
+            }
+
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
 

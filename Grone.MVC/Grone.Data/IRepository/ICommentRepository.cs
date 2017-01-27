@@ -12,6 +12,7 @@ namespace Grone.Data.IRepository
         void Add(CommentEntityModel comment);
         void Delete(Guid id);
         void Delete(string id);
+        void Update(CommentEntityModel model);
         CommentEntityModel GetById(Guid id);
         CommentEntityModel GetById(string id);
         IEnumerable<CommentEntityModel> GetByPostId(Guid id);

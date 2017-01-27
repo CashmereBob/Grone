@@ -21,6 +21,11 @@ namespace Grone.MVC.ViewModel
         public int TimeLeft{ get; set; }
         public int TimeAdded { get; set; }
         public string MemberId { get; set; }
-        public IEnumerable<CommentViewModel> Comments { get; set; }
+        public List<CommentViewModel> Comments { get; set; }
+
+        public PostViewModel()
+        {
+            Comments = new List<CommentViewModel>();
+        }
     }
 }
