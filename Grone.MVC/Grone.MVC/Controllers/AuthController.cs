@@ -115,6 +115,19 @@ namespace Grone.MVC.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Update()
+        {
+            //get current user id
+            ClaimsIdentity currentIdentity = User.Identity as ClaimsIdentity;
+            Guid userid = Guid.Parse(currentIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            UpdateUserViewModel model = EFMapper.EntityToModel(repo.GetUserById(userid));
+
+            return PartialView(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]

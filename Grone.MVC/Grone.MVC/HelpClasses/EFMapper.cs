@@ -19,5 +19,17 @@ namespace Grone.MVC.HelpClasses
 
             return entity;
         }
+
+        internal static UpdateUserViewModel EntityToModel(UserEntityModel entity)
+        {
+            UpdateUserViewModel model = new UpdateUserViewModel()
+            {
+                Email = entity.eMail,
+                FullName = entity.Fullname,
+                Password = entity.Password,
+            };
+
+            return model;
+        }
     }
 }
