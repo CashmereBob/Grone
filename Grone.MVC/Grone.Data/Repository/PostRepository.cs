@@ -118,7 +118,8 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == Guid.Parse(id));
+                //return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == Guid.Parse(id));
+                return context.Posts.FirstOrDefault(p => p.Id == Guid.Parse(id));
             }
         }
 
@@ -126,7 +127,8 @@ namespace Grone.Data.Repository
         {
             using (var context = new GroneEntities())
             {
-                return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == id);
+                //return context.Posts.Include("Comments").FirstOrDefault(p => p.Id == id);
+                return context.Posts.FirstOrDefault(p => p.Id == id);
             }
         }
 
