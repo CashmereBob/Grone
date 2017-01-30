@@ -181,3 +181,7 @@ form textarea {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.pointer {
+    cursor: pointer;
+}
+

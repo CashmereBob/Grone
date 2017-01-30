@@ -87,9 +87,51 @@ $(document).ready(function () {
         }
     })
 
+    var addAdmin = $('#AddAdmin');
+
+    addAdmin.submit(function (e) {
+        e.preventDefault();
+        AddAdminAjax(addAdmin, $(this).parent().parent().parent().parent());
+
+    });
+
 
 
 })
+
+function AddAdminAjax(form, div) {
+    console.log('hepp')
+    if (form.valid()) {
+
+        StartPostLoad();
+
+        if (form.attr('disabled') != 'disabled') {
+            form.attr('disabled', true);
+
+            $.ajax({
+                type: "POST",
+                url: "/Auth/Add",
+                data: new FormData(form[0]),
+                success: function (data) {
+                    setTimeout(function () {
+                        form[0].reset();
+                        StopPostLoad();
+                        div.modal('hide');
+                        form.removeAttr('disabled')
+                        console.log('done')
+                    }, 1000);
+                },
+
+                error: function (e) {
+                    console.log('no');
+                },
+                processData: false,
+                contentType: false
+            });
+        }
+
+    }
+}
 
 function AddPost(form, div) {
     if (form.valid()) {
