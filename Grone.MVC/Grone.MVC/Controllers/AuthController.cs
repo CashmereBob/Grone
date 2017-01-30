@@ -163,27 +163,25 @@ namespace Grone.MVC.Controllers
         [Authorize]
         public ActionResult DeletePost(PostViewModel model)
         {
-            using (var context = new GroneEntities())
+
+            var entity = postRepo.GetById(model.Id);
+
+            //if post has an image, remove it
+            if (!string.IsNullOrWhiteSpace(entity.ImgSrc))
             {
-                var entity = context.Posts.FirstOrDefault(p => p.Id == model.Id);
+                string postImg = Path.GetFileName(entity.ImgSrc);
+                FileHelper.RemoveFile(postImg);
+            }
 
-                //if post has an image, remove it
-                if (!string.IsNullOrWhiteSpace(entity.ImgSrc))
+            //if comments belonging to post has images, remove them
+            var postComments = commentRepo.GetByPostId(model.Id);
+            foreach (var comment in postComments)
+            {
+                if (!string.IsNullOrWhiteSpace(comment.ImgSrc))
                 {
-                    string postImg = Path.GetFileName(entity.ImgSrc);
-                    FileHelper.RemoveFile(postImg);
-                }
-
-                //if comments belonging to post has images, remove them
-                var postComments = commentRepo.GetByPostId(model.Id);
-                foreach (var comment in postComments)
-                {
-                    if (!string.IsNullOrWhiteSpace(comment.ImgSrc))
-                    {
-                        //if current comment has an image, remove it
-                        string commentImg = Path.GetFileName(comment.ImgSrc);
-                        FileHelper.RemoveFile(commentImg);
-                    }
+                    //if current comment has an image, remove it
+                    string commentImg = Path.GetFileName(comment.ImgSrc);
+                    FileHelper.RemoveFile(commentImg);
                 }
             }
 
@@ -195,27 +193,20 @@ namespace Grone.MVC.Controllers
         [Authorize]
         public ActionResult DeleteComment(CommentViewModel model)
         {
-            // only thing comming in is an id from the model for the comment
+            var entity = commentRepo.GetById(model.Id);
 
-            using (var context = new GroneEntities())
+            entity.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
+
+            if (!string.IsNullOrWhiteSpace(entity.ImgSrc)) // if comment has an image
             {
-                CommentEntityModel entity = context.Comments.FirstOrDefault(c => c.Id == model.Id);
+                //remove the image for the comment
+                string commentImg = Path.GetFileName(entity.ImgSrc);
 
-                entity.Comment = "Comment has been removed due to Anon breaking the Grone guidelines for accepted mannerism";
-
-                if (!string.IsNullOrWhiteSpace(entity.ImgSrc)) // if comment has an image
-                {
-                    //remove the image for the comment
-                    string commentImg = Path.GetFileName(entity.ImgSrc);
-
-                    FileHelper.RemoveFile(commentImg);
-                }
-                entity.ImgSrc = "/Content/forbidden.png";
-
-                context.SaveChanges();
+                FileHelper.RemoveFile(commentImg);
             }
+            entity.ImgSrc = "/Content/forbidden.png";
 
-            //commentRepo.Update(EFMapper.ModelToEntity(model));
+            commentRepo.Update(entity);
 
             return Content("Comment Deleted Successfull");
         }
