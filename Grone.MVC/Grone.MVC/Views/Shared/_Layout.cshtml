@@ -24,8 +24,42 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Grone</p>
+        <footer class="row">
+            
+                @{if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="col-xs-12">
+                            <a href="/Auth/Logout" class="pointer">Logout</a> | <a class="pointer" data-toggle="modal" data-target="#ManageAccountModal">Manage Account</a> | <a class="pointer" data-toggle="modal" data-target="#AddAdminModal">Add Admin</a>
+                        </div>
+
+                        <div class="modal fade" id="ManageAccountModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-body commentForm">
+                                        @{Html.RenderPartial("_ManageAccount");}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="AddAdminModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-body commentForm">
+                                        @{Html.RenderPartial("_AddAdmin");}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                                            }}
+            <div class="col-xs-12">
+                <p>&copy; @DateTime.Now.Year - Grone</p>
+            </div>
         </footer>
     </div>
 </body>

@@ -288,6 +288,5 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
         else {return false}
     }
 
-
 });
 
