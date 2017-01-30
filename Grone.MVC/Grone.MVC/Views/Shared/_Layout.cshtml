@@ -1,11 +1,16 @@
 ﻿<!DOCTYPE html>
-<html ng-app="groneApp">
+<html ng-app="groneApp" ng-controller="groneAppController">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- pull in css based on angular -->
+    <link rel="stylesheet" ng-href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/{{ theme }}/bootstrap.min.css">
+    @*<link rel="stylesheet" ng-href="www.bootswatch.com/{{theme}}/bootstrap.min.css" />*@
+
     @RenderSection("CssStyle")
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="https://use.fontawesome.com/7026bbd10a.js"></script>
@@ -18,45 +23,46 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/SoftScrolling.js"></script>
     @RenderSection("JavaScript")
-    
+
 </head>
-<body ng-controller="groneAppController" ng-init="GetPosts()" id="GroneAppController">
+<body ng-init="GetPosts()" id="GroneAppController">
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer class="row">
-            
-                @{if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="col-xs-12">
-                            <a href="/Auth/Logout" class="pointer">Logout</a> | <a class="pointer" data-toggle="modal" data-target="#ManageAccountModal">Manage Account</a> | <a class="pointer" data-toggle="modal" data-target="#AddAdminModal">Add Admin</a>
-                        </div>
+           
+            @{if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-xs-12">
+                        <a href="/Auth/Logout" class="pointer">Logout</a> | <a class="pointer" data-toggle="modal" data-target="#ManageAccountModal">Manage Account</a> | <a class="pointer" data-toggle="modal" data-target="#AddAdminModal">Add Admin</a>
+                    </div>
 
-                        <div class="modal fade" id="ManageAccountModal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                    <div class="modal fade" id="ManageAccountModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
 
-                                    <div class="modal-body commentForm">
-                                        @{Html.RenderPartial("_ManageAccount");}
-                                    </div>
-
+                                <div class="modal-body commentForm">
+                                    @{Html.RenderPartial("_ManageAccount");}
                                 </div>
+
                             </div>
                         </div>
+                    </div>
 
-                        <div class="modal fade" id="AddAdminModal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                    <div class="modal fade" id="AddAdminModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
 
-                                    <div class="modal-body commentForm">
-                                        @{Html.RenderPartial("_AddAdmin");}
-                                    </div>
-
+                                <div class="modal-body commentForm">
+                                    @{Html.RenderPartial("_AddAdmin");}
                                 </div>
+
                             </div>
                         </div>
+                    </div>
+                                        }}
 
-                                            }}
+
             <div class="col-xs-12">
                 <p>&copy; @DateTime.Now.Year - Grone</p>
             </div>

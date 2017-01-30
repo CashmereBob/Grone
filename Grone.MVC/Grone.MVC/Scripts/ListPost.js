@@ -1,4 +1,6 @@
-﻿var app = angular.module('groneApp', []);
+﻿/// <reference path="jquery-3.1.1.min.js" />
+
+var app = angular.module('groneApp', []);
 
 app.directive('postRepeatDirective', function ($location, groneAppFactory, $timeout, $anchorScroll) {
     return function (scope, element, attrs) {
@@ -13,7 +15,7 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                     ScrollAndTogglePost($location.search().post);
                     console.log($location.search());
                     if ($location.search().length != 2) {
-                        
+
                         console.log('scroll to post')
                         console.log($location.search().comment)
                         EPPZScrollTo.scrollVerticalToElementById($location.search().post, 20);
@@ -21,7 +23,7 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                         BlinkDiv($location.search().post);
                         groneAppFactory.getParams = false;
                     }
-                   
+
 
                 }
 
@@ -42,7 +44,7 @@ app.directive('postRepeatDirective', function ($location, groneAppFactory, $time
                     groneAppFactory.ScrollObject = {};
                 }
 
-            },0);
+            }, 0);
         }
 
     };
@@ -79,7 +81,7 @@ app.directive('postCommentRepeatDirective', function ($location, groneAppFactory
                 }
 
 
-            },0);
+            }, 0);
         }
     };
 });
@@ -182,12 +184,12 @@ app.factory('groneAppFactory', function ($http, $location) {
                             comment.CommentId = "";
                         }
                         post.Comments.push(comment);
-                        
+
                     })
                 }
             })
             StopGetAllCommentLoad(id);
-            
+
         }, function errorCallback(response) {
             console.log('fail')
         });
@@ -285,8 +287,25 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
 
     $scope.gotPosts = function () {
         if (groneAppFactory.GotPost()) { return true }
-        else {return false}
+        else { return false }
     }
 
-});
 
+
+
+    // default theme
+    $scope.theme = 'cosmo';
+
+    // themes in list
+    $scope.themes = [
+    { name: 'Yeti', url: 'yeti' },
+    { name: 'Superhero', url: 'superhero' },
+    { name: 'Journal', url: 'journal' },
+    { name: 'Cerulean', url: 'cerulean' },
+    { name: 'Paper', url: 'paper' },
+    { name: 'Simplex', url: 'simplex' },
+    { name: 'Cosmo', url: 'cosmo' },
+    { name: 'Default', url: '' },
+    ];
+
+});

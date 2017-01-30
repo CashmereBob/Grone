@@ -47,9 +47,7 @@
         </div>
     </div>
     <div class="col-md-2 inp">
-        <select id="sortDropdown" class="form-control" ng-model="sortBy.item" ng-options="item.id as item.name for item in OrderList">
-            
-        </select>
+        <select id="sortDropdown" class="form-control" ng-model="sortBy.item" ng-options="item.id as item.name for item in OrderList"></select>
     </div>
     <div class="col-md-1 inp">
         <button id="refrechButton" class="btn btn-primary" ng-click="GetPosts()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
@@ -108,11 +106,11 @@
                 <h4>{{post.TimeAdded}}</h4>
                 <p>minutes</p>
             </div>
-                <div class="col-xs-12">
-                    <div class="getCommentLoader">
-                        <div class='uil-ring-css loader'><div></div></div>
-                    </div>
+            <div class="col-xs-12">
+                <div class="getCommentLoader">
+                    <div class='uil-ring-css loader'><div></div></div>
                 </div>
+            </div>
             <div class="col-xs-12 text-right replyDiv">
                 @{if (User.Identity.IsAuthenticated)
                     { <button class="btn btn-danger replyButton" data-parentId="{{post.Id}}" ng-click="DeletePost($event)">DELETE</button> } }
@@ -120,7 +118,7 @@
                 <button class="btn btn-default replyButton" data-toggle="modal" data-target="#SharePost{{post.Id}}">SHARE</button>
                 <button class="btn btn-default replyButton" data-toggle="modal" data-target="#AddCommentToPost{{post.Id}}">REPLY</button>
             </div>
-            
+
             <div class="modal fade" id="SharePost{{post.Id}}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -170,7 +168,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    
+
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4 class="modal-title">{{comment.ImgSrc}}</h4>
                                 </div>
@@ -227,3 +225,14 @@
 
 </div>
 
+<!-- section to select styles -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well well-sm">
+            <div class="form-group">
+                <label>theme</label>
+                <select class="form-control" id="selectElement" ng-model="theme" ng-options="theme.url as theme.name for theme in themes"></select>
+            </div>
+        </div>
+    </div>
+</div>
