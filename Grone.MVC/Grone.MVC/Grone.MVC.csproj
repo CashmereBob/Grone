@@ -200,7 +200,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HelpClasses\CommentViewToEntity.cs" />
     <Compile Include="HelpClasses\EFMapper.cs" />
     <Compile Include="HelpClasses\FileHelper.cs" />
     <Compile Include="HelpClasses\PostViewToEntity.cs" />
