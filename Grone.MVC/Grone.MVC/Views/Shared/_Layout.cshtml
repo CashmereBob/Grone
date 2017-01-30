@@ -8,8 +8,9 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
     <!-- pull in css based on angular -->
-    <link rel="stylesheet" ng-href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/{{ theme }}/bootstrap.min.css">
-    @*<link rel="stylesheet" ng-href="www.bootswatch.com/{{theme}}/bootstrap.min.css" />*@
+    <link rel="stylesheet" ng-href="https://www.bootswatch.com/{{ theme }}/bootstrap.min.css" />
+    <link ng-if="LocalStorageContainsTheme()" rel="stylesheet" ng-href="https://www.bootswatch.com/{{ theme }}/bootstrap.min.css" />
+    
 
     @RenderSection("CssStyle")
     <script src="~/Scripts/modernizr-2.6.2.js"></script>

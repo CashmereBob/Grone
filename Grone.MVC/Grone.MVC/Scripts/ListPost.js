@@ -86,8 +86,6 @@ app.directive('postCommentRepeatDirective', function ($location, groneAppFactory
     };
 });
 
-
-
 app.factory('groneAppFactory', function ($http, $location) {
 
     var posts = [];
@@ -219,12 +217,9 @@ app.factory('groneAppFactory', function ($http, $location) {
         });
     };
 
-
-
     return factory;
 
 });
-
 
 app.controller('groneAppController', function ($scope, groneAppFactory, $location, $anchorScroll) {
 
@@ -291,10 +286,25 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
     }
 
 
-
-
     // default theme
-    $scope.theme = 'cosmo';
+    $scope.theme = 'yeti';
+
+    $scope.UpdateLocalstorageTheme = function () {
+
+        localStorage.setItem("storedTheme", $scope.theme);
+
+        $scope.theme = localStorage.getItem("storedTheme");
+    }
+
+    $scope.LocalStorageContainsTheme = function () {
+        if (localStorage.getItem("storedTheme") != null)
+        {
+            $scope.theme = localStorage.getItem("storedTheme");
+            return true;
+        }
+        else
+            return false;
+    }
 
     // themes in list
     $scope.themes = [
@@ -307,5 +317,4 @@ app.controller('groneAppController', function ($scope, groneAppFactory, $locatio
     { name: 'Cosmo', url: 'cosmo' },
     { name: 'Default', url: '' },
     ];
-
 });
