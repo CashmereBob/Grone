@@ -185,6 +185,13 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\SoftScrolling.js" />
     <Content Include="Styles\BigLoader.css" />
+    <Content Include="Styles\bootswatch\cerulean.min.css" />
+    <Content Include="Styles\bootswatch\cosmo.min.css" />
+    <Content Include="Styles\bootswatch\journal.min.css" />
+    <Content Include="Styles\bootswatch\paper.min.css" />
+    <Content Include="Styles\bootswatch\simplex.min.css" />
+    <Content Include="Styles\bootswatch\superhero.min.css" />
+    <Content Include="Styles\bootswatch\yeti.min.css" />
     <Content Include="Styles\ListPost.css" />
     <Content Include="Web.config" />
   </ItemGroup>
