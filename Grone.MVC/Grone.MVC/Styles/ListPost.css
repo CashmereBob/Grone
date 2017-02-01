@@ -16,7 +16,7 @@ body {
 }
 #logoPhrase{
     font-size:18px;
-     color: #d99848;
+    color: lightgrey;
     font-family: 'Ubuntu', sans-serif;
 }
 #addPostRow {
