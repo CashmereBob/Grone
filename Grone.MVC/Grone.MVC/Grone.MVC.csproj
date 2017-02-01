@@ -167,7 +167,6 @@
     <None Include="Properties\PublishProfiles\grone - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Grone - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Img\forbidden.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -187,9 +186,7 @@
     <Content Include="Scripts\SoftScrolling.js" />
     <Content Include="Styles\BigLoader.css" />
     <Content Include="Styles\ListPost.css" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -202,7 +199,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HelpClasses\CommentViewToEntity.cs" />
     <Compile Include="HelpClasses\EFMapper.cs" />
     <Compile Include="HelpClasses\FileHelper.cs" />
     <Compile Include="HelpClasses\PostViewToEntity.cs" />
@@ -215,9 +211,7 @@
     <Compile Include="ViewModel\UserLoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -231,8 +225,8 @@
     <Content Include="Views\Home\_AddComment.cshtml" />
     <Content Include="Views\Auth\Index.cshtml" />
     <Content Include="Views\Auth\Add.cshtml" />
-    <Content Include="Views\Shared\_ErrorPage.cshtml" />
-    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Auth\_ManageAccount.cshtml" />
+    <Content Include="Views\Home\_AddAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -241,6 +235,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Img\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>

@@ -14,7 +14,11 @@ body {
     color: #d99848;
     font-family: 'Ubuntu', sans-serif;
 }
-
+#logoPhrase{
+    font-size:18px;
+     color: #d99848;
+    font-family: 'Ubuntu', sans-serif;
+}
 #addPostRow {
     padding-top: 3%;
 }
@@ -179,5 +183,9 @@ form textarea {
     font-size: 50px;
     color: lightgrey;
     font-family: 'Ubuntu', sans-serif;
+}
+
+.pointer {
+    cursor: pointer;
 }
 

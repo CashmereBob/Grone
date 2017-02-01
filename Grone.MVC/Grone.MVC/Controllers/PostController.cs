@@ -32,7 +32,7 @@ namespace Grone.MVC.Controllers
 
             foreach (var post in viewModel)
             {
-                repository.GetComments(new PostEntityModel(post.Id)).ToList().ForEach(x => post.Comments.Add(CommentViewToEntity.ToModelComment(x)));
+                repository.GetComments(new PostEntityModel(post.Id)).ToList().ForEach(x => post.Comments.Add(EFMapper.EntityToModel(x)));
             }
 
             return Json(viewModel, JsonRequestBehavior.AllowGet);
@@ -86,13 +86,13 @@ namespace Grone.MVC.Controllers
         public ActionResult GetPreviewCommentsByPosts(Guid id)
         {
             List<CommentViewModel> viewModel = new List<CommentViewModel>();
-            repository.GetTop3Comments(new PostEntityModel { Id = id }).ToList().ForEach(x => viewModel.Add(CommentViewToEntity.ToModelComment(x)));
+            repository.GetTop3Comments(new PostEntityModel { Id = id }).ToList().ForEach(x => viewModel.Add(EFMapper.EntityToModel(x)));
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetCommentsBypost(Guid id)
         {
             List<CommentViewModel> viewModel = new List<CommentViewModel>();
-            repository.GetComments(new PostEntityModel { Id = id }).ToList().ForEach(x => viewModel.Add(CommentViewToEntity.ToModelComment(x)));
+            repository.GetComments(new PostEntityModel { Id = id }).ToList().ForEach(x => viewModel.Add(EFMapper.EntityToModel(x)));
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
     }
