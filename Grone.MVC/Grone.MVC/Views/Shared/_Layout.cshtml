@@ -43,7 +43,7 @@
                             <div class="modal-content">
 
                                 <div class="modal-body commentForm">
-                                    @{Html.RenderPartial("_ManageAccount");}
+                                    @{Html.RenderAction("Update", "Auth");}
                                 </div>
 
                             </div>
@@ -55,7 +55,7 @@
                             <div class="modal-content">
 
                                 <div class="modal-body commentForm">
-                                    @{Html.RenderAction("Update", "Auth");}
+                                    @{Html.RenderPartial("_AddAdmin");}
                                 </div>
 
                             </div>
