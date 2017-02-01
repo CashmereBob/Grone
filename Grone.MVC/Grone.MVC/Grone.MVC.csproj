@@ -227,6 +227,7 @@
     <Content Include="Views\Auth\Add.cshtml" />
     <Content Include="Views\Auth\_ManageAccount.cshtml" />
     <Content Include="Views\Home\_AddAdmin.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
