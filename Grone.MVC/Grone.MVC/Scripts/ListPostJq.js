@@ -95,13 +95,51 @@ $(document).ready(function () {
 
     });
 
+    var manageAccount = $('#ManageAccount');
 
+    manageAccount.submit(function (e) {
+        e.preventDefault();
+        ManageAccountAjax(manageAccount, $(this).parent().parent().parent().parent());
+    });
 
 })
 
-function AddAdminAjax(form, div) {
-    console.log('hepp')
+function ManageAccountAjax(form, div) {
     if (form.valid()) {
+
+        StartPostLoad();
+
+        if (form.attr('disabled') != 'disabled') {
+            form.attr('disabled', true);
+
+            $.ajax({
+                type: "POST",
+                url: "/Auth/Update",
+                data: new FormData(form[0]),
+                success: function (data) {
+                    setTimeout(function () {
+                        form[0].reset();
+                        StopPostLoad();
+                        div.modal('hide');
+                        form.removeAttr('disabled');
+                        $('#nameInputManage').val(data);
+                    }, 1000);
+                },
+
+                error: function (e) {
+                    console.log('no');
+                },
+                processData: false,
+                contentType: false
+            });
+        }
+
+    }
+}
+
+
+function AddAdminAjax(form, div) {
+ if (form.valid()) {
 
         StartPostLoad();
 

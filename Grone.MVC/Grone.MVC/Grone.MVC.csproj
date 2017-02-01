@@ -226,7 +226,7 @@
     <Content Include="Views\Home\_AddComment.cshtml" />
     <Content Include="Views\Auth\Index.cshtml" />
     <Content Include="Views\Auth\Add.cshtml" />
-    <Content Include="Views\Home\_ManageAccount.cshtml" />
+    <Content Include="Views\Auth\_ManageAccount.cshtml" />
     <Content Include="Views\Home\_AddAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

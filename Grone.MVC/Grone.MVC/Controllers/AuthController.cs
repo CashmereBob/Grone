@@ -93,7 +93,7 @@ namespace Grone.MVC.Controllers
         {
             if (User.Identity.IsAuthenticated == false && repo.GetAll().Count > 0)
             {
-                return RedirectToAction("Index");
+                return Content("Fail");
             }
             else
             {
@@ -108,10 +108,10 @@ namespace Grone.MVC.Controllers
 
                         repo.Add(entity);
 
-                        return RedirectToAction("Index");
+                        return Content("User Added");
                     }
                 }
-                return View(model);
+                return Content("Fail");
             }
         }
 
@@ -121,11 +121,14 @@ namespace Grone.MVC.Controllers
         {
             //get current user id
             ClaimsIdentity currentIdentity = User.Identity as ClaimsIdentity;
-            Guid userid = Guid.Parse(currentIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            string mail = currentIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var user = repo.GetUserByMail(mail);
 
-            UpdateUserViewModel model = EFMapper.EntityToModel(repo.GetUserById(userid));
+            UpdateUserViewModel model = EFMapper.EntityToModel(user);
+            model.Password = "";
+            model.RePassword = "";
 
-            return PartialView(model);
+            return PartialView("_ManageAccount", model);
         }
 
         [HttpPost]
@@ -133,30 +136,23 @@ namespace Grone.MVC.Controllers
         [Authorize]
         public ActionResult Update(UpdateUserViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                if (repo.EmailAlreadyExists(model.Email))
-                    return View(model);
+            //get current user id
+            var user = repo.GetUserByMail(model.Email);
+            //create entity and populate with updated info
+            var entity = new UserEntityModel();
 
-                else
-                {
-                    //get current user id
-                    ClaimsIdentity currentIdentity = User.Identity as ClaimsIdentity;
-                    Guid userid = Guid.Parse(currentIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            entity.Id = user.Id;
+            entity.eMail = model.Email;
+            entity.Fullname = model.FullName;
 
-                    //create entity and populate with updated info
-                    var entity = new UserEntityModel();
-                    entity.Id = userid;
-                    entity.eMail = model.Email;
-                    entity.Fullname = model.FullName;
-                    entity.Password = model.Password;
+            if (!string.IsNullOrWhiteSpace(model.Password))
+            { entity.Password = model.Password; }
 
-                    repo.Update(entity);
 
-                    return View("Index");
-                }
-            }
-            return View(model);
+            repo.Update(entity);
+
+            return Content(model.FullName);
+
         }
 
         [Authorize]
