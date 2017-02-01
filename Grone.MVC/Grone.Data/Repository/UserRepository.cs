@@ -97,6 +97,7 @@ namespace Grone.Data.Repository
                 userToUpdate.eMail = entity.eMail;
                 userToUpdate.Fullname = entity.Fullname;
                 userToUpdate.Password = entity.Password;
+                userToUpdate.Salt = entity.Salt;
 
                 context.SaveChanges();
             }
