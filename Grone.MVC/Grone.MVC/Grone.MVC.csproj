@@ -187,7 +187,9 @@
     <Content Include="Scripts\SoftScrolling.js" />
     <Content Include="Styles\BigLoader.css" />
     <Content Include="Styles\ListPost.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -213,7 +215,9 @@
     <Compile Include="ViewModel\UserLoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -227,6 +231,8 @@
     <Content Include="Views\Home\_AddComment.cshtml" />
     <Content Include="Views\Auth\Index.cshtml" />
     <Content Include="Views\Auth\Add.cshtml" />
+    <Content Include="Views\Shared\_ErrorPage.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

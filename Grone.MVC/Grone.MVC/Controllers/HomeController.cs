@@ -97,5 +97,10 @@ namespace Grone.MVC.Controllers
                 return View();
             }
         }
+        //*****
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }
